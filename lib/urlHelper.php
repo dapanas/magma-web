@@ -9,7 +9,6 @@ example:  'ID_PAGINA' => ['friendly_url','page title','controlador','metodo'],
 */
 
 class urlHelper {
-/*
 
 	public function router($p,$m = -1){
 if ($m != -1 and intval($m) < 1) return array($p.'Controller',$m);
@@ -31,6 +30,7 @@ if ($m != -1 and intval($m) < 1) return array($p.'Controller',$m);
 			
 		return array($p.'Controller',$m);
 	}
+/*
 
 	public function get($page_id){
 			$config = Config::singleton();

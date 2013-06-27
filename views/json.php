@@ -1,0 +1,6 @@
+<?
+
+echo $json_items;
+
+?>
+
