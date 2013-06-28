@@ -1,6 +1,6 @@
 <style>
 .inside b{
-	font-size: 13px;
+	font-size: 14px;
 }
 </style>
 
@@ -12,7 +12,7 @@
 
 <?= $cond_uso ?>
 </div>
-<div class="inside" style="width: 600px;text-align: justify; font-size: 11px;font-family: 'FreeSet-DemiBold';">
+<div class="inside" style="width: 500px;text-align: justify;; font-size: 12px;font-family: 'FreeSet-book';">
 <?= $CONDICIONES_USO ?>
 </div>
 </div>
