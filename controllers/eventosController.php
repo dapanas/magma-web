@@ -129,7 +129,7 @@ class eventosController extends ControllerBase
 		          );	          
 			$this->view->show("eventos/evento-resumen.php", $data);
 		}
-		public function doAdd(){
+		public function doAdd() {
 			$params = gett();
 			
 			$lang = $_SESSION['lang'];
@@ -141,7 +141,8 @@ class eventosController extends ControllerBase
 			$params['subcategoriasId']  = $aux[0];
 			$params['categoriasId'] = $aux[1];
 			$params['dias_semana'] = isset($params['dias_semana']) ? implode(",",$params['dias_semana']) : "";
-			if ($params['tipo_horario'] == 1){
+			
+			if (isset($params['tipo_horario']) && $params['tipo_horario'] == 1) {
 				$params['horario']='';
 				$params['hora_inicio']= $params['horario1_hora'].":".$params['horario1_minuto'];
 				$params['hora_final']=$params['horario2_hora'].":".$params['horario2_minuto'];
@@ -152,7 +153,7 @@ class eventosController extends ControllerBase
 					$params['hora_inicio'] = $params['hora_final'] = ""; // Lo limpiamos
 				}
 
-			}else{
+			} elseif (isset($params['tipo_horario']) && $params['tipo_horario'] == 2) {
 				$params['horario']='';
 				$params['hora_inicio']= $params['horario3_hora'].":".$params['horario3_minuto'];
 				$params['hora_final']=$params['horario4_hora'].":".$params['horario4_minuto'];
@@ -167,7 +168,14 @@ class eventosController extends ControllerBase
 				if ($params['hora_inicio2'] == $params['hora_final2']) {
 					$params['hora_inicio2'] = $params['hora_final2'] = ""; // Lo limpiamos
 				}
+			} else {
+				$params['horario'] = "";
+				$params['hora_inicio'] = "";
+				$params['hora_final'] = "";
+				$params['hora_inicio2'] = "";
+				$params['hora_final2'] = "";
 			}
+
 			if ($params['tipo_pago'] ==1){
 				$params['precio'] = 0;
 				$params['anticipada'] = 0;
@@ -177,7 +185,6 @@ class eventosController extends ControllerBase
 				if (isset($params['anticipada'])){
 					$params['anticipada'] = $params['anticipada_unidad'].".".$params['anticipada_decimal'];
 				} else {
-				
 					$params['anticipada'] = 0;
 				}
 			}
@@ -200,22 +207,28 @@ class eventosController extends ControllerBase
 
 				$params['descripcion_cat'] = $params['descripcion_cat'] != -1 ? $params['descripcion_cat'] : "";
 			}
+
+			$params['telf'] = isset($params['telf']) && $params['telf'] != -1 ? $params['telf'] : "";
+			$params['email'] = isset($params['email']) && $params['email'] != -1 ? $params['email'] : "";
+			$params['web'] = isset($params['web']) && $params['web'] != -1 ? $params['web'] : "";
 			
 			$params['imagen'] = upload_image('imagen',265,265,'eventos');
-		//	echo "X".$params['imagen'];
+			//echo "X".$params['imagen'];
 			require "models/eventosModel.php"; 	
 			$items = new eventosModel();
 			require "models/accountsfacturacionModel.php"; 	
 			$itemsx = new accountsfacturacionModel();
 			$eventoId = $items->add($params);
-			$data = Array(		"destacado" => $params['destacado'],
-			"periodo" => $params['periodo'],
-			"params"  => $params,
-			"facturacion" => $itemsx->getById($_SESSION['accountId']),
-				  "items" => $items->getById($eventoId));
-			
-				$this->view->show("eventos/evento-resumen.php", $data);
-					}
+			$data = array(
+				"destacado" => $params['destacado'],
+				"periodo" => $params['periodo'],
+				"params"  => $params,
+				"facturacion" => $itemsx->getById($_SESSION['accountId']),
+				"items" => $items->getById($eventoId)
+			);
+
+			$this->view->show("eventos/evento-resumen.php", $data);
+		}
 		
 		public function facturacionDestacado(){
 		

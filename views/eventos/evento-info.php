@@ -163,7 +163,7 @@
 <input type="checkbox" value="7" name="dias_semana[]"> D 
 <br><br>
 
-<input type="radio" name="tipo_horario" value="1" checked="checked"><p> De  </p><div class="corto"><select name="horario1_hora" style="">
+<input type="radio" name="tipo_horario" value="1"><p> De  </p><div class="corto"><select name="horario1_hora" style="">
 <? for ($i = 0;$i < 25;$i++): ?>
 <option value="<?= $i?>"><?= $i?></option>
 <? endfor; ?>
@@ -240,11 +240,11 @@ Introduce la dirección de la página web a través de la cual se gestionará la
 <div class="boto-red" style="margin-top: 25px;">+ <?= $INFORMACION ?></div>
 <div class="categoria-evento">
 <div class="tit" style="margin-top: 10px;"><?= $telf_contact ?>:</div>
-<input type="text" name='telf' value='' required="required">
+<input type="text" name='telf' value="">
 <div class="tit" style="margin-top: 10px;"><?= $DIRECCION_MAIL ?></div>
-<input type="text" name='email' value='' required="required">
+<input type="text" name='email' value="">
 <div class="tit">Web:</div>
-<input type="text" name='web' value='' required="required" style="margin-bottom: 15px;"><br>
+<input type="text" name='web' value="" style="margin-bottom: 15px;"><br>
 <input type="hidden" name="destacado" value="<?= $destacado ?>">
 <input type="hidden" name="periodo" value="<?= isset($params['periodo']) ? $params['periodo'] : ''; ?>">
 <input type="hidden" name="fecha_publi_ini" value="<?= $params['fecha_publi_ini'] ?>">
