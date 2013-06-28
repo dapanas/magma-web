@@ -3,7 +3,11 @@ include "tpv/sha1.php";
 
 $prices= array(0,100,180,255,320);
 //$merchant_order =  Date("Ymdhis");
-$amount = $prices[$_SESSION['periodo']] * 100;
+if ($_SESSION['periodo'] != "") {
+	$amount = $prices[$_SESSION['periodo']] * 100;
+} else {
+	$amount = $prices[0];
+}
 
 
 // Compute hash to sign form data

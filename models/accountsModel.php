@@ -23,9 +23,6 @@ class accountsModel extends ModelBase
 		public function add($params){
 			$consulta = $this->db->prepare("INSERT INTO accounts (email,username,password,nombre,apellidos,fecha_nacimiento,empresa,telf,direccion,municipio,provincia,codigopostal) VALUES ('".$params['email']."','".$params['username']."','".$params['password']."','".$params['nombre']."','".$params['apellidos']."','".$params['fecha_nacimiento']."','".$params['empresa']."','".$params['telf']."','".$params['direccion']."','".$params['municipiosId']."','".$params['provincia']."','".$params['codigopostal']."')");
 			$consulta->execute();
-
-			
-
 		}
 		
 	
@@ -53,5 +50,23 @@ class accountsModel extends ModelBase
 			$aux = $consulta->fetch();
 			return $aux['saldo'] > 0? $aux['saldo'] : 0;
 			
+		}
+
+		public function getIdByUsername($username) {
+			$consulta = $this->db->prepare("SELECT id FROM accounts WHERE username='$username' ");
+			$consulta->execute();
+			return $consulta->fetch();
+		}
+
+		public function getEmailByUsername($username) {
+			$consulta = $this->db->prepare("SELECT email FROM accounts WHERE username='$username' ");
+			$consulta->execute();
+			return $consulta->fetch();
+		}
+
+		public function getUsernameByEmail($email) {
+			$consulta = $this->db->prepare("SELECT username FROM accounts WHERE email='$email' ");
+			$consulta->execute();
+			return $consulta->fetch();
 		}
 }

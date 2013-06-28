@@ -64,35 +64,37 @@ else:?>
 <div class="tit"><?= $FECHA_ACTO ?>:</div>
 <p>
 <? 
-if (is_array(($items['dias_semana']) and count($items['dias_semana']) > 0)){
-$dias =explode(",",$items['dias_semana']);
-$i = 0;
-foreach($dias as $dia):?>
-	<? if ($i > 0) echo " · "; ?>
-	<?= $DIAS_SEMANA[$dia] ?>
-	
-<? 
-$i++;
-endforeach; 
-}?>
+$dias = $items['dias_semana'] != "" ? explode(",", $items['dias_semana']) : array();
+if ( count($dias) > 0 ) {
+	$i = 0;
+	foreach($dias as $dia) {
+		if ($i > 0) echo " · ";
+		echo $DIAS_SEMANA[$dia];
+		$i++;
+	}
+}
+?>
 </p>
 <br>
 <p>
-<? if ($items['fecha_fin'] != '0000-00-00'): ?>
+<? if ($items['fecha_fin'] != $items['fecha_inicio']): ?>
 Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> y el <?= mysql_to_fecha($items['fecha_fin']) ?>
 
 <? else: ?>
-<?= mysql_to_fecha($items['fecha_inicio']) ?>
+<?= $DIA ?> <?= mysql_to_fecha($items['fecha_inicio']) ?>
 <? endif; ?>
 </p>
 <br><br>
 <div class="tit"><?= $hor_event ?>:</div>
-<p><?= $items['hora_inicio'] ?>h - <?= $items['hora_final'] ?>h
-<? if($items['hora_final2'] != ''): ?>
- / <?= $items['hora_inicio2'] ?>h - <?= $items['hora_final2'] ?>h
-<? endif; ?>
-</p>
+	<p>
+		<? if ($items['hora_inicio'] != ''): ?>
+			<?= $items['hora_inicio'] ?>h - <?= $items['hora_final'] ?>h
+		<? elseif ($items['hora_inicio2'] != ''): ?>
+			/ <?= $items['hora_inicio2'] ?>h - <?= $items['hora_final2'] ?>h
+		<? endif; ?>
+	</p>
 </div>
+
 <div class="boto-red"><?= $PRECIO ?> <div class="interrogant pull-right"><a href="#modificarprecio" data-toggle="modal">?</a>
  </div></div>
 <div class="categoria-evento">

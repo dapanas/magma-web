@@ -40,21 +40,26 @@
 <div class="boto"><input type="button" class="button boto" value="Cerrar" onclick=""></div> 
 </div>
 
-
-
 <!-- registrar ahora -->
-
 <div class="modal hide fade" id="modalsignup"><div class="modal_text"style="margin-top:60px"><div class="modal_tit"></div><?= $modal_now ?></div> 
 <a class="button boto" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></a> 
 </div>
 
 <!-- modificar cuenta activada -->
-
-
 <div class="modal hide fade" id="cuentaactivada">
 	<div class="modal_text" style="margin-top:90px">
 		<div class="modal_tit"><?= $modal_active ?></div> 
 		<button class="btn" data-dismiss="modal" aria-hidden="true"><?= $CERRAR ?></button>
 	</div>
+</div>
+
+<!-- recuperar contraseña -->
+<div class="modal hide fade" id="modalrecuperarpassword"><div class="modal_text"style="margin-top:60px"><div class="modal_tit"></div><?= $modal_recuperarpassword ?></div> 
+<a class="button boto" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></a> 
+</div>
+
+<!-- recuperar usuario -->
+<div class="modal hide fade" id="modalrecuperarusuario"><div class="modal_text"style="margin-top:60px"><div class="modal_tit"></div><?= $modal_recuperarusuario ?></div> 
+<a class="button boto" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></a> 
 </div>
 

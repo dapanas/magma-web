@@ -44,7 +44,7 @@ class eventosController extends ControllerBase
 			$selects = new selectsModel();
 			$params = gett();
 			$destacado = $params['a'] != -1 ? 1 :  -1;
-			$_SESSION['periodo'] = $params['periodo'];
+			$_SESSION['periodo'] = isset($params['periodo']) ? $params['periodo'] : "";
 			if (isset($params['fecha_publi_ini'])) {
 				$aux = explode("/",$params['fecha_publi_ini']);
 				
@@ -131,7 +131,6 @@ class eventosController extends ControllerBase
 		}
 		public function doAdd(){
 			$params = gett();
-		//	print_r($params);
 			
 			$lang = $_SESSION['lang'];
 			$params['fecha_registro'] = Date('Y-m-d');
@@ -141,19 +140,33 @@ class eventosController extends ControllerBase
 			$aux = explode("|",$params['subcategoriasId'] );
 			$params['subcategoriasId']  = $aux[0];
 			$params['categoriasId'] = $aux[1];
-			$params['dias_semana'] = implode(",",$params['dias_semana']);
+			$params['dias_semana'] = isset($params['dias_semana']) ? implode(",",$params['dias_semana']) : "";
 			if ($params['tipo_horario'] == 1){
 				$params['horario']='';
 				$params['hora_inicio']= $params['horario1_hora'].":".$params['horario1_minuto'];
 				$params['hora_final']=$params['horario2_hora'].":".$params['horario2_minuto'];
 				$params['hora_inicio2']='';
 				$params['hora_final2']='';
+
+				if ($params['hora_inicio'] == $params['hora_final']) {
+					$params['hora_inicio'] = $params['hora_final'] = ""; // Lo limpiamos
+				}
+
 			}else{
 				$params['horario']='';
 				$params['hora_inicio']= $params['horario3_hora'].":".$params['horario3_minuto'];
 				$params['hora_final']=$params['horario4_hora'].":".$params['horario4_minuto'];
 				$params['hora_inicio2']= $params['horario5_hora'].":".$params['horario5_minuto'];
 				$params['hora_final2']=$params['horario6_hora'].":".$params['horario6_minuto'];
+
+				if ($params['hora_inicio'] == $params['hora_final']) {
+					$params['hora_inicio'] = $params['hora_final'] = ""; 
+					$params['hora_inicio2'] = $params['hora_final2'] = ""; // Limpiamos ambos
+				}
+
+				if ($params['hora_inicio2'] == $params['hora_final2']) {
+					$params['hora_inicio2'] = $params['hora_final2'] = ""; // Lo limpiamos
+				}
 			}
 			if ($params['tipo_pago'] ==1){
 				$params['precio'] = 0;
@@ -163,25 +176,29 @@ class eventosController extends ControllerBase
 
 				if (isset($params['anticipada'])){
 					$params['anticipada'] = $params['anticipada_unidad'].".".$params['anticipada_decimal'];
-				}	else {
+				} else {
 				
-								$params['anticipada'] = 0;
+					$params['anticipada'] = 0;
 				}
 			}
 			if ($params['tipo_cuando'] == 1){
-				$params['fecha_inicio']= $params['fecha1_ano']."-".$params['fecha1_mes']."-".$params['fecha1_dia'];
-				$params['fecha_fin']=$params['fecha1_ano']."-".$params['fecha1_mes']."-".$params['fecha1_dia'];
-			}else{
-				$params['fecha_inicio']= $params['fecha2_ano']."-".$params['fecha2_mes']."-".$params['fecha2_dia'];
-				$params['fecha_fin']=$params['fecha3_ano']."-".$params['fecha3_mes']."-".$params['fecha3_dia'];
+				$params['fecha_inicio'] = $params['fecha1_ano']."-".$params['fecha1_mes']."-".$params['fecha1_dia'];
+				$params['fecha_fin'] = $params['fecha1_ano']."-".$params['fecha1_mes']."-".$params['fecha1_dia'];
+			} else {
+				$params['fecha_inicio'] = $params['fecha2_ano']."-".$params['fecha2_mes']."-".$params['fecha2_dia'];
+				$params['fecha_fin'] = $params['fecha3_ano']."-".$params['fecha3_mes']."-".$params['fecha3_dia'];
 			}
 			
 			if ($lang =='esp') {
 				$params['titulo_cat'] ='';
 				$params['descripcion_cat'] = '';
+
+				$params['descripcion_esp'] = $params['descripcion_esp'] != -1 ? $params['descripcion_esp'] : "";
 			} else {
 				$params['titulo_esp'] ='';
 				$params['descripcion_esp'] = '';
+
+				$params['descripcion_cat'] = $params['descripcion_cat'] != -1 ? $params['descripcion_cat'] : "";
 			}
 			
 			$params['imagen'] = upload_image('imagen',265,265,'eventos');
@@ -195,7 +212,7 @@ class eventosController extends ControllerBase
 			"periodo" => $params['periodo'],
 			"params"  => $params,
 			"facturacion" => $itemsx->getById($_SESSION['accountId']),
-				  "items" => $items->getById($eventoId)			      );	
+				  "items" => $items->getById($eventoId));
 			
 				$this->view->show("eventos/evento-resumen.php", $data);
 					}
