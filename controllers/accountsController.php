@@ -149,19 +149,59 @@ class accountsController extends ControllerBase
 		}
 */
 		public function recuperarPassword(){
-
 			$data = Array(		          );	          
 			$this->view->show("login-remember.php", $data);
 		}
+
 		public function doRecuperarPassword(){
-			$params['email']= '';
-			$params['username'] ='';
 			$params = gett();
 			$new_p = generar_cadena_random(6);
+
+			require_once "models/accountsModel.php";
+			require_once "models/ormModel.php";
 			require_once "lib/EmailSend.php";
-			$email = new EmailSend();
 			
-			$email->SendEmail('recuperar_password.php',array("password" => $new_p),'MAGMA Recuperar Password',array($params['email']));
+			$account = new accountsModel();
+			$email = new EmailSend();
+			$items = new ormModel();
+			
+			$_POST['password'] = $new_p;
+
+			$params += $account->getIdByUsername($params['username']);
+			$params += $account->getEmailByUsername($params['username']);
+
+			$items->PUT('accounts', $params['id']);
+			$email->SendEmail('login-remember-password.php',
+				array(
+					"password" => $new_p),
+				'MAGMA Recuperar Password',
+				array(
+					$params['email'])
+				);
+
+			echo "1";
+		}
+
+		public function doRecuperarUsuario(){
+			$params = gett();
+
+			require_once "models/accountsModel.php";
+			require_once "lib/EmailSend.php";
+			
+			$account = new accountsModel();
+			$email = new EmailSend();
+
+			$params += $account->getUsernameByEmail($params['email']);
+
+			$email->SendEmail('login-remember-username.php',
+				array(
+					"username" => $params['username']),
+				'MAGMA Recuperar Usuario',
+				array(
+					$params['email'])
+				);
+
+			echo "1";
 		}
 		
 		public function activateAccount(){
