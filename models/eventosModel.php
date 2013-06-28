@@ -20,12 +20,11 @@ $consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,munici
 		}
 		public function search($params){
 			$key = $params['a'];
-			
-			$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id, INNER JOIN subcategorias ON eventos.subcategorias.id = subcategorias.id, INNER JOIN municipios ON eventos.municipiosId= municipios.id where descripcion_cat LIKE '%".$key."%' or descripcion_esp LIKE '%".$key."%' or titulo_cat LIKE '%".$key."%' or titulo_esp LIKE '%".$key."%'  order by fecha_inicio  ASC ");
+			$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id INNER JOIN subcategorias ON eventos.subcategoriasId = subcategorias.id INNER JOIN municipios ON eventos.municipiosId= municipios.id where descripcion_cat LIKE '%".$key."%' or descripcion_esp LIKE '%".$key."%' or titulo_cat LIKE '%".$key."%' or titulo_esp LIKE '%".$key."%'  order by fecha_inicio  ASC ");
 			$consulta->execute();
 			$aux = $consulta->fetchAll();
-			if (count($aux) > 0) return $aux;
-			else return $this->getAll();
+                        if (count($aux) > 0) return $aux;
+                        //else return $this->getAll();
 		}
 		public function getById($id){
 			$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios WHERE eventos.id='".$id."' and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId");
