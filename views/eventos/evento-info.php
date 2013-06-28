@@ -246,7 +246,7 @@ Introduce la dirección de la página web a través de la cual se gestionará la
 <div class="tit">Web:</div>
 <input type="text" name='web' value='' required="required" style="margin-bottom: 15px;"><br>
 <input type="hidden" name="destacado" value="<?= $destacado ?>">
-<input type="hidden" name="periodo" value="<?= $params['periodo'] ?>">
+<input type="hidden" name="periodo" value="<?= isset($params['periodo']) ? $params['periodo'] : ''; ?>">
 <input type="hidden" name="fecha_publi_ini" value="<?= $params['fecha_publi_ini'] ?>">
 <input type="hidden" name="fecha_publi_end" value="<?= $params['fecha_publi_end']?>">
 <? if (!isset($op) or $op != 'edit'): ?>
