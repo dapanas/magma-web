@@ -78,10 +78,9 @@ if ( count($dias) > 0 ) {
 <br>
 <p>
 <? if ($items['fecha_fin'] != $items['fecha_inicio']): ?>
-Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> y el <?= mysql_to_fecha($items['fecha_fin']) ?>
-
+	Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> y el <?= mysql_to_fecha($items['fecha_fin']) ?>
 <? else: ?>
-<?= $DIA ?> <?= mysql_to_fecha($items['fecha_inicio']) ?>
+	<?= $DIA ?> <?= mysql_to_fecha($items['fecha_inicio']) ?>
 <? endif; ?>
 </p>
 <br><br>
@@ -89,7 +88,8 @@ Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> y el <?= mysql_to_fecha($
 	<p>
 		<? if ($items['hora_inicio'] != ''): ?>
 			<?= $items['hora_inicio'] ?>h - <?= $items['hora_final'] ?>h
-		<? elseif ($items['hora_inicio2'] != ''): ?>
+		<? endif; ?>
+		<? if ($items['hora_inicio2'] != ''): ?>
 			/ <?= $items['hora_inicio2'] ?>h - <?= $items['hora_final2'] ?>h
 		<? endif; ?>
 	</p>
