@@ -64,7 +64,7 @@ class selectsModel extends ModelBase
 		$consulta->execute();
         $items = $consulta->fetchAll(PDO::FETCH_ASSOC);
 		$lang = $_SESSION['lang'];
-		$ret ="<select required='required' name='municipiosId'>";
+		$ret ="<select id='municipiosId' required='required' name='municipiosId'>";
 
 		$ret .= '<option value="">--</option>';
 		foreach($items as $option){

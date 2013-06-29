@@ -143,22 +143,22 @@ class eventosController extends ControllerBase
 			$params['dias_semana'] = isset($params['dias_semana']) ? implode(",",$params['dias_semana']) : "";
 			
 			if (isset($params['tipo_horario']) && $params['tipo_horario'] == 1) {
-				$params['horario']='';
-				$params['hora_inicio']= $params['horario1_hora'].":".$params['horario1_minuto'];
-				$params['hora_final']=$params['horario2_hora'].":".$params['horario2_minuto'];
-				$params['hora_inicio2']='';
-				$params['hora_final2']='';
+				$params['horario'] = '';
+				$params['hora_inicio'] = $params['horario1'];
+				$params['hora_final'] = $params['horario2'];
+				$params['hora_inicio2'] = '';
+				$params['hora_final2'] = '';
 
 				if ($params['hora_inicio'] == $params['hora_final']) {
 					$params['hora_inicio'] = $params['hora_final'] = ""; // Lo limpiamos
 				}
 
 			} elseif (isset($params['tipo_horario']) && $params['tipo_horario'] == 2) {
-				$params['horario']='';
-				$params['hora_inicio']= $params['horario3_hora'].":".$params['horario3_minuto'];
-				$params['hora_final']=$params['horario4_hora'].":".$params['horario4_minuto'];
-				$params['hora_inicio2']= $params['horario5_hora'].":".$params['horario5_minuto'];
-				$params['hora_final2']=$params['horario6_hora'].":".$params['horario6_minuto'];
+				$params['horario'] = '';
+				$params['hora_inicio'] = $params['horario3'];
+				$params['hora_final'] = $params['horario4'];
+				$params['hora_inicio2'] = $params['horario5'];
+				$params['hora_final2'] = $params['horario6'];
 
 				if ($params['hora_inicio'] == $params['hora_final']) {
 					$params['hora_inicio'] = $params['hora_final'] = ""; 
@@ -168,6 +168,7 @@ class eventosController extends ControllerBase
 				if ($params['hora_inicio2'] == $params['hora_final2']) {
 					$params['hora_inicio2'] = $params['hora_final2'] = ""; // Lo limpiamos
 				}
+
 			} else {
 				$params['horario'] = "";
 				$params['hora_inicio'] = "";
@@ -188,12 +189,13 @@ class eventosController extends ControllerBase
 					$params['anticipada'] = 0;
 				}
 			}
-			if ($params['tipo_cuando'] == 1){
-				$params['fecha_inicio'] = $params['fecha1_ano']."-".$params['fecha1_mes']."-".$params['fecha1_dia'];
-				$params['fecha_fin'] = $params['fecha1_ano']."-".$params['fecha1_mes']."-".$params['fecha1_dia'];
+			
+			if ($params['tipo_cuando'] == 1) {
+				$params['fecha_inicio'] = $params['fecha1'];
+				$params['fecha_fin'] = $params['fecha1'];
 			} else {
-				$params['fecha_inicio'] = $params['fecha2_ano']."-".$params['fecha2_mes']."-".$params['fecha2_dia'];
-				$params['fecha_fin'] = $params['fecha3_ano']."-".$params['fecha3_mes']."-".$params['fecha3_dia'];
+				$params['fecha_inicio'] = $params['fecha2'];
+				$params['fecha_fin'] = $params['fecha3'];
 			}
 			
 			if ($lang =='esp') {

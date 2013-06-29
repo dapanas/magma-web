@@ -38,8 +38,8 @@
             	});
             	$('.guardarButton').hide();
             	
-            	if ($('input[disabled]').length > 0) $('select').attr("disabled","disabled");
-            	
+            	// No tengo idea para qué está esta linea acá. No le encuentro sentido pero la dejo comentado por si algo.
+                // if ($('input[disabled]').length > 0) $('select').attr("disabled","disabled");
 
             });
         
