@@ -137,9 +137,19 @@ class eventosController extends ControllerBase
 			$params['publicado'] = 0;
 			$params['confirmado'] = 0;
 			$params['accountsId'] = $_SESSION['accountId'];
-			$aux = explode("|",$params['subcategoriasId'] );
-			$params['subcategoriasId']  = $aux[0];
-			$params['categoriasId'] = $aux[1];
+
+			$auxCategorias = array();
+			$auxSubcategorias = array();
+
+			foreach ($params['subcategoriasId'] as $subcategoria) {
+				$aux = explode("|", $subcategoria);
+				array_push($auxSubcategorias, $aux[0]);
+				array_push($auxCategorias, $aux[1]);
+			}
+
+			$params['subcategoriasId'] = implode(",", $auxSubcategorias);
+			$params['categoriasId'] = implode(",", $auxCategorias);
+			
 			$params['dias_semana'] = isset($params['dias_semana']) ? implode(",",$params['dias_semana']) : "";
 			
 			if (isset($params['tipo_horario']) && $params['tipo_horario'] == 1) {

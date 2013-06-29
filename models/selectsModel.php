@@ -50,13 +50,13 @@ class selectsModel extends ModelBase
 	}
 	public function radiosSubcategorias(){
 		$ret = '';
-		$consulta = $this->db->prepare("SELECT *,subcategorias.id as subcategoriasId FROM subcategorias INNER JOIN categorias ON subcategorias.categoriasId = categorias.id order by subcategoria_esp,subcategoria_cat,categoria_esp,categoria_cat ASC");
+		$consulta = $this->db->prepare("SELECT *,subcategorias.id as subcategoriasId FROM subcategorias INNER JOIN categorias ON subcategorias.categoriasId = categorias.id ORDER BY subcategoria_esp,subcategoria_cat,categoria_esp,categoria_cat ASC");
 		$consulta->execute();
         $items = $consulta->fetchAll();
         $lang = $_SESSION['lang'];
-		foreach($items as $item):
-			$ret .='	<input type="radio" name="subcategoriasId" value="'.$item['subcategoriasId'].'|'.$item['id'].'"><p> '.$item['subcategoria_'.$lang].' ('.$item['categoria_'.$lang].')</p><br>';
-		endforeach;
+		foreach($items as $item) {
+			$ret .='	<input type="checkbox" name="subcategoriasId[]" value="'.$item['subcategoriasId'].'|'.$item['id'].'"><p> '.$item['subcategoria_'.$lang].' ('.$item['categoria_'.$lang].')</p><br>';
+		}
 		return $ret;
 	}
 	public function selectMunicipios($selected = -1){

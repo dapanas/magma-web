@@ -175,6 +175,20 @@ Introduce la dirección de la página web a través de la cual se gestionará la
 <script>
 $(function() {
 
+	$("input[name='subcategoriasId[]']").on('change', function() {
+		if ($("input[name='subcategoriasId[]']:checked").length == 3) {
+			$("input[name='subcategoriasId[]']").each(function() {
+				if (!$(this).is(':checked')) {
+					$(this).attr("disabled", true);
+				}
+			});
+		} else if ($("input[name='subcategoriasId[]']:checked").length < 3) {
+			$("input[name='subcategoriasId[]']").each(function() {
+				$(this).attr("disabled", false);
+			});
+		}
+	});
+
 	$( "#horario1, #horario2, #horario3, #horario4, #horario5, #horario6" ).timepicker({
 		step: 15,
 		timeFormat: 'H:i'

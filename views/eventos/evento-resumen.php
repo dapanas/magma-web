@@ -31,8 +31,12 @@ else:?>
 <h3 style="border:none;">General </h3>
 <div class="categoria-evento">
 <div class="tit"><?= $CATEGORIA_ACTO ?>: </div>
-<p><?= $items['subcategoria_'.$lang] ?> (<?= $items['categoria_'.$lang] ?>)</p>
-<br><br>
+<p>
+<? foreach ($items['subcategoriasId'] as $subcategoriaId): ?>
+	<?= $items['subcategoria_'.$lang][$subcategoriaId]['subcategoria'] ?> (<?= $items['subcategoria_'.$lang][$subcategoriaId]['categoria'] ?>) <br>
+<? endforeach; ?>
+</p>
+<br>
 <div class="tit"><?= $TITULO ?>: </div>
 <p><?= $items['titulo_'.$lang] ?></p>
 <br><br>
