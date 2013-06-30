@@ -130,7 +130,9 @@
 <input type="radio" name="tipo_pago" value="1" checked="checked"><p> <?= $GRATIS ?></p><br><br>
 <input type="radio" name="tipo_pago" value="2"><p> <?= $DE_PAGO ?>:</p><br>
 <input id="mini" type="text" name="taquilla_unidad"  placeholder="00"> , <input id="mini" type="text" name="taquilla_decimal"  placeholder="00"><p> €</p><br>
+<!--
 <input type="checkbox" name="anticipada" value="anticipada">   <input style="margin-top: 10px;" id="mini" type="text" name="anticipada_unidad" placeholder="00"> , <input id="mini" type="text" name="anticipada_decimal"  placeholder="00"><p> € <?= $PRECIO_VENTA ?></p><br>
+-->
 
 <!--
 <b>Venta de entradas on-line:</b>

@@ -10,24 +10,22 @@ example:  'ID_PAGINA' => ['friendly_url','page title','controlador','metodo'],
 
 class urlHelper {
 
-	public function router($p,$m = -1){
-if ($m != -1 and intval($m) < 1) return array($p.'Controller',$m);
+	public static function router($p,$m = -1) {
+		if ($m != -1 and intval($m) < 1) return array($p.'Controller', $m);
 
 		if (is_int(intval($m))) {
-			
 			$_POST['a'] = $m;
 			$_GET['a'] = $m;
 		}
-	
-		
+
 		$config = Config::singleton();
 		$URLS = $config->get('URLS');
 		$array_return = array();
-		foreach($URLS as $url){
+		foreach($URLS as $url) {
 			if ($p == $url[0])
-			return array($url[2],$url[3]);
+				return array($url[2], $url[3]);
 		}
-			
+
 		return array($p.'Controller',$m);
 	}
 /*
