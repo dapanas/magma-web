@@ -18,19 +18,19 @@ class loginController extends ControllerBase
 	}
 	
 	public function lostpassword(){
-		$data = Array( "title" => "Iniciar Sesión"    );         
+		$data = Array( "title" => "Iniciar Sesión");         
 			$this->view->show("lostpassword.php", $data);
 	}
 
-	public function doLogin()
-	{
+	public function doLogin() {
     	$config = Config::singleton();
       	require 'models/loginModel.php';
     	$loginModel = new loginModel();
     	if (!isset($_SESSION['login_attemp'])) $_SESSION['login_attemp'] = 1;
 		$_SESSION['login_attemp'] = 0;
 		$params = gett();
-    	if ($_SESSION['login_attemp'] < 4){    	
+    	
+    	if ($_SESSION['login_attemp'] < 4) {
         	if ($loginModel->isValidUser($params['username'],$params['password'])){       	    	
     	       $loginModel->setupNewSession($params['username'],$params['password']);
     	        if (!isset($params['remember'])){
@@ -43,16 +43,16 @@ class loginController extends ControllerBase
         	}				
         } else {
         	header ("location: ".$_SERVER['HTTP_REFERER']."?c=2");
-        }     	}
+        }     	
+    }
  
-	public function logout()
-	{
-    	$config = Config::singleton();
+	public function logout() {
+		$config = Config::singleton();
 		require 'models/loginModel.php';
     	$loginModel = new loginModel();
     	$loginModel->logout();
+
 		header("location: ".$config->get('base_url'));
-        exit(0);
 	}
 }
 ?>

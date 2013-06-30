@@ -295,11 +295,10 @@ return $soloname."_".$new_code.".".$ext;
 }
 
   
-function upload_image($var,$W,$H,$folder){
+function upload_image($var, $W, $H, $folder) {
 	$path = 'data/img/'.$folder.'/';
 	
-
-	if ($_FILES[$var]['name'] != ""){	
+	if ($_FILES[$var]['name'] != "") {
 		$filename_new = $_SESSION['accountId']."_".generar_nombre_archivo($_FILES[$var]['name']);
 		copy($_FILES[$var]['tmp_name'],$path.$filename_new);
 		resize_image(get_extension($filename_new),$path.$filename_new,$path.$filename_new,$W,$H) ;
@@ -307,7 +306,7 @@ function upload_image($var,$W,$H,$folder){
 
 		return $filename_new;
 	}
-	return '';				
+	return false;
 }
 
 function youtube_id_from_url($url) {

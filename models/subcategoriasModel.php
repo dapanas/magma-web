@@ -33,6 +33,17 @@ class subcategoriasModel extends ModelBase
 		public function delete($params){
 			$consulta = $this->db->prepare("DELETE FROM subcategorias where id='".$params['id']."'");
 			$consulta->execute();
+		}
 
+		public function getNameById($id) {
+			$consulta = $this->db->prepare("SELECT subcategoria_esp, subcategoria_cat FROM subcategorias WHERE id = '$id'");
+			$consulta->execute();
+			return $consulta->fetch();
+		}
+
+		public function getNameAndCategoryNameById($id) {
+			$consulta = $this->db->prepare("SELECT subcategorias.subcategoria_esp, subcategorias.subcategoria_cat, categorias.categoria_esp, categorias.categoria_cat FROM subcategorias, categorias WHERE subcategorias.id = '$id' AND categorias.id = subcategorias.categoriasId");
+			$consulta->execute();
+			return $consulta->fetch();
 		}
 }
