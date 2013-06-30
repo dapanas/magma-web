@@ -167,19 +167,26 @@ class accountsController extends ControllerBase
 			
 			$_POST['password'] = $new_p;
 
-			$params += $account->getIdByUsername($params['username']);
-			$params += $account->getEmailByUsername($params['username']);
+			$aux_validacion_id = $account->getIdByUsername($params['username']);
+			$aux_validacion_email = $account->getEmailByUsername($params['username']);
 
-			$items->PUT('accounts', $params['id']);
-			$email->SendEmail('login-remember-password.php',
+			if ($aux_validacion_id !== false) {
+				$params += $aux_validacion_id;
+				$params += $aux_validacion_email;
+
+				$items->PUT('accounts', $params['id']);
+				$email->SendEmail('login-remember-password.php',
 				array(
 					"password" => $new_p),
-				'MAGMA Recuperar Password',
+					'MAGMA Recuperar Password',
 				array(
 					$params['email'])
 				);
 
-			echo "1";
+				echo "1";
+			} else {
+				echo "No hay un usuario registrado con ese nombre de usuario.";
+			}
 		}
 
 		public function doRecuperarUsuario(){
@@ -191,17 +198,24 @@ class accountsController extends ControllerBase
 			$account = new accountsModel();
 			$email = new EmailSend();
 
-			$params += $account->getUsernameByEmail($params['email']);
+			$aux_validacion_username = $account->getUsernameByEmail($params['email']);
 
-			$email->SendEmail('login-remember-username.php',
+			if ($aux_validacion_username !== false) {
+				$params += $aux_validacion_username;
+
+				$email->SendEmail('login-remember-username.php',
 				array(
 					"username" => $params['username']),
-				'MAGMA Recuperar Usuario',
+					'MAGMA Recuperar Usuario',
 				array(
 					$params['email'])
 				);
 
-			echo "1";
+				echo "1";
+			} else {
+				echo "No hay un usuario registrado con ese correo.";
+			}
+
 		}
 		
 		public function activateAccount(){
