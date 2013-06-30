@@ -23,9 +23,9 @@
 <form class='form' action='accounts/doEdit' method='POST' enctype='multipart/form-data'>
 <h3 id="none"><?= $CANVIAR_CONTRASENYA ?></h3>
 <div class='control-group'><label class='control-label'><?= $CONTRASENYA_ACTUAL ?>:<div class="vermell">*</div></label>
-<div class='controls'><input id="min" type='text' name='email_old' value=''></div></div>
+<div class='controls'><input id="min" type='text' name='password_old' value=''></div></div>
 <div class='control-group'><label class='control-label'><?= $NUEVA ?>:<div class="vermell">*</div></label>
-<div class='controls'><input id="min" type='text' name='email' value=''></div></div>
+<div class='controls'><input id="min" type='text' name='password' value=''></div></div>
 
 <div class='control-group'><label class='control-label'><?= $REPITE ?>:<div class="vermell">*</div></label>
 <div class='controls'><input id="min" type='text' name='confpassword' value=''></div></div>
