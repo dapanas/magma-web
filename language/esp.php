@@ -488,6 +488,7 @@ E57808131<br>
 ';
 $NOIMG = 'No ha seleccionado ninguna imagen';
 $VERI ='Verificación';
+$PERI = 'Período';
 
 $modal_recuperarpassword = 'Se ha enviado un nuevo password<br />a tu dirección de correo electrónico. <br /><br />
 Si en 30 minutos no lo has recibido,<br> revisa tu carpeta de spam.';
