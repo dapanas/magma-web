@@ -7,7 +7,6 @@
 
 class accountsModel extends ModelBase
 {
-
 		public function getAll(){
 			$consulta = $this->db->prepare("SELECT * FROM accounts ");
 			$consulta->execute();
@@ -25,7 +24,6 @@ class accountsModel extends ModelBase
 			$consulta->execute();
 		}
 		
-	
 		public function activateAccount($email){
 
 			$consulta = $this->db->prepare("UPDATE accounts SET active='1' where email='".$email."'");
@@ -49,7 +47,6 @@ class accountsModel extends ModelBase
 			$consulta->execute();
 			$aux = $consulta->fetch();
 			return $aux['saldo'] > 0? $aux['saldo'] : 0;
-			
 		}
 
 		public function getIdByUsername($username) {
@@ -68,5 +65,21 @@ class accountsModel extends ModelBase
 			$consulta = $this->db->prepare("SELECT username FROM accounts WHERE email='$email' ");
 			$consulta->execute();
 			return $consulta->fetch();
+		}
+
+		public function usernameExists($username) {
+			$consulta = $this->db->prepare("SELECT EXISTS(SELECT 1 FROM accounts WHERE username='$username') AS resultado");
+			$consulta->execute();
+
+			$resultado = $consulta->fetch();
+			return $resultado['resultado'] ? true : false;
+		}
+
+		public function emailExists($email) {
+			$consulta = $this->db->prepare("SELECT EXISTS(SELECT 1 FROM accounts WHERE email='$email') AS resultado");
+			$consulta->execute();
+
+			$resultado = $consulta->fetch();
+			return $resultado['resultado'] ? true : false;
 		}
 }
