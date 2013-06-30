@@ -9,9 +9,22 @@ class showModel extends ModelBase
 	
 	public function getItemsHead($table){
     	require "setup/".$table.".php";
+/*
 		if ( isset($fields_to_show) and is_array($fields_to_show) and count($fields_to_show)>1) 
 			return  $fields_to_show ;
 	   return $fields_labels;
+*/
+$fr = $fields_labels;
+		if ( isset($fields_to_show) and is_array($fields_to_show) and count($fields_to_show)>0){
+			$fr = array();
+			for ($i=0;$i < count($fields);$i++):
+				if (in_array($fields[$i],$fields_to_show))
+					$fr[] = $fields_labels[$i];
+			endfor;	
+		} 
+		
+	   return $fr;
+	   
 	}
 
     public function getAll($table){
