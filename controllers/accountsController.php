@@ -143,13 +143,67 @@ class accountsController extends ControllerBase
 
 		public function doEdit() {
 			$params = gett();
-			if(isset($_POST['ano']))
-				$_POST['fecha_nacimiento'] = $_POST['dia']."/".$_POST['mes']."/".$_POST['ano'];
 
-			require "models/ormModel.php"; 	
-			$items = new ormModel();
-			$items->PUT('accounts', $_SESSION['accountId']);
-			header("location: ../accounts/index");
+			require_once "models/accountsModel.php";
+			$items = new accountsModel();
+
+			$correoModificado = false;
+			$informacionValida = true;
+
+			if (isset($params['username'])) { // Estamos cambiando el username
+
+				$aux_username = $items->getUsernameById($_SESSION['accountId']);
+
+				if (strcmp($aux_username['username'], $params['username']) == 0) {
+					$informacionValida = false;
+					echo "Seleccionó el mismo nombre de usuario";
+				} else if ($items->usernameExists($params['username'])) {
+					$informacionValida = false;
+					echo "El nombre de usuario seleccionado ya está en uso";
+				}
+
+			} else if (isset($params['email'])) { // Estamos cambiando el correo
+				$aux_email = $items->getEmailById($_SESSION['accountId']);
+
+				if (strcmp($params['email'], $params['email_verificacion']) != 0) {
+					$informacionValida = false;
+					echo "No coinciden los correos electrónicos ingresados";
+				} else if ($items->emailExists($params['email'])) {
+					$informacionValida = false;
+					echo "El correo electrónico seleccionado ya está en uso";
+				} elseif (strcmp($aux_email['email'], $params['email']) == 0) {
+					$informacionValida = false;
+					echo "Seleccionó el mismo correo electrónico";
+				}
+
+				$correoModificado = true;
+
+			} else if (isset($params['password'])) { // Estamos cambiando el password
+				if (strcmp($params['email'], $params['confpassword']) != 0) {
+					$informacionValida = false;
+					echo "Las contraseñas no coinciden";
+				}
+			}
+
+			if ($informacionValida) {
+				require "models/ormModel.php"; 	
+				$items = new ormModel();
+				$items->PUT('accounts', $_SESSION['accountId']);
+
+				if ($correoModificado) {
+					include_once "lib/EmailSend.php";
+					$email = new EmailSend();
+					$email->sendEmail('emailchanged.php',
+						array(
+							"email"=> $params['email']),
+						'[MAGMA] Datos actualizados: Dirección de correo modificada',
+						array(
+							$params['email'])
+					);
+				}
+
+				echo "1";
+			}
 		}
 
 		/*

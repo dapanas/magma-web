@@ -465,3 +465,9 @@ E57808131<br>
 $NOIMG = 'No ha seleccionat cap imatge';
 $VERI = 'Verificació';
 $PERI ='PERIODE';
+
+$modal_cambiarusuario = 'Se ha cambiado el nombre de usuario.';
+
+$modal_cambiarcorreo = 'Se ha cambiado el correo electrónico.';
+
+$modal_cambiarpassword = 'Se ha cambiado el password.';

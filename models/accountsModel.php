@@ -25,10 +25,8 @@ class accountsModel extends ModelBase
 		}
 		
 		public function activateAccount($email){
-
 			$consulta = $this->db->prepare("UPDATE accounts SET active='1' where email='".$email."'");
 			$consulta->execute();
-			
 		}
 
 		public function edit($params){
@@ -51,6 +49,18 @@ class accountsModel extends ModelBase
 
 		public function getIdByUsername($username) {
 			$consulta = $this->db->prepare("SELECT id FROM accounts WHERE username='$username' ");
+			$consulta->execute();
+			return $consulta->fetch();
+		}
+
+		public function getUsernameById($id) {
+			$consulta = $this->db->prepare("SELECT username FROM accounts WHERE id='$id' ");
+			$consulta->execute();
+			return $consulta->fetch();
+		}
+
+		public function getEmailById($id) {
+			$consulta = $this->db->prepare("SELECT email FROM accounts WHERE id='$id' ");
 			$consulta->execute();
 			return $consulta->fetch();
 		}

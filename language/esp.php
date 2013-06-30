@@ -494,3 +494,9 @@ Si en 30 minutos no lo has recibido,<br> revisa tu carpeta de spam.';
 
 $modal_recuperarusuario = 'Se ha enviado tu nombre de usuario<br />a tu dirección de correo electrónico. <br /><br />
 Si en 30 minutos no lo has recibido,<br> revisa tu carpeta de spam.';
+
+$modal_cambiarusuario = 'Se ha cambiado el nombre de usuario.';
+
+$modal_cambiarcorreo = 'Se ha cambiado el correo electrónico.';
+
+$modal_cambiarpassword = 'Se ha cambiado el password.';
