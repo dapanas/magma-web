@@ -240,6 +240,11 @@ class eventosController extends ControllerBase
 		$items = new eventosModel();
 		$selects = new selectsModel();
 
+		if ($items->isCanceled($params['a'])) {
+			$this->view->show("eventos/evento-cancelado.php");
+			return;
+		}
+
 		$destacado = $params['a'] != -1 ? 1 :  -1;
 		$_SESSION['periodo'] = isset($params['periodo']) ? $params['periodo'] : "";
 		
@@ -269,6 +274,15 @@ class eventosController extends ControllerBase
 
 	public function doEdit() {
 		$params = gett();
+
+		require "models/eventosModel.php"; 	
+		$items = new eventosModel();
+		$items->edit($params);
+
+		if ($items->isCanceled($params['id'])) {
+			$this->view->show("eventos/evento-cancelado.php");
+			return;
+		}
 		
 		$lang = $_SESSION['lang'];
 		$params['fecha_actualizacion'] = Date('Y-m-d H:i:s');
@@ -369,10 +383,6 @@ class eventosController extends ControllerBase
 		$params['email'] = isset($params['email']) && $params['email'] != -1 ? $params['email'] : "";
 		$params['web'] = isset($params['web']) && $params['web'] != -1 ? $params['web'] : "";
 
-		require "models/eventosModel.php"; 	
-		$items = new eventosModel();
-		$items->edit($params);
-
 		header("location: ../eventos/detalle/".$params['id']);
 	}
 
@@ -431,10 +441,40 @@ class eventosController extends ControllerBase
 		header("location: ../../eventos/user");
 	}
 
-	public function doDelete() {
+	public function delete() {
 		$params = gett();
 		require "models/eventosModel.php";
 		$items = new eventosModel();
-		$items->delete($params);
+
+		if ($items->isCanceled($params['a'])) {
+			$this->view->show("eventos/evento-cancelado.php");
+			return;
+		}
+		
+		$data = array(
+			"title" => "Page Title",
+			"eventosId" => $params['a'],
+			"destacado" => isset($params['destacado']) ? $params['destacado'] : 0,
+			"items" => $items->getById($params["a"])
+		);	          
+		
+		$this->view->show("eventos/evento-cancelacion.php", $data);
+	}
+
+	public function doDelete() {
+		$params = gett();
+		require "models/eventosModel.php";
+
+		// TODO: Validar que el evento sea del usuario
+
+		if ($items->isCanceled($params['a'])) {
+			$this->view->show("eventos/evento-cancelado.php");
+			return;
+		}
+
+		$items = new eventosModel();
+		$items->cancel($params['id']);
+
+		header("Location: ../eventos/user");
 	}
 }

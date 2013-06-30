@@ -157,9 +157,16 @@ class eventosModel extends ModelBase
     	$consulta->execute();
     }
 
-    public function cancelar($params) {
-    	// NEW CAMPO ESTADO
-    	$consulta = $this->db->prepare("UPDATE eventos SET estado='2' where id='".$params['id']."'");
+    public function cancel($id) {
+    	$consulta = $this->db->prepare("UPDATE eventos SET cancelado='1' where id='".$id."'");
     	$consulta->execute();
-    }	
+    }
+
+    public function isCanceled($id) {
+    	$consulta = $this->db->prepare("SELECT EXISTS(SELECT 1 FROM eventos WHERE id='$id' AND cancelado='1') AS resultado");
+		$consulta->execute();
+
+		$resultado = $consulta->fetch();
+		return $resultado['resultado'] ? true : false;
+    }
 }
