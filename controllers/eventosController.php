@@ -271,7 +271,7 @@ class eventosController extends ControllerBase
 		$params = gett();
 		
 		$lang = $_SESSION['lang'];
-		$params['fecha_registro'] = Date('Y-m-d'); // TODO: Preguntar por fecha de modificación
+		$params['fecha_actualizacion'] = Date('Y-m-d H:i:s');
 		$params['publicado'] = 0;
 		$params['confirmado'] = 0;
 		$params['accountsId'] = $_SESSION['accountId'];
