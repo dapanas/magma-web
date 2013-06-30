@@ -174,7 +174,7 @@ if (!isset($op) or $op != 'edit'):
 <? endif;
 else: ?>
 <input type="button" class="button black" value="<?= $PUBLI_CAN ?>" onclick="window.location.href='eventos/edit/<?=$items['id']?>'"><br><br>
-<input type="button" class="button black" value="<?= $PUBLI_CANC ?>" onclick="window.location.href='eventos/cancelar/<?=$items['id']?>'">
+<input type="button" class="button black" value="<?= $PUBLI_CANC ?>" onclick="window.location.href='eventos/delete/<?=$items['id']?>'">
 <script>
 
 $('.interrogant').show();

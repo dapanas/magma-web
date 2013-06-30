@@ -18,9 +18,8 @@ class FrontController
 		require 'config.php'; //Archivo con configuraciones.
 
    		require 'urlHelper.php';
- 		$urlHelper = new urlHelper();
       	$PATH = dirname(__FILE__);
-		$urlMapper = $urlHelper->router(get_param('p'),get_param('m'));
+		$urlMapper = $urlHelper::router(get_param('p'),get_param('m'));
 		
 		if (!isset($_SESSION['lang'])) $_SESSION['lang'] = 'cat';
 		if (get_param('lang') != -1) $_SESSION['lang'] = get_param('lang');

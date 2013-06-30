@@ -472,3 +472,17 @@ Si en 30 minuts no l\'has rebut,<br> revisa la teva carpeta de spam.';
 
 $modal_recuperarusuario = 'S\'ha enviat el teu nom d\'usuari<br />a la teva direcció de correo electrònic. <br /><br />
 Si en 30 minuts no l\'has rebut,<br> revisa la teva carpeta de spam.';
+
+$modal_cambiarusuario = 'Se ha cambiado el nombre de usuario.';
+
+$modal_cambiarcorreo = 'Se ha cambiado el correo electrónico.';
+
+$modal_cambiarpassword = 'Se ha cambiado el password.';
+
+$cancel_even = "Cancelar evento";
+
+$cancel_even_confirm = "¿Está seguro de que desea cancelar este evento? Esta acción no puede deshacerse y el evento no podrá ser editado.";
+
+$no_edit = "Evento cancelado";
+
+$no_edit_por_cancel = "Este evento no se puede editar porque ha sido cancelado anteriormente";

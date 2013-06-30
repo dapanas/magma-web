@@ -143,7 +143,7 @@ class eventosModel extends ModelBase
     }
 
     public function edit($params) {
-    	$consulta = $this->db->prepare("UPDATE eventos SET accountsId = '".$params['accountsId']."',destacado = '".$params['destacado']."',titulo_esp = '".$params['titulo_esp']."',titulo_cat = '".$params['titulo_cat']."',categoriasId = '".$params['categoriasId']."',subcategoriasId = '".$params['subcategoriasId']."',descripcion_esp = '".$params['descripcion_esp']."',descripcion_cat = '".$params['descripcion_cat']."',imagen = '".$params['imagen']."',lugar = '".$params['lugar']."',direccion = '".$params['direccion']."',municipiosId = '".$params['municipiosId']."',fecha_inicio = '".$params['fecha_inicio']."',fecha_fin = '".$params['fecha_fin']."',dias_semana = '".$params['dias_semana']."',hora_inicio = '".$params['hora_inicio']."',hora_final = '".$params['hora_final']."',precio = '".$params['precio']."',telf = '".$params['telf']."',email = '".$params['email']."',web = '".$params['web']."',publicado = '".$params['publicado']."',fecha_registro = '".$params['fecha_registro']."',fecha_publi_ini = '".$params['fecha_publi_ini']."', fecha_publi_end = '".$params['fecha_publi_end']."' where id='".$params['id']."'");
+    	$consulta = $this->db->prepare("UPDATE eventos SET accountsId = '".$params['accountsId']."',destacado = '".$params['destacado']."',titulo_esp = '".$params['titulo_esp']."',titulo_cat = '".$params['titulo_cat']."',categoriasId = '".$params['categoriasId']."',subcategoriasId = '".$params['subcategoriasId']."',descripcion_esp = '".$params['descripcion_esp']."',descripcion_cat = '".$params['descripcion_cat']."',imagen = '".$params['imagen']."',lugar = '".$params['lugar']."',direccion = '".$params['direccion']."',municipiosId = '".$params['municipiosId']."',fecha_inicio = '".$params['fecha_inicio']."',fecha_fin = '".$params['fecha_fin']."',dias_semana = '".$params['dias_semana']."',hora_inicio = '".$params['hora_inicio']."',hora_final = '".$params['hora_final']."',precio = '".$params['precio']."',telf = '".$params['telf']."',email = '".$params['email']."',web = '".$params['web']."',publicado = '".$params['publicado']."', fecha_actualizacion = '".$params['fecha_actualizacion']."',fecha_publi_ini = '".$params['fecha_publi_ini']."', fecha_publi_end = '".$params['fecha_publi_end']."' where id='".$params['id']."'");
 		$consulta->execute();
     }
 		
@@ -157,9 +157,16 @@ class eventosModel extends ModelBase
     	$consulta->execute();
     }
 
-    public function cancelar($params) {
-    	// NEW CAMPO ESTADO
-    	$consulta = $this->db->prepare("UPDATE eventos SET estado='2' where id='".$params['id']."'");
+    public function cancel($id) {
+    	$consulta = $this->db->prepare("UPDATE eventos SET cancelado='1' where id='".$id."'");
     	$consulta->execute();
-    }	
+    }
+
+    public function isCanceled($id) {
+    	$consulta = $this->db->prepare("SELECT EXISTS(SELECT 1 FROM eventos WHERE id='$id' AND cancelado='1') AS resultado");
+		$consulta->execute();
+
+		$resultado = $consulta->fetch();
+		return $resultado['resultado'] ? true : false;
+    }
 }

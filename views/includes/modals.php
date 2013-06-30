@@ -63,3 +63,17 @@
 <a class="button boto" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></a> 
 </div>
 
+<!-- cambiar usuario -->
+<div class="modal hide fade" id="modalcambiarusuario"><div class="modal_text"style="margin-top:60px"><div class="modal_tit"></div><?= $modal_cambiarusuario ?></div> 
+<a class="button boto" onclick="window.location.href = 'accounts/index';"><?= $CERRAR ?></a> 
+</div>
+
+<!-- cambiar email -->
+<div class="modal hide fade" id="modalcambiarcorreo"><div class="modal_text"style="margin-top:60px"><div class="modal_tit"></div><?= $modal_cambiarcorreo ?></div> 
+<a class="button boto" onclick="window.location.href = 'accounts/index';"><?= $CERRAR ?></a> 
+</div>
+
+<!-- cambiar password -->
+<div class="modal hide fade" id="modalcambiarpassword"><div class="modal_text"style="margin-top:60px"><div class="modal_tit"></div><?= $modal_cambiarpassword ?></div> 
+<a class="button boto" onclick="window.location.href = 'accounts/index';"><?= $CERRAR ?></a> 
+</div>
