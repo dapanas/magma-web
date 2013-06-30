@@ -21,7 +21,7 @@
 
 <div class='control-group' style=""><label class='control-label'><?= $PROVINCIA ?>:<div class="vermell" style="display:none;">*</div></label>
 
-<div class="controls" style="margin-top: 8px;"><select name="provincia">
+<div class="controls" style="margin-top: 8px;"><select name="provincia" disabled="disabled" >
 <option value="Álava">&Aacute;lava</option>
 <option value="Albacete">Albacete</option>
 <option value="Alicante">Alicante</option>

@@ -101,21 +101,21 @@ class eventosModel extends ModelBase
     }
 
     public function getByUserAhora($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and fecha_fin > NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and fecha_fin > NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 and destacado='0' ORDER by fecha_inicio ASC");
     	$consulta->execute();
 		
 		return $consulta->fetchAll();
     }
 
     public function getByUserAnteriores($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and fecha_fin < NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and fecha_fin < NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 and destacado='0' ORDER by fecha_inicio ASC");
 		$consulta->execute();
 
         return $consulta->fetchAll();
     }
 		
     public function getDestacadosByUserAhora($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and destacados='1' and fecha_fin > NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and destacado='1' and fecha_fin > NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
 		$consulta->execute();
 
 		return $consulta->fetchAll();

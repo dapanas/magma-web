@@ -466,6 +466,13 @@ $NOIMG = 'No ha seleccionat cap imatge';
 $VERI = 'Verificació';
 $PERI ='PERIODE';
 
+
+$modal_recuperarpassword = 'S\'ha enviat un nou password<br />a la teva direcció de correo electrònic. <br /><br />
+Si en 30 minuts no l\'has rebut,<br> revisa la teva carpeta de spam.';
+
+$modal_recuperarusuario = 'S\'ha enviat el teu nom d\'usuari<br />a la teva direcció de correo electrònic. <br /><br />
+Si en 30 minuts no l\'has rebut,<br> revisa la teva carpeta de spam.';
+
 $modal_cambiarusuario = 'Se ha cambiado el nombre de usuario.';
 
 $modal_cambiarcorreo = 'Se ha cambiado el correo electrónico.';

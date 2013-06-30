@@ -85,8 +85,8 @@
       
          <li class="nav-header">PAGOS</li>
          	   <li><a href="show/table/payments"><i class="icon-book"></i>    Transacciones</a></li>	 
-         	   <li><a href="show/table/creditos"><i class="icon-book"></i> Créditos</a></li>	   
-         	   <li><a href="show/table/opciones"><i class="icon-book"></i> Opciones</a></li>	   
+<!--          	   <li><a href="show/table/creditos"><i class="icon-book"></i> Créditos</a></li>	   --> 
+<!--          	   <li><a href="show/table/opciones"><i class="icon-book"></i> Opciones</a></li>	    -->
 		   <li class="nav-header">PUBLICIDAD</li>
          	   <li><a href="show/table/publicidad"><i class="icon-book"></i>    Publicidad</a></li>	   
 	

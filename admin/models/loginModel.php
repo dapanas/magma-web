@@ -20,10 +20,10 @@ class loginModel extends ModelBase
         	
         	if ($user == $config->get('validUser') and $pass== $config->get('validPass')){
   		
-				$_SESSION['initiated'] = true;
-        		$_SESSION['username'] = 'admin';
-				$_SESSION['accountId'] = -1; 
-        		$_SESSION['login_attemp'] = 1;
+				$_SESSION['initiated_admin'] = true;
+        		$_SESSION['username_admin'] = 'admin';
+				$_SESSION['accountId_admin'] = -1; 
+        		$_SESSION['login_attemp_admin'] = 1;
         		$_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT'].$config->get('base_title'));
         	
         		header ("location: ".$config->get('base_url'));
