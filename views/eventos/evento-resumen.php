@@ -31,8 +31,12 @@ else:?>
 <h3 style="border:none;">General </h3>
 <div class="categoria-evento">
 <div class="tit"><?= $CATEGORIA_ACTO ?>: </div>
-<p><?= $items['subcategoria_'.$lang] ?> (<?= $items['categoria_'.$lang] ?>)</p>
-<br><br>
+<p>
+<? foreach ($items['subcategoriasId'] as $subcategoriaId): ?>
+	<?= $items['subcategoria_'.$lang][$subcategoriaId]['subcategoria'] ?> (<?= $items['subcategoria_'.$lang][$subcategoriaId]['categoria'] ?>) <br>
+<? endforeach; ?>
+</p>
+<br>
 <div class="tit"><?= $TITULO ?>: </div>
 <p><?= $items['titulo_'.$lang] ?></p>
 <br><br>
@@ -78,10 +82,9 @@ if ( count($dias) > 0 ) {
 <br>
 <p>
 <? if ($items['fecha_fin'] != $items['fecha_inicio']): ?>
-Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> y el <?= mysql_to_fecha($items['fecha_fin']) ?>
-
+	Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> y el <?= mysql_to_fecha($items['fecha_fin']) ?>
 <? else: ?>
-<?= $DIA ?> <?= mysql_to_fecha($items['fecha_inicio']) ?>
+	<?= $DIA ?> <?= mysql_to_fecha($items['fecha_inicio']) ?>
 <? endif; ?>
 </p>
 <br><br>
@@ -89,7 +92,8 @@ Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> y el <?= mysql_to_fecha($
 	<p>
 		<? if ($items['hora_inicio'] != ''): ?>
 			<?= $items['hora_inicio'] ?>h - <?= $items['hora_final'] ?>h
-		<? elseif ($items['hora_inicio2'] != ''): ?>
+		<? endif; ?>
+		<? if ($items['hora_inicio2'] != ''): ?>
 			/ <?= $items['hora_inicio2'] ?>h - <?= $items['hora_final2'] ?>h
 		<? endif; ?>
 	</p>
@@ -170,7 +174,7 @@ if (!isset($op) or $op != 'edit'):
 <? endif;
 else: ?>
 <input type="button" class="button black" value="<?= $PUBLI_CAN ?>" onclick="window.location.href='eventos/edit/<?=$items['id']?>'"><br><br>
-<input type="button" class="button black" value="<?= $PUBLI_CANC ?>" onclick="window.location.href='eventos/cancelar/<?=$items['id']?>'">
+<input type="button" class="button black" value="<?= $PUBLI_CANC ?>" onclick="window.location.href='eventos/delete/<?=$items['id']?>'">
 <script>
 
 $('.interrogant').show();

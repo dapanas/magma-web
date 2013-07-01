@@ -6,7 +6,7 @@
         
         $fields_labels= array("Fecha","Usuario Id","Cantidad");
         
-        $fields_types=array("number","combo","number");
+        $fields_types=array("fecha","combo","number");
         
         
         

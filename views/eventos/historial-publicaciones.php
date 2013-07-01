@@ -33,7 +33,7 @@
 <tbody>
 <? foreach($items_anteriores as $item): ?>
 <tr>
-<td><?= mysql_to_fecha($item['fecha_inicio']) ?></td><td><!-- <a href="eventos/detalle/<?=$item['id']?>"> --><?= $item['titulo_'.$lang] ?><!-- </a> --></td>
+<td><?= mysql_to_fecha($item['fecha_inicio']) ?></td><td> <a href="eventos/detalle/<?=$item['id']?>"> <?= $item['titulo_'.$lang] ?><!-- </a> --></td>
 </tr>
 <? endforeach; ?>
 </tbody>
@@ -71,7 +71,7 @@
 <tbody>
 <? foreach($destacados_anteriores as $item): ?>
 <tr>
-<td><?= mysql_to_fecha($item['fecha_inicio']) ?></td><td><!-- <a href="eventos/detalle/<?=$item['id']?>"> --><?= $item['titulo_'.$lang] ?><!-- </a> --></td>
+<td><?= mysql_to_fecha($item['fecha_inicio']) ?></td><td> <a href="eventos/detalle/<?=$item['id']?>"><?= $item['titulo_'.$lang] ?><!-- </a> --></td>
 </tr>
 <? endforeach; ?>
 </tbody>

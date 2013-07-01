@@ -18,7 +18,6 @@ class FrontController
 		require 'config.php'; //Archivo con configuraciones.
 
    		require 'urlHelper.php';
- 
       	$PATH = dirname(__FILE__);
 		$urlMapper = urlHelper::router(get_param('p'),get_param('m'));
 		
@@ -49,10 +48,7 @@ class FrontController
 		else $actionName = "index";
 
 		$private = array(
-			array("honeymoonsController" => 'index'),
-			array("honeymoonsController" => 'thanks'),
-			array("honeymoonsController" => 'guests'),
-			array("honeymoonsController" => 'gifts'),
+			
 		);
 		// si no estamos logeados no podemos acceder a los private[]
 		if (!$LOGGED_IN and in_array(array($controllerName => $actionName), $private)){

@@ -1,10 +1,8 @@
 <?php
 class loginModel extends ModelBase
 {
-	
-    public function logout(){
+    public function logout() {
         session_destroy();
-       
     }
 
 	public function setupNewSession($email,$pass){
@@ -15,6 +13,7 @@ class loginModel extends ModelBase
 		$_SESSION['login_attemp'] = 1;
 		$_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']."GYH");
 	}
+    
 	public function isValidUser($email,$pass){
 	
     	$consulta = $this->db->prepare("SELECT username from accounts where username='".$email."'  limit 1");

@@ -1,5 +1,13 @@
 <? include('views/includes/top.php'); ?>
 
+<script src="admin/views/jQuery-ui-1.8.16/minified/jquery.ui.core.min.js"></script>
+<script src="admin/views/jQuery-ui-1.8.16/minified/jquery.ui.datepicker.min.js"></script>
+<script src="admin/views/jQuery-ui-1.8.16/i18n/jquery.ui.datepicker-es.js"></script>
+<script src="views/lib/js/jquery.timepicker.min.js"></script>
+
+<link rel="stylesheet" href="views/lib/css/jquery.timepicker.css">
+<link rel="stylesheet" href="admin/views/jQuery-ui-1.8.16/themes/base/jquery.ui.all.css">
+
 <div id="evento-info" class='inside'>
 <?  if ($destacado): ?>
 <h2><?= $public_desta ?></h2>
@@ -54,104 +62,28 @@
 <div class="boto-red"><?= $CUANDO ?></div>
 <div class="categoria-evento" style="width:500px;">
 <div class="tit" style="margin-bottom:4px;"><?= $FECHA_ACTO ?>: <div class="vermell">*</div></div>
-<input type="radio" name="tipo_cuando" value="1" checked="checked"><p> Día  </p><div class="corto"><select name="fecha1_dia" style="">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-<option value="24">24</option>
-<option value="25">25</option>
-<option value="26">26</option>
-<option value="27">27</option>
-<option value="28">28</option>
-<option value="29">29</option>
-<option value="30">30</option>
-<option value="31">31</option>
-</select></div> / <div class="corto"><select name="fecha1_mes" style="">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-</select></div> / <div class="mid" style="margin-bottom: 18px;"><select name="fecha1_ano" style="">
 
-<option value="2013">2013</option>
-<option value="2014">2014</option>
-<option value="2015">2015</option>
-</select></div><br>
-<input type="radio" name="tipo_cuando" value="2"><p> Entre el  </p>
-<div class="corto"><select name="fecha2_dia" style="">
-<? for ($i = 1;$i < 32;$i++): ?>
-<option value="<?= $i?>"><?= $i?></option>
-<? endfor; ?>
-</select></div> / <div class="corto"><select name="fecha2_mes" style="">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-</select></div> / <div class="mid" style="margin-bottom:9px;"><select name="fecha2_ano" style="">
-<option value="2013">2013</option>
-<option value="2014">2014</option>
-<option value="2015">2015</option>
-</select></div><br>
-<p style="margin-left:41px;"> <?= $I_EL ?>  </p><div class="corto"><select name="fecha3_dia" style="">
-<? for ($i = 1;$i < 32;$i++): ?>
-<option value="<?= $i?>"><?= $i?></option>
-<? endfor; ?>
-</select></div> / <div class="corto"><select name="fecha3_mes" style="">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-</select></div> / <div class="mid"><select name="fecha3_ano" style="">
+<input type="radio" id="tipo_cuando_day" name="tipo_cuando" value="1" checked="checked">
+<p>Día</p>
+<div>
+	<label for="fecha1">El día</label>
+	<input id="fecha1" type="text" value="" name="fecha1" required="required" />
+</div>
 
-<option value="2013">2013</option>
-<option value="2014">2014</option>
-<option value="2015">2015</option>
-</select></div>
-<br><br>
+<br>
+
+<input type="radio" id="tipo_cuando_range" name="tipo_cuando" value="2">
+<p>Rango de fechas</p>
+<div>
+	<label for="fecha2">Desde</label>
+	<input id="fecha2" type="text" value="" name="fecha2" disabled="disabled" />
+	<br />
+	<label for="fecha3">Hasta</label>
+	<input id="fecha3" type="text" value="" name="fecha3" disabled="disabled" />
+</div>
+
+<br>
+
 <div class="tit" style="margin-bottom:13px;"><?= $hor_event ?>: <div class="vermell">*</div></div>
 
 <input type="checkbox" value="1" name="dias_semana[]"> L 
@@ -163,71 +95,44 @@
 <input type="checkbox" value="7" name="dias_semana[]"> D 
 <br><br>
 
-<input type="radio" name="tipo_horario" value="1"><p> De  </p><div class="corto"><select name="horario1_hora" style="">
-<? for ($i = 0;$i < 25;$i++): ?>
-<option value="<?= $i?>"><?= $i?></option>
-<? endfor; ?>
-</select></div> : <div class="corto"><select name="horario1_minuto" style="">
-<option value="00">00</option>
-<option value="15">15</option>
-<option value="30">30</option>
-<option value="45">45</option>
-</select></div><p> h a  </p><div class="corto"><select name="horario2_hora" style="">
-<? for ($i = 0;$i < 25;$i++): ?>
-<option value="<?= $i?>"><?= $i?></option>
-<? endfor; ?>
-</select></div> : <div class="corto"><select name="horario2_minuto" style="">
-<option value="00">00</option>
-<option value="15">15</option>
-<option value="30">30</option>
-<option value="45">45</option>
-</select></div><p> h</p><br><br>
-<input type="radio" name="tipo_horario" value="2"><p> De  </p><div class="corto"><select name="horario3_hora" style="">
-<? for ($i = 0;$i < 25;$i++): ?>
-<option value="<?= $i?>"><?= $i?></option>
-<? endfor; ?>
-</select></div> : <div class="corto"><select name="horario3_minuto" style="">
-<option value="00">00</option>
-<option value="15">15</option>
-<option value="30">30</option>
-<option value="45">45</option>
-</select></div><p> h a  </p><div class="corto"><select name="horario4_hora" style="">
-<? for ($i = 0;$i < 25;$i++): ?>
-<option value="<?= $i?>"><?= $i?></option>
-<? endfor; ?>
-</select></div> : <div class="corto"><select name="horario4_minuto" style="">
-<option value="00">00</option>
-<option value="15">15</option>
-<option value="30">30</option>
-<option value="45">45</option>
-</select></div><p> h</p><br><br>
-<p>&nbsp;&nbsp; <?= $i_de ?>     </p><div class="corto"><select name="horario5_hora" style="">
-<? for ($i = 0;$i < 25;$i++): ?>
-<option value="<?= $i?>"><?= $i?></option>
-<? endfor; ?>
-</select></div> : <div class="corto"><select name="horario5_minuto" style="">
-<option value="00">00</option>
-<option value="15">15</option>
-<option value="30">30</option>
-<option value="45">45</option>
-</select></div><p> h a  </p><div class="corto"><select name="horario6_hora" style="">
-<? for ($i = 0;$i < 25;$i++): ?>
-<option value="<?= $i?>"><?= $i?></option>
-<? endfor; ?>
-</select></div> : <div class="corto"><select name="horario6_minuto" style="">
-<option value="00">00</option>
-<option value="15">15</option>
-<option value="30">30</option>
-<option value="45">45</option>
-</select></div><p> h</p><br>
+<input type="radio" id="tipo_horario_fixed" name="tipo_horario" value="1">
+<p>Fijo</p>
+<div>
+	<label>De</label>
+	<input type="text" id="horario1" name="horario1" style="width:75px;" disabled="disabled">
+	<label>a</label>
+	<input type="text" id="horario2" name="horario2" style="width:75px;" disabled="disabled">
 </div>
+
+<br>
+
+<input type="radio" id="tipo_horario_range" name="tipo_horario" value="2">
+<p>Intervalo</p>
+<div>
+	<label>De</label>
+	<input type="text" id="horario3" name="horario3" style="width:75px;" disabled="disabled">
+	<label>a</label>
+	<input type="text" id="horario4" name="horario4" style="width:75px;" disabled="disabled">
+	<br>
+	y
+	<br>
+	<label>De</label>
+	<input type="text" id="horario5" name="horario5" style="width:75px;" disabled="disabled">
+	<label>a</label>
+	<input type="text" id="horario6" name="horario6" style="width:75px;" disabled="disabled">
+</div>
+
+<br>
+
 <div class="boto-red"><?= $PRECIO ?></div>
 <div class="categoria-evento">
 <div class="tit" style="margin-bottom:18px"><?= $PRECIO_ACTO ?>: <div class="vermell">*</div></div>
 <input type="radio" name="tipo_pago" value="1" checked="checked"><p> <?= $GRATIS ?></p><br><br>
 <input type="radio" name="tipo_pago" value="2"><p> <?= $DE_PAGO ?>:</p><br>
 <input id="mini" type="text" name="taquilla_unidad"  placeholder="00"> , <input id="mini" type="text" name="taquilla_decimal"  placeholder="00"><p> €</p><br>
+<!--
 <input type="checkbox" name="anticipada" value="anticipada">   <input style="margin-top: 10px;" id="mini" type="text" name="anticipada_unidad" placeholder="00"> , <input id="mini" type="text" name="anticipada_decimal"  placeholder="00"><p> € <?= $PRECIO_VENTA ?></p><br>
+-->
 
 <!--
 <b>Venta de entradas on-line:</b>
@@ -268,4 +173,108 @@ Introduce la dirección de la página web a través de la cual se gestionará la
 			'maxCharsWarning': 345
 		});		
 </script>
+
+<script>
+$(function() {
+
+	$("input[name='subcategoriasId[]']").on('change', function() {
+		if ($("input[name='subcategoriasId[]']:checked").length == 3) {
+			$("input[name='subcategoriasId[]']").each(function() {
+				if (!$(this).is(':checked')) {
+					$(this).attr("disabled", true);
+				}
+			});
+		} else if ($("input[name='subcategoriasId[]']:checked").length < 3) {
+			$("input[name='subcategoriasId[]']").each(function() {
+				$(this).attr("disabled", false);
+			});
+		}
+	});
+
+	$( "#horario1, #horario2, #horario3, #horario4, #horario5, #horario6" ).timepicker({
+		step: 15,
+		timeFormat: 'H:i'
+	});
+
+	$( "#tipo_horario_fixed" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "#horario1" ).attr("required", true).attr("disabled", false);
+			$( "#horario2" ).attr("required", true).attr("disabled", false);
+			$( "#horario3" ).attr("required", false).attr("disabled", true);
+			$( "#horario4" ).attr("required", false).attr("disabled", true);
+			$( "#horario5" ).attr("required", false).attr("disabled", true);
+			$( "#horario6" ).attr("required", false).attr("disabled", true);
+		}
+	});
+
+	$( "#tipo_horario_range" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "#horario1" ).attr("required", false).attr("disabled", true);
+			$( "#horario2" ).attr("required", false).attr("disabled", true);
+			$( "#horario3" ).attr("required", false).attr("disabled", false);
+			$( "#horario4" ).attr("required", false).attr("disabled", false);
+			$( "#horario5" ).attr("required", false).attr("disabled", false);
+			$( "#horario6" ).attr("required", false).attr("disabled", false);
+		}
+	});
+
+	$( "#tipo_cuando_day" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "#fecha1" ).attr("required", true).attr("disabled", false);
+			$( "#fecha2" ).attr("required", false).attr("disabled", true);
+			$( "#fecha3" ).attr("required", false).attr("disabled", true);
+		}
+	});
+
+	$( "#tipo_cuando_range" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "#fecha1" ).attr("required", false).attr("disabled", true);
+			$( "#fecha2" ).attr("required", true).attr("disabled", false);
+			$( "#fecha3" ).attr("required", true).attr("disabled", false);
+		}
+	});
+
+	$( "#fecha1" ).datepicker({
+	  defaultDate: "+4D",
+	  changeMonth: true,
+	  numberOfMonths: 1,
+	  dateFormat: "yy-mm-dd"
+	});
+
+	$( "#fecha2" ).datepicker({
+	  defaultDate: "+4D",
+	  changeMonth: true,
+	  numberOfMonths: 2,
+	  dateFormat: "yy-mm-dd",
+	  onClose: function( selectedDate ) {
+	  	if (selectedDate === '') {
+			$( "#fecha3" ).datepicker( "option", {"minDate": selectedDate, "maxDate": selectedDate} );
+	  	} else {
+			var maxDate32DaysAfter = $(this).datepicker('getDate');
+	  		maxDate32DaysAfter.setDate(maxDate32DaysAfter.getDate() + 32);
+
+	  		$( "#fecha3" ).datepicker( "option", {"minDate": selectedDate, "maxDate": maxDate32DaysAfter} );
+	  	}
+	  }
+	});
+
+	$( "#fecha3" ).datepicker({
+	  defaultDate: "+1w",
+	  changeMonth: true,
+	  numberOfMonths: 2,
+	  dateFormat: "yy-mm-dd",
+	  onClose: function( selectedDate ) {
+		if (selectedDate === '') {
+			$( "#fecha2" ).datepicker( "option", {"maxDate": selectedDate, "minDate": selectedDate} );
+	  	} else {
+			var maxDate32DaysBefore = $(this).datepicker('getDate');
+	  		maxDate32DaysBefore.setDate(maxDate32DaysBefore.getDate() - 32);
+
+	  		$( "#fecha2" ).datepicker( "option", {"maxDate": selectedDate, "minDate": maxDate32DaysBefore} );
+	  	}
+	  }
+	});
+});
+</script>
+
 <? include('views/includes/footer.php'); ?>

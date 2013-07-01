@@ -42,7 +42,7 @@ $signature = strtoupper(sha_1($message));
 <input type=hidden name=RSisSelFormaPago value='Pago con tarjeta de crédito o débito'>
 
 <input type=hidden name=Ds_Merchant_Order  value='$order'>
-<input type=hidden name=Ds_Merchant_PayMethods valur='T'>
+<input type=hidden name=Ds_Merchant_PayMethods value='T'>
 <input type=hidden name=Ds_Merchant_MerchantCode value='$code'>
 
 <input type=hidden name=Ds_Merchant_Terminal value='$terminal'>
