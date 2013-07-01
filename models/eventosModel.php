@@ -9,19 +9,19 @@ class eventosModel extends ModelBase
 {
 
     public function getAll(){
-        $consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios where  categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and  municipios.id = eventos.municipiosId order by fecha_inicio  DESC ");
+        $consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios where  categorias.id = eventos.categoriasId and eventos.publicado > 0 and subcategorias.id = eventos.subcategoriasId and  municipios.id = eventos.municipiosId order by fecha_inicio  DESC ");
 	$consulta->execute();
         return $consulta->fetchAll();
     }
     public function getAllDestacados(){
-        $consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios where  categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId  and destacado='1' and municipios.id = eventos.municipiosId order by fecha_inicio  DESC limit 10");
+        $consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios where  categorias.id = eventos.categoriasId and eventos.publicado > 0 and subcategorias.id = eventos.subcategoriasId  and destacado='1' and municipios.id = eventos.municipiosId order by fecha_inicio  DESC limit 10");
 	$consulta->execute();
 	return $consulta->fetchAll();
     }
     public function search($params){
 	$key = $params['a']; 
 	if ($key != -1) $consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id INNER JOIN subcategorias ON eventos.subcategoriasId = subcategorias.id INNER JOIN municipios ON eventos.municipiosId= municipios.id where descripcion_cat LIKE '%".$key."%' or descripcion_esp LIKE '%".$key."%' or titulo_cat LIKE '%".$key."%' or titulo_esp LIKE '%".$key."%'  order by fecha_inicio  ASC ");
-	else $consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios where  categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and  municipios.id = eventos.municipiosId order by fecha_inicio  ASC ");
+	else $consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios where  categorias.id = eventos.categoriasId and eventos.publicado > 0 and subcategorias.id = eventos.subcategoriasId and  municipios.id = eventos.municipiosId order by fecha_inicio  ASC ");
         $consulta->execute();
 	$aux = $consulta->fetchAll();
         if (count($aux) > 0) return $aux;
@@ -29,7 +29,7 @@ class eventosModel extends ModelBase
         //else return $this->getAll();
     }
     public function getById($id){
-	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios WHERE eventos.id='".$id."' and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId");
+	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios WHERE eventos.id='".$id."' and eventos.publicado > 0 and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId");
 	$consulta->execute();
 	return $consulta->fetch();
     }
@@ -39,36 +39,36 @@ class eventosModel extends ModelBase
 	return $consulta->fetchAll();
     }
     public function getAllEventosByCategory($category){
-	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.categoriasId='$category' and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId ORDER by fecha_inicio ASC");
+	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.categoriasId='$category' and eventos.publicado > 0 and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId ORDER by fecha_inicio ASC");
 	$consulta->execute();
 	return $consulta->fetchAll();
     }
     public function getByUserAhora($accountsId){
-	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and 
+	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and eventos.publicado > 0 and 
 	fecha_fin > NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
 	$consulta->execute();
 	return $consulta->fetchAll();
     }
     public function getByUserAnteriores($accountsId){
-	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and fecha_fin < NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and eventos.publicado > 0 and fecha_fin < NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
 	$consulta->execute();
         return $consulta->fetchAll();
     }
 		
     public function getDestacadosByUserAhora($accountsId){
-	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and destacados='1' and fecha_fin > NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and eventos.publicado > 0 and destacados='1' and fecha_fin > NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
 	$consulta->execute();
 	return $consulta->fetchAll();
     }
 		
     public function getDestacadosByUserAnteriores($accountsId){
-	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and destacado='1' and fecha_fin < NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and eventos.publicado > 0 and destacado='1' and fecha_fin < NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
 	$consulta->execute();
 	return $consulta->fetchAll();
     }
 		
     public function getBySubcategory($subcategory){
-	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_esp,subcategorias.subcategoria_cat FROM eventos,subcategorias,categorias,municipios WHERE subcategoriasId='$subcategory' and subcategorias.id = eventos.subcategoriasId and categorias.id = eventos.categoriasId and municipios.id = eventos.municipiosId");
+	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_esp,subcategorias.subcategoria_cat FROM eventos,subcategorias,categorias,municipios WHERE subcategoriasId='$subcategory' and eventos.publicado > 0 and subcategorias.id = eventos.subcategoriasId and categorias.id = eventos.categoriasId and municipios.id = eventos.municipiosId");
 	$consulta->execute();
 	return $consulta->fetchAll();
     }
