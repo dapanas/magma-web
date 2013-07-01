@@ -13,13 +13,17 @@ final class multiselect extends field{
 	}
 		
 	function exec_add () {
-		return implod($this->value);
+		if (is_array($this->value))
+		return implode(",",$this->value);
+		return '';
 
 	}
 	function exec_edit () {
-		return 	implod($this->value);
+
+		if (is_array($this->value))
+		return 	implode(",",$this->value);
+				return '';
 	}
-	
 	
 	function bake_multicombo($tablax2,$select_name,$ids_selected){
 	$arg = $this->db->prepare("SELECT id,  subcategoria_esp from $tablax2 order by  subcategoria_esp ASC");	
