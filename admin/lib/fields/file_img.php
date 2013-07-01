@@ -32,8 +32,8 @@ final class file_img extends field{
 					copy($_FILES[$this->fieldname]['tmp_name'],$this->config->get('data_dir').'img/'.$filename_new);
 					
 
-					resize_image($this->get_extension($filename_new),$this->config->get('data_dir').'img/'.$filename_new,$this->config->get('data_dir').'img/'.$filename_new,$this->config->get('big_w'),$this->config->get('big_h')) ;
-					cropImage($this->config->get('thumb_w'), $this->config->get('thumb_h'), $this->config->get('data_dir').'img/'.$filename_new, $this->get_extension($filename_new), $this->config->get('data_dir').'img/'."thumbs/".$filename_new) ;
+					$this->resize_image($this->get_extension($filename_new),$this->config->get('data_dir').'img/'.$filename_new,$this->config->get('data_dir').'img/'.$filename_new,$this->config->get('big_w'),$this->config->get('big_h')) ;
+					$this->cropImage($this->config->get('thumb_w'), $this->config->get('thumb_h'), $this->config->get('data_dir').'img/'.$filename_new, $this->get_extension($filename_new), $this->config->get('data_dir').'img/'."thumbs/".$filename_new) ;
 					/* resize_image($this->get_extension($filename_new),$this->config->get('data_dir').'img/'.$filename_new,$this->config->get('data_dir').'img/'."thumbs/".$filename_new,$this->config->get('thumb_w,$this->config->get('thumb_h) ; */
 			return $filename_new;									
 		}

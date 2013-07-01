@@ -27,7 +27,7 @@ final class multiselect extends field{
 	
 	function bake_multicombo($tablax2,$select_name,$ids_selected){
 	$arg = $this->db->prepare("SELECT id,  subcategoria_esp from $tablax2 order by  subcategoria_esp ASC");	
-	$output = "<select name=\"".$select_name."[]\" id=\"".$select_name."\" MULTIPLE='multiple' size='6' width='100' ".">";
+	$output = "<select name=\"subcategoriasId[]\" id=\"".$select_name."\" MULTIPLE='multiple' size='6' width='100' ".">";
 
 	//$this->toError("SELECT id, ".$select_name." from $tablax2 order by ".$select_name." ASC");
 	$ids_selected = explode(",",$ids_selected);
