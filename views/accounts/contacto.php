@@ -4,17 +4,17 @@
 <form class='form' action='accounts/doEdit' method='POST' enctype='multipart/form-data'>
 
 
-<div class='control-group'><label class='control-label'><?= $NOMBRE ?>: <div class="vermell" style="display:none;">*</div></label>
+<div class='control-group'><label class='control-label'><?= $NOMBRE ?>:<div class="vermell" style="display:none;">*</div></label>
 
 <div class='controls'><input disabled="disabled"  type='text' name='nombre' value='<?= $items['nombre'] ?>'></div></div>
 
 
-<div class='control-group'><label class='control-label'><?= $APELLIDO ?>: <div class="vermell" style="display:none;">*</div></label>
+<div class='control-group'><label class='control-label'><?= $APELLIDO ?>:<div class="vermell" style="display:none;">*</div></label>
 
 <div class='controls'><input disabled="disabled"  type='text' name='apellidos' value='<?= $items['apellidos'] ?>'></div></div>
 
 
-<div class='control-group'><label class='control-label'><?= $NACIMIENTO ?>: <div class="vermell" style="display:none;">*</div></label>
+<div class='control-group'><label class='control-label'><?= $NACIMIENTO ?>:<div class="vermell" style="display:none;">*</div></label>
 
 <!--
 <div class='controls'><input disabled="disabled"  type='text' name='fecha_nacimiento' value='<?= $items['fecha_nacimiento'] ?>'></div></div>
@@ -28,22 +28,22 @@ $mes = intval($aux[1]);
 $ano = $aux[0];
 
 ?>
-<div class='controls' style="margin: 6px 0px 16px 0px;"><div class="corto"><select name="dia" style="">
+<div class='controls' style="margin: 6px 0px 16px 0px;"><select disabled="disabled" name="dia" style="">
 <? for ($i = 1;$i < 32;$i++): ?>
 <option value="<?= $i?>" <? if ($i == $dia) echo 'selected'; ?>><?= $i?></option>
 <? endfor; ?>
 
-</select></div> / <div class="corto"><select name="mes" style="">
+</select> / <select disabled="disabled"  name="mes" style="">
 <? for ($i = 1;$i < 13;$i++): ?>
 <option value="<?= $i?>" <? if ($i == $mes) echo 'selected'; ?>><?= $i?></option>
 <? endfor; ?>
 
-</select></div> / <div class="mid"><select name="ano" style="">
+</select> / <select  disabled="disabled"  name="ano" style="">
 <? for ($i = 1970;$i < Date("Y");$i++): ?>
 <option value="<?= $i?>" <? if ($i == $ano) echo 'selected'; ?>><?= $i?></option>
 <? endfor; ?>
 
-</select></div></div></div>
+</select></div></div>
 
 <div class='control-group'><label class='control-label'><?= $EMPRESA ?>:<div class="vermell" style="display:none;">*</div></label>
 
@@ -62,11 +62,11 @@ $ano = $aux[0];
 
 <div class='control-group'><label class='control-label'><?= $MUNICIPIO ?>:<div class="vermell" style="display:none;">*</div></label>
 
-<div class='controls' style="margin-top:5px;"><?= $selectMunicipios ?></div></div>
+<div class='controls' ><input disabled="disabled"  type='text' name='municipiosId' value='<?= $items['municipiosId'] ?>'></div></div>
 
 <div class='control-group' style="margin-top:15px;"><label class='control-label'><?= $PROVINCIA ?>:<div class="vermell" style="display:none;">*</div></label>
  
-<div class='controls'><select name="provincia" style="margin-top: 5px;">
+<div class='controls'><select disabled="disabled"  name="provincia" style="margin-top: 5px;">
 <option value="Álava">&Aacute;lava</option>
 <option value="Albacete">Albacete</option>
 <option value="Alicante">Alicante</option>

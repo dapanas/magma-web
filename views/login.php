@@ -7,9 +7,9 @@
 <div class="col " style="width: 311px; border-right: 1px dotted black;">
 <form name="login" action="login/doLogin" method="POST">
 <label><?= $NOMBRE_USUARIO ?></label>
-<input type="text" required="required" name="username">
+<input type="text" required="required" style="width: 270px;" name="username">
 <label><?= $CONTRASENYA ?></label>
-<input type="password" required="required" name="password"><br><br>
+<input type="password" required="required" style="width: 270px;" name="password"><br><br>
 <input type="checkbox" name="remember" checked="checked" > <?= $MANTENER_SESION ?>
 <input type="button" onclick="validate(this.form);" class="button black" value="<?= $INICIAR_SESION ?>">
 </form>

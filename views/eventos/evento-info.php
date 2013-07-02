@@ -28,7 +28,7 @@
 <div class="categoria">
 <?= $radioSubcategorias ?>
 </div>
-<div class="mini">Puedes seleccionar un máximo de 3 categorías.</div>
+<div class="mini"><?= $MAXIMO_3_CATS ?></div>
 <br>
 <div class="tit"><?= $TITULO ?>: <div class="vermell">*</div></div>
 

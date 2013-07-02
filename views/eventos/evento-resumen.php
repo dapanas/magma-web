@@ -46,8 +46,8 @@ else:?>
 <br><br>
 <div class="tit"><?= $IMAGEN ?>:</div>
 
-<? if($items['imagen'] != ''){ ?><img class="img_evento" src="data/img/eventos/<?= $items['imagen'] ?>">
-<? } else ?><p><?= $NOIMG ?></p>
+<? if($items['imagen'] != ''){ ?><img class="img_evento" src="data/img/<?= $items['imagen'] ?>">
+<? } else {?><p><?= $NOIMG ?></p><? } ?>
 
 </div>
 <div class="boto-red"><?= $DONDE ?> <div class="interrogant pull-right"><a href="#modificardonde" data-toggle="modal">?</a>
@@ -82,7 +82,7 @@ if ( count($dias) > 0 ) {
 <br>
 <p>
 <? if ($items['fecha_fin'] != $items['fecha_inicio']): ?>
-	Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> y el <?= mysql_to_fecha($items['fecha_fin']) ?>
+	Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> <?= $I_EL ?> <?= mysql_to_fecha($items['fecha_fin']) ?>
 <? else: ?>
 	<?= $DIA ?> <?= mysql_to_fecha($items['fecha_inicio']) ?>
 <? endif; ?>
