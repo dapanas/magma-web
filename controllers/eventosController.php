@@ -465,7 +465,7 @@ class eventosController extends ControllerBase
 	public function doDelete() {
 		$params = gett();
 		require "models/eventosModel.php";
-
+		$items = new eventosModel();
 		// TODO: Validar que el evento sea del usuario
 
 		if ($items->isCanceled($params['a'])) {
