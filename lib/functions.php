@@ -296,7 +296,7 @@ return $soloname."_".$new_code.".".$ext;
 
   
 function upload_image($var, $W, $H, $folder) {
-	$path = 'data/img/';
+	$path = 'data/img/'.$folder.'/';
 	
 	if ($_FILES[$var]['name'] != "") {
 		$filename_new = $_SESSION['accountId']."_".generar_nombre_archivo($_FILES[$var]['name']);
