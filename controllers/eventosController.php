@@ -277,9 +277,8 @@ class eventosController extends ControllerBase
 
 		require "models/eventosModel.php"; 	
 		$items = new eventosModel();
-		$items->edit($params);
 
-		if ($items->isCanceled($params['id'])) {
+		if ($items->isCanceled($params['eventosId'])) {
 			$this->view->show("eventos/evento-cancelado.php");
 			return;
 		}
@@ -382,6 +381,8 @@ class eventosController extends ControllerBase
 		$params['telf'] = isset($params['telf']) && $params['telf'] != -1 ? $params['telf'] : "";
 		$params['email'] = isset($params['email']) && $params['email'] != -1 ? $params['email'] : "";
 		$params['web'] = isset($params['web']) && $params['web'] != -1 ? $params['web'] : "";
+
+		$items->edit($params);
 
 		header("location: ../eventos/detalle/".$params['id']);
 	}
