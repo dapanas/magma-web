@@ -46,8 +46,8 @@ else:?>
 <br><br>
 <div class="tit"><?= $IMAGEN ?>:</div>
 
-<? if($items['imagen'] != ''){ ?><img class="img_evento" src="data/img/eventos/<?= $items['imagen'] ?>">
-<? } else ?><p><?= $NOIMG ?></p>
+<? if($items['imagen'] != ''){ ?><img class="img_evento" src="data/img/<?= $items['imagen'] ?>">
+<? } else {?><p><?= $NOIMG ?></p><? } ?>
 
 </div>
 <div class="boto-red"><?= $DONDE ?> <div class="interrogant pull-right"><a href="#modificardonde" data-toggle="modal">?</a>

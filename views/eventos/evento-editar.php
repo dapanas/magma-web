@@ -27,7 +27,7 @@
 			<textarea maxlength="350" name='descripcion_<?= $lang ?>'><?= $items['descripcion_'.$lang]; ?></textarea>
 			<div class="mini"><?= $PUEDES_ESCRIBIR_350 ?> </div>
 			<div class="tit"><?= $IMAGEN ?>:</div>
-			<img class="img_evento" src="data/img/eventos/<?= $items['imagen'] ?>">
+			<img class="img_evento" src="data/img/<?= $items['imagen'] ?>">
 			<br><br>
 			<input type="file" name="imagen_new" value="Seleccionar archivo" onclick="">
 			<br><br>
