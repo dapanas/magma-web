@@ -79,7 +79,7 @@
 		<div class="modal_tit"></div>
 		<?= $modal_now ?>
 	</div>
-	<a class="button boto" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></a> 
+	<button class="btn" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></button> 
 </div>
 
 <!-- modificar cuenta activada -->
