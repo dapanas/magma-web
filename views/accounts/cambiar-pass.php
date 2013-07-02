@@ -23,17 +23,17 @@
 			<h3 id="none"><?= $CANVIAR_CONTRASENYA ?></h3>
 			<div class='control-group'><label class='control-label'><?= $CONTRASENYA_ACTUAL ?>:<div class="vermell">*</div></label>
 				<div class='controls'>
-					<input id="min" type='text' name='password_old' value=''>
+					<input id="min" type='password' name='password_old' value=''>
 				</div>
 			</div>
 			<div class='control-group'><label class='control-label'><?= $NUEVA ?>:<div class="vermell">*</div></label>
 				<div class='controls'>
-					<input id="min" type='text' name='password' value=''>
+					<input id="min" type='password' name='password' value=''>
 				</div>
 			</div>
 			<div class='control-group'><label class='control-label'><?= $REPITE ?>:<div class="vermell">*</div></label>
 				<div class='controls'>
-					<input id="min" type='text' name='confpassword' value=''>
+					<input id="min" type='password' name='confpassword' value=''>
 				</div>
 			</div>
 			<input type="hidden" name="accountsId" value="<?= $_SESSION["accountId"]; ?>">

@@ -605,7 +605,7 @@ box-shadow: 0 0 10px 0 #888;
 	}
 	
 	
-	#content h2{margin-bottom:10px;}
+	#content h2{margin-bottom: 15px;}
 	
 	.jqEasyCounterMsg{display: none;}
 	th{text-align: left;}
@@ -629,4 +629,11 @@ margin-top: 8px;
 }
 .book{
 	font-family: 'FreeSet-Book'!important;
+}
+
+#table1,#table2,#table3,#table4{
+
+cursor:hand;
+cursor:pointer;
+
 }

@@ -20,7 +20,7 @@ $INFO_EVENTO = 'Informació de l\'acte';
 $DIAS_SEMANA = array("","Dl","Dm","Dc","Dj","Dv","Ds","Dg");
 $HELLO = '';
 $DATOS_PERDIDOS = 'Dades de compte perdudes';
-$USUARIO_OLVIDADO = "Si has oblidat el teu <b>nom d'usuari</b>,<br> escriu la teva adreça electrònica <br>i t'enviarem un <i>e-mail</i>.";
+$USUARIO_OLVIDADO = "Si has oblidat el teu <b>nom d'usuari</b>,<br> escriu la teva adreça electrónica <br>i t'enviarem un <i>e-mail</i>.";
 $DIRECCION_MAIL = 'Adreça electrònica:';
 $ENVIAR = 'Enviar';
 $CONTRASENYA_OLVIDADA = "Si has oblidat la teva <b>contrasenya</b>,<br> escriu el teu nom d'usuari<br> i t'enviarem un <i>e-mail</i>.";
@@ -481,7 +481,7 @@ $modal_cambiarpassword = 'S\'ha canviat el password.';
 
 $cancel_even = "Cancel·lar acte";
 
-$cancel_even_confirm = "¿Està segur de que desitja cancel·lar aquest acre? Aquesta acció no es pot desfer i l'acte no podrá ser modificat.";
+$cancel_even_confirm = "¿Està segur de que desitja cancel·lar aquest acte? Aquesta acció no es pot desfer i l'acte no podrá ser modificat.";
 
 $no_edit = "Acte cancel·lat";
 
@@ -489,3 +489,8 @@ $no_edit_por_cancel = "Aquest acte no es por modificar perqué ha sigue cancel·
 
 $MAXIMO_3_CATS = 'Pots seleccionar un màxim de 3 categories.';
 $I_EL = "i el";
+
+$TPV_PAGO_OK ='Pagament completat correctament';
+
+
+$OK_CANCEL_EVENT ='Sí, cancel·lar acte';

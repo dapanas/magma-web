@@ -2,7 +2,7 @@
 
 <div id="evento-info" class='inside'>
 	<h2><?= $no_edit ?></h2>
-	<p> <?= $no_edit_por_cancel ?></p>
+	<p class="col"> <?= $no_edit_por_cancel ?></p>
 	<br>
 </div>
 

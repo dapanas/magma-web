@@ -513,3 +513,5 @@ $no_edit_por_cancel = "Este evento no se puede editar porque ha sido cancelado a
 $MAXIMO_3_CATS = 'Puedes seleccionar un máximo de 3 categorías';
 
 $I_EL = "y el";
+$TPV_PAGO_OK ='Pago completado correctamente';
+$OK_CANCEL_EVENT ='Sí, cancelar evento';
