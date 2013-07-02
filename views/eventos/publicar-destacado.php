@@ -32,7 +32,7 @@
 </div>
 
 
-<input type="button" onclick="validate(this.form);" class="button black" value="Siguiente">
+<input type="button" onclick="validate(this.form);" class="button black" value="<?= $SIGUIENTE ?>">
 </form>
 
 <script>

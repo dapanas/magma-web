@@ -82,7 +82,7 @@ if ( count($dias) > 0 ) {
 <br>
 <p>
 <? if ($items['fecha_fin'] != $items['fecha_inicio']): ?>
-	Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> y el <?= mysql_to_fecha($items['fecha_fin']) ?>
+	Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> <?= $I_EL ?> <?= mysql_to_fecha($items['fecha_fin']) ?>
 <? else: ?>
 	<?= $DIA ?> <?= mysql_to_fecha($items['fecha_inicio']) ?>
 <? endif; ?>
