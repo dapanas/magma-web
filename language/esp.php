@@ -158,7 +158,7 @@ $LA_UTILIZACION = "<i>La utilización de obras y prestaciones sin autorización 
 $DONDE = 'Dónde';
 $LUGAR_ACTO = "Lugar del evento";
 $DIRECCION_LUGAR_ACTO = "Dirección del lugar del evento";
-$MUNICIPIO_LUGR_ACTO = "Municipio en el que se desarrollara";
+$MUNICIPIO_LUGR_ACTO = "Municipio del lugar del evento";
 $CUANDO = 'Cuándo';
 $FECHA_ACTO = "Fecha/s del evento";
 $DIA = 'Día';
@@ -509,3 +509,5 @@ $cancel_even_confirm = "¿Está seguro de que desea cancelar este evento? Esta a
 $no_edit = "Evento cancelado";
 
 $no_edit_por_cancel = "Este evento no se puede editar porque ha sido cancelado anteriormente";
+
+$MAXIMO_3_CATS = 'Puedes seleccionar un máximo de 3 categorías';

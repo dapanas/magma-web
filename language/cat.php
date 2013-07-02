@@ -147,7 +147,7 @@ $INFORMACION = 'Informació';
 $RESUMEN = 'Resum';
 $CONFIRMACION = 'Confirmació';
 $GENERAL = 'General';
-$CATEGORIA_ACTO = "Categoria/s de l'acte";
+$CATEGORIA_ACTO = "Categoria/es de l'acte";
 $TITULO = "Títol de l'acte";
 $PUEDES_ESCRIBIR_50 = 'Pots escriure fins a 50 caràcters (amb espais).';
 $DESCRIPCION = "Descripció de l'acte";
@@ -202,7 +202,7 @@ $lugar_donde = 'lloc on es desenvoluparà';
 $categor = 'categoria';
 $telf_contact ='Telefon de contacte';
 $i_de = 'i de';
-$hor_event = 'Horari/s de l´event';
+$hor_event = 'Horari/s de l\'acte';
 $util = 'La utilització d´obres i prestacions sense autorització dels titulars pot suposar la infracció dels drets de propietat intel·lectual. Davant una infracció, el titular
 pot exercitar les accions penals i/o civils previstes en la llei. Per favor, abans
 de publicar qualsevol imatge, assegura´t de comptar amb els drets necessaris o, en
@@ -473,16 +473,18 @@ Si en 30 minuts no l\'has rebut,<br> revisa la teva carpeta de spam.';
 $modal_recuperarusuario = 'S\'ha enviat el teu nom d\'usuari<br />a la teva direcció de correo electrònic. <br /><br />
 Si en 30 minuts no l\'has rebut,<br> revisa la teva carpeta de spam.';
 
-$modal_cambiarusuario = 'Se ha cambiado el nombre de usuario.';
+$modal_cambiarusuario = 'S\'ha canviat el nom d\'usuari.';
 
-$modal_cambiarcorreo = 'Se ha cambiado el correo electrónico.';
+$modal_cambiarcorreo = 'S\'ha canviat el correo electrònic.';
 
-$modal_cambiarpassword = 'Se ha cambiado el password.';
+$modal_cambiarpassword = 'S\'ha canviat el password.';
 
-$cancel_even = "Cancelar evento";
+$cancel_even = "Cancel·lar acte";
 
-$cancel_even_confirm = "¿Está seguro de que desea cancelar este evento? Esta acción no puede deshacerse y el evento no podrá ser editado.";
+$cancel_even_confirm = "¿Està segur de que desitja cancel·lar aquest acre? Aquesta acció no es pot desfer i l'acte no podrá ser modificat.";
 
-$no_edit = "Evento cancelado";
+$no_edit = "Acte cancel·lat";
 
-$no_edit_por_cancel = "Este evento no se puede editar porque ha sido cancelado anteriormente";
+$no_edit_por_cancel = "Aquest acte no es por modificar perqué ha sigue cancel·lat anteriormente.";
+
+$MAXIMO_3_CATS = 'Pots seleccionar un màxim de 3 categories.';
