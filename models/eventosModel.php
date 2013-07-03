@@ -9,33 +9,61 @@ class eventosModel extends ModelBase
 {
 
     public function getAll() {
-    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios where  categorias.id = eventos.categoriasId and eventos.publicado > 0 and subcategorias.id = eventos.subcategoriasId and  municipios.id = eventos.municipiosId order by fecha_inicio  DESC ");
-    	$consulta->execute();
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where  eventos.publicado > 0   order by fecha_inicio  DESC");
+		$consulta->execute();
 
-        return $consulta->fetchAll();
+		$aux = $consulta->fetchAll();
+		for ($i=0;$i<count($aux);$i++):
+			$aux[$i]['categoria_esp'] = $this->translateCatsIdsToString($aux[$i]['categoriasId'],'esp');
+			$aux[$i]['categoria_cat']= $this->translateCatsIdsToString($aux[$i]['categoriasId'],'cat');
+		endfor;
+		return $aux;
+
     }
     
     public function getAllDestacados() {
-		$consulta = $this->db->prepare("SELECT eventos.* FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id INNER JOIN subcategorias ON eventos.subcategoriasId = subcategorias.id INNER JOIN municipios ON eventos.municipiosId= municipios.id where  eventos.publicado > 0  and destacado > 0 order by fecha_inicio  DESC limit 10");
+		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where  eventos.publicado > 0  and destacado > 0 order by fecha_inicio  DESC");
 		$consulta->execute();
 
-		return $consulta->fetchAll();
+		$aux = $consulta->fetchAll();
+		for ($i=0;$i<count($aux);$i++):
+			$aux[$i]['categoria_esp'] = $this->translateCatsIdsToString($aux[$i]['categoriasId'],'esp');
+			$aux[$i]['categoria_cat']= $this->translateCatsIdsToString($aux[$i]['categoriasId'],'cat');
+		endfor;
+		return $aux;
+
     }
     
+    private function translateCatsIdsToString($aux,$lang){
+    	$aux = explode(",",$aux);
+    	$aux = array_unique($aux);
+		$o= '';
+		$i = 0;
+		foreach ($aux as $a):
+	    	$consulta = $this->db->prepare("SELECT categoria_".$lang." as cat FROM categorias where id='".$a."' limit 1");
+	      	$consulta->execute();		
+   			$aux = $consulta->fetch();
+   			if ($i > 0) $o .= " · ";
+   			$o .= $aux['cat'];
+   			$i++;
+		endforeach;
+		return $o;
+    }
     public function search($params) {
     	$key = $params['a']; 
-		if ($key != -1)
-			$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id INNER JOIN subcategorias ON eventos.subcategoriasId = subcategorias.id INNER JOIN municipios ON eventos.municipiosId= municipios.id where descripcion_cat LIKE '%".$key."%' or descripcion_esp LIKE '%".$key."%' or titulo_cat LIKE '%".$key."%' or titulo_esp LIKE '%".$key."%'  order by fecha_inicio  ASC ");
-		else
-			$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios where  categorias.id = eventos.categoriasId and eventos.publicado > 0 and subcategorias.id = eventos.subcategoriasId and  municipios.id = eventos.municipiosId order by fecha_inicio  ASC ");
+    	if ($key == -1) $key = '';
+    	
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where descripcion_cat LIKE '%".$key."%' or descripcion_esp LIKE '%".$key."%' or titulo_cat LIKE '%".$key."%' or titulo_esp LIKE '%".$key."%'  and publicado > 0 order by fecha_inicio  DESC");
+		$consulta->execute();
 
-	    $consulta->execute();
 		$aux = $consulta->fetchAll();
-	    if (count($aux) > 0)
-	    	return $aux;
-	    //if (count($params) == 0) return $this->getAll();
-		//else return $this->getAll();
-    }
+		for ($i=0;$i<count($aux);$i++):
+			$aux[$i]['categoria_esp'] = $this->translateCatsIdsToString($aux[$i]['categoriasId'],'esp');
+			$aux[$i]['categoria_cat']= $this->translateCatsIdsToString($aux[$i]['categoriasId'],'cat');
+		endfor;
+		return $aux;
+		
+   }
 
     public function getById($id) {
 		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios WHERE eventos.id='".$id."' and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId");
@@ -94,10 +122,16 @@ class eventosModel extends ModelBase
     }
 
     public function getAllEventosByCategory($category) {
-		$consulta = $this->db->prepare("SELECT eventos.*  FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id INNER JOIN subcategorias ON eventos.subcategoriasId = subcategorias.id INNER JOIN municipios ON eventos.municipiosId= municipios.id  WHERE eventos.categoriasId like '%$category%' and publicado  >0  ORDER by fecha_inicio ASC");
+		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where eventos.categoriasId like '%$category%' and eventos.publicado > 0   order by fecha_inicio  DESC");
 		$consulta->execute();
-		
-		return $consulta->fetchAll();
+
+		$aux = $consulta->fetchAll();
+		for ($i=0;$i<count($aux);$i++):
+			$aux[$i]['categoria_esp'] = $this->translateCatsIdsToString($aux[$i]['categoriasId'],'esp');
+			$aux[$i]['categoria_cat']= $this->translateCatsIdsToString($aux[$i]['categoriasId'],'cat');
+		endfor;
+		return $aux;
+	
     }
 
     public function getByUserAhora($accountsId) {
