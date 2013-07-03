@@ -395,6 +395,20 @@ class eventosController extends ControllerBase
 
 		$items->edit($params);
 
+		$config = Config::singleton();
+
+		include_once "lib/EmailSend.php";
+		$email = new EmailSend();
+		$email->sendEmail('event-edited.php',
+			array(
+				"items"=> $params),
+			'Se ha editado un evento',
+			array(
+				$config->get('admin_mail'))
+		);
+
+		header_remove();
+
 		header("location: ../eventos/detalle/".$params['id']);
 	}
 
@@ -448,8 +462,23 @@ class eventosController extends ControllerBase
 	public function doConfirmar() {
 		$params = gett();
 		require "models/eventosModel.php";
+
 		$items = new eventosModel();
 		$items->confirmar($params['a']);
+		$items = $items->getById($params['a']);
+
+		$config = Config::singleton();
+
+		include_once "lib/EmailSend.php";
+		$email = new EmailSend();
+		$email->sendEmail('event-new.php',
+			array(
+				"items"=> $items),
+			'Se ha confirmado un nuevo evento',
+			array(
+				$config->get('admin_mail'))
+		);
+
 		header("location: ../../eventos/user");
 	}
 
