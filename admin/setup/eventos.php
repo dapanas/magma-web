@@ -9,7 +9,7 @@
 
         $fields_labels= array("Usuario","destacado","título Esp","título Cat","categoría","subcategoría","descripcion Esp","descripcion Cat","imagen","lugar","dirección","municipio","fecha evento","fecha fín","días semana","hora inicio","hora final","hora inicio 2","hora final 2","precio","precio anticipado","teléfono","email","web","confirmado y pagado","publicado","fecha registro","Inicio Publicación","Final publicación");
         
-        $fields_types=array("combo","truefalse","literal","literal","combo","multiselect","textarea","textarea","file_img","literal","literal","combo","fecha","fecha","dias_semana","hora","hora","hora","hora","number","number","literal","email","url","disabled","truefalse","disabled","fecha","fecha");
+        $fields_types=array("combo","truefalse","literal","literal","combo","multiselect","textarea","textarea","file_img","literal","literal","combo","fecha","fecha","dias_semana","hora","hora","hora","hora","number","number","literal","email","url","truefalse","truefalse","disabled","fecha","fecha");
         
         
         

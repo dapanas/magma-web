@@ -9,7 +9,7 @@ final class truefalse extends field{
 	function bake_field (){
     	$output="";
 		$output .= "<input type='checkbox' name='".$this->fieldname."' id='".$this->fieldname."' value='1' ";
-		if (!isset($this->value) or $this->value != 0) $output .= 'checked';
+		if (!isset($this->value) or $this->value != '0') $output .= 'checked';
 						$output .= ">";
         return $output;	
 						

@@ -302,6 +302,7 @@ function upload_image($var, $W, $H, $folder) {
 		$filename_new = $_SESSION['accountId']."_".generar_nombre_archivo($_FILES[$var]['name']);
 		copy($_FILES[$var]['tmp_name'],$path.$filename_new);
 		resize_image(get_extension($filename_new),$path.$filename_new,$path.$filename_new,$W,$H) ;
+		resize_image(get_extension($filename_new),$path."thumbs/".$filename_new,$path.$filename_new,$W,$H) ;
 		//cropImage($W, $H, $path.$filename_new,get_extension($filename_new), $path.$filename_new);
 
 		return $filename_new;
