@@ -12,15 +12,15 @@ final class file_img extends field{
 
 	function view(){
 		if ($this->value != "")
-			return "<img width='100' src='".$this->config->get('base_url_data')."img/thumbs/".$this->value."'>";
+			return "<img style='width:100px' src='".$this->config->get('base_url_data')."img/thumbs/".$this->value."'>";
 
 	}
 	function bake_field (){
 				$output="";	
 		if ($this->value != "")	{				
 			$output .= "<div id='".$this->fieldname."'>";
-			$output .= "<img  src=\"".$this->config->get('base_url_data')."img/thumbs/".$this->value."\">";
-			$output .= "&nbsp;&nbsp;<a  href=\"javascript:DeleteFile('".$this->value."');\"><img src='views/img/close.jpg'></a></div>"; 
+			$output .= "<img  style='width:200px' src=\"".$this->config->get('base_url_data')."img/thumbs/".$this->value."\">";
+			$output .= "&nbsp;&nbsp;<a  href=\"javascript:DeleteFile('".$this->fieldname."','".$this->table."','".$this->rid."','".$this->value."');\"><img src='views/img/close.jpg'></a></div>"; 
 		}// else $output .= "No hay ninguna imagen cargada.<BR>";					
 		$output.= "<input type=\"file\" id=\"".$this->fieldname."\" name=\"".$this->fieldname."\">";
 		return $output;
@@ -73,6 +73,11 @@ function cropImage($nw, $nh, $source, $stype, $dest) {
     $w = $size[0];
     $h = $size[1];
  
+ if ($stype == 'gif' or $stype == 'png'){
+copy($source,$dest);
+	return false;
+}
+
     switch($stype) {
         case 'gif':
         $simg = imagecreatefromgif($source);
@@ -167,6 +172,11 @@ if ($n_width == 0 and $n_height == 0){
 copy($fname,$destino);
 	return false;
 }
+
+if ($stype == 'gif' or $stype == 'png'){
+copy($fname,$destino);
+	return false;
+}
 switch($stype) {
         case 'gif':
         $img = imagecreatefromgif($fname);
@@ -188,7 +198,7 @@ $ancho = imagesx($img);
 $alto = imagesy($img);
 
 
-if ($n_width > $ancho and $n_height > $alto){
+if ($n_width > $ancho and $n_height > $alto or $n_width == 0){
 
 copy($fname,$destino);
 	return false;

@@ -15,6 +15,8 @@ class formController extends ControllerBase
         $form_html = "";
         $raw = ($rid != -1) ? $form->getFormValues($table,$rid) : '';
 				//print_r($raw);
+				
+	
     	for ($i=0;$i< count($fields);$i++){
     			if ($fields[$i] != 'id'){	
     					$form_html.= "<div class='control-group'><label class='control-label'>";
@@ -22,7 +24,7 @@ class formController extends ControllerBase
     					$form_html .= "</label><div class='controls'>";		
     					if (!class_exists($fields_types[$i])) die ("La clase ".$fields_types[$i]." no existe");
     					$VALUE = isset($raw[$fields[$i]]) ? $raw[$fields[$i]] : '';
-    					$field_aux = new $fields_types[$i]($fields[$i],$fields_labels[$i],$fields_types[$i],$VALUE);
+    					$field_aux = new $fields_types[$i]($fields[$i],$fields_labels[$i],$fields_types[$i],$VALUE,$table,$rid);
     					$form_html .= $field_aux->bake_field();								
     					$form_html .= "</div></div>";
     			}		
@@ -78,7 +80,20 @@ class formController extends ControllerBase
     }
 	
 	public function updateOrder(){
-
+		include "models/formModel.php";
+        $form = new formModel();
+        $form->updateOrder();
+	}
+	
+	public function updateVisible(){
+		include "models/formModel.php";
+        $form = new formModel();
+        $form->updateVisible();
+	}
+	public function updateFeatured(){
+		include "models/formModel.php";
+        $form = new formModel();
+        $form->updateFeatured();
 	}
 }
 ?>

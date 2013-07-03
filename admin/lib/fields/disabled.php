@@ -8,7 +8,7 @@ final class disabled extends field{
 		return $this->value;
 	}
 	function bake_field (){
-		return "<input  type=\"text\" class='span3 disabled' name=\"".$this->fieldname."\" id=\"".$this->fieldname."\" value=\"".trim($this->value)."\" enabled='false' disabled='disabled' >";
+		return "<input  type=\"text\" class='span3 disabled' name=\"".$this->fieldname."\" id=\"".$this->fieldname."\" value=\"".trim($this->value)."\" enabled='false' >";
 
 		
 

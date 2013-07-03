@@ -3,7 +3,7 @@ class showModel extends ModelBase
 {
 
 	public function getTableAttribute($table,$attribute){
-    	require "setup/".$table.".php";
+    	require  "setup/".$table.".php";
 	   return $$attribute;
 	}
 	
@@ -24,13 +24,12 @@ $fr = $fields_labels;
 		} 
 		
 	   return $fr;
-	   
 	}
 
     public function getAll($table){
     
         include "setup/".$table.".php";
-        include "lib/fields/field.php";
+        include_once "lib/fields/field.php";
         
         $order = (gett('sorder') != -1) ? gett('sorder') : $default_order; 
              
@@ -55,7 +54,7 @@ $fr = $fields_labels;
         return $array_return;
         
     }
-    
+
     public function js($table){
         require "setup/".$table.".php";
             $output= "";
@@ -74,18 +73,30 @@ $fr = $fields_labels;
 				$(this).css("cursor","hand");
 				$(this).css("cursor","pointer");	
 				});';
+
 				
 	// MAKE TABLE SORTABLE
 	$output .='$(function() {
-				$("#tablaMain tbody").sortable({ opacity: 0.6, cursor: "move", update: function() {
-					var order = $(this).sortable("serialize") + "&action=updateRecordsListings&tabla='.$table.'";
+				firefox = (/firefox/i.test(navigator.userAgent.toLowerCase()));
+
+				$(".tablaMain tbody").sortable({ opacity: 0.6, cursor: "move", helper: firefox === true ? "clone" : void 0, update: function() {
+					var aux = $(this).parent().attr("data-table");
+					aux_id = -1;
+					aux_field = -1;
+					if ($(this).parent().attr("data-filter-id")){
+						aux_id = $(this).parent().attr("data-filter-id");
+						aux_field =$(this).parent().attr("data-filter");
+					}
+					var order = $(this).sortable("serialize") + "&action=updateRecordsListings&tabla="+aux+"&field="+aux_field+"&id="+aux_id;
 					console.log(order);
-					$.post("modules/jquery-drag-n-drop/updateDB.php", order, function(theResponse){
+					$.post("form/updateOrder", order, function(theResponse){
 						console.log(theResponse);
 					});
 					}
 
 				});
+				
+				
 
 			});';
 

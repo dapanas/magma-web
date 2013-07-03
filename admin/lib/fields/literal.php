@@ -8,7 +8,7 @@ final class literal extends field{
 		return $this->value;
 	}
 	function bake_field (){
-		return "<input  type=\"text\" class='span3' name=\"".$this->fieldname."\" id=\"".$this->fieldname."\" value=\"".trim($this->value)."\">";
+		return "<input  type=\"text\" class='span5' name=\"".$this->fieldname."\" id=\"".$this->fieldname."\" value=\"".trim($this->value)."\">";
 
 		
 

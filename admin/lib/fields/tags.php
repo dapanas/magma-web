@@ -1,18 +1,21 @@
 <?
 
 final class tags extends field{
-
+	protected $db;
 	function view(){
-			}
+		return $this->value;
+	}
 	function bake_field (){
-					echo "<div class='control-group'><label class='control-label'>";
-							echo formatear_primera_may($this->ninjaTabla->labels[$i]);
-							echo "</label><div class='controls'>";
-							echo "(Separats per comes i sense espais)";
-							echo "<br>Tags existents: ";				
-							$data = mysql_query("SELECT tags FROM ".$this->ninjaTabla->tabla);
+				
+
+							$output = "";
+							$this->db = SPDO::singleton();			
+							$data = $this->db->prepare("SELECT tags FROM ".$this->table);
 							$LIST = array();
-							while ($camp_tag = mysql_fetch_array($data)) { 
+							$data->execute();
+							$aux = $data->fetchAll();
+							
+							foreach ($aux as $camp_tag) { 
 							if (strstr($camp_tag['tags'],",")){
 							$aux = explode(",",$camp_tag['tags']);
 							for ($ie = 0;$ie < count($aux);$ie++) if ($aux[$ie] != "") $LIST[] = trim($aux[$ie]);
@@ -28,27 +31,30 @@ final class tags extends field{
 								}
 							}
 							arsort($PUNTS);
-							
-							
+										
+					$output .= "<input class=\"input span6\" type=\"text\" cols=\"120\" name=\"".$this->fieldname."\" id=\"".$this->fieldname."\" value=\"".$this->value."\">"; 
+												$output .= "(Separats per comes i sense espais)";
+							$output .= "<br>";
 							$y = 0;
 							foreach($PUNTS as $key => $value){
-							if ($y > 0) echo ", ";
-			                       echo "<a href='javascript:click_tag(\"$key\");'>$key</a> ";
+							if ($y > 0) $output .= ", ";
+			                       $output .= "<a class='badge' href='javascript:click_tag(\"$key\");'>$key</a> ";
                        
 		                       $y++;
                			    }							
-							echo "<br>";
 							
 							
 							
 							
 							
 							
-					echo "<input class=\"text-input medium-input\" type=\"text\" cols=\"120\" name=\"".$this->ninjaTabla->fields[$i]."\" id=\"".$this->ninjaTabla->fields[$i]."\" value=\"".trim($raw[$this->ninjaTabla->fields[$i]])."\">"; echo "</div></div>";	
+				
+					return $output;
 	}
 		
 	function exec_add () {
 		if (substr($this->value,strlen($this->value)-1,strlen($this->value)) == ',') $this->value = substr($this->value,0,strlen($this->value)-1);
+		echo  addslashes(stripslashes($this->value));
 		return addslashes(stripslashes($this->value)); 
 	}
 	function exec_edit () {

@@ -4,13 +4,13 @@ final class file_file extends field{
 
 
 	function view(){
-			return "<a href='".$this->ninjaState->ninjaConfig->http_files_dir.$this->value."'>".$this->ninjaState->ninjaConfig->http_files_dir.$this->value."</a>";
+			return "<a href='".$this->config->get('http_files_dir').$this->value."'>".$this->config->get('http_files_dir').$this->value."</a>";
 	}
 	function bake_field (){
     	$output = "";
 		if ($this->value != -1){
  			$output .= "<b>Documento cargado:</b> ";
-			$output .= "<div id='".$this->fieldname."'><a  href=\"".$this->http_files_dir.$this->value."\" target=\"_blank\">".$this->value."</a><a  href=\"javascript:DeleteFile('".$this->fieldname."',".$this->ninjaState->rid.",'".$this->fieldname."','".$this->ninjaTabla->tabla."');\"><img src='".$this->ninjaState->ninjaConfig->base_http."lib/img/close.jpg'></a></div>"; }else{ $output .= "ninguno";
+			$output .= "<div id='".$this->fieldname."'><a  href=\"".$this->config->get('http_files_dir').$this->value."\" target=\"_blank\">".$this->value."</a><a  href=\"javascript:DeleteFile('".$this->fieldname."',".$this->rid.",'".$this->fieldname."','".$this->table."');\"><img src='".$this->config->get('base_http')."lib/img/close.jpg'></a></div>"; }else{ $output .= "ninguno";
 			$output .= "<BR>";
 		}
 							
@@ -20,13 +20,15 @@ final class file_file extends field{
 		
 	function exec_add () {
 		if ($_FILES[$this->fieldname]['name'] != ""){
-					$query2 = mysql_query("SELECT ".$this->fieldname." from ".$this->ninjaState->tabla." limit 1",$this->ninjaState->ninjaConfig->link );
-					$row2 = mysql_fetch_array($query2);
+					$consulta = $this->db->prepare("SELECT ".$this->fieldname." from ".$this->table." limit 1" );
+					//echo "SELECT ".$this->fieldname." from ".$this->table." limit 1";
+					$consulta->execute();
+					$row2 = $consulta->fetch();
 					if ($row2[$this->fieldname] != ""){
-						@unlink($this->ninjaState->ninjaConfig->files_dir.$row2[$this->fieldname]);
+						@unlink($this->config->get('files_dir').$row2[$this->fieldname]);
 					}
 					$filename_new = generar_nombre_archivo($_FILES[$this->fieldname]['name']);
-					copy($_FILES[$this->fieldname]['tmp_name'], $this->ninjaState->ninjaConfig->files_dir.$filename_new);
+					copy($_FILES[$this->fieldname]['tmp_name'], $this->config->get('files_dir').$filename_new);
 					
 					return $filename_new;
 					}
@@ -34,13 +36,15 @@ final class file_file extends field{
 	}
 	function exec_edit () {
 		if ($_FILES[$this->fieldname]['name'] != ""){
-						$query2 = mysql_query("SELECT ".$this->fieldname." from ".$this->ninjaState->tabla." where $this->ninjaTabla->field_id='".$this->ninjaState->rid."' limit 1",$this->ninjaState->ninjaConfig->link );
-						$row2 = mysql_fetch_array($query2);
+						$consulta = $this->db->prepare("SELECT ".$this->fieldname." from ".$this->table." where id='".$this->rid."' limit 1" );
+						$consulta->execute();
+						
+						$row2 = $consulta->fetch();
 						if ($this->value != ""){
-							unlink($this->ninjaState->ninjaConfig->files_dir.$row2[$this->fieldname]);
+							unlink($this->config->get('files_dir').$row2[$this->fieldname]);
 						}
 						$filename_new = generar_nombre_archivo($_FILES[$this->fieldname]['name']);
-						copy($_FILES[$this->fieldname]['tmp_name'], $this->ninjaState->ninjaConfig->files_dir.$filename_new);
+						copy($_FILES[$this->fieldname]['tmp_name'], $this->config->get('files_dir').$filename_new);
 					
 						return $filename_new;
 					

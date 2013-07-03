@@ -94,7 +94,7 @@ class eventosModel extends ModelBase
     }
 
     public function getAllEventosByCategory($category) {
-		$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.categoriasId='$category' and eventos.publicado > 0 and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId ORDER by fecha_inicio ASC");
+		$consulta = $this->db->prepare("SELECT eventos.*  FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id INNER JOIN municipios ON eventos.municipiosId= municipios.id  WHERE eventos.categoriasId like '%$category%' and publicado  >0  ORDER by fecha_inicio ASC");
 		$consulta->execute();
 		
 		return $consulta->fetchAll();

@@ -1,7 +1,11 @@
 <?
  function gett($var){
 	   $retrieved = -1;	
-	   if (isset ($_GET[$var])) $retrieved = $_GET[$var];
+
+if ($var == 'coursesId') return $_SESSION['coursesId'];
+if ($var == 'coursestypesId' and !isset($_POST[$var])) return $_SESSION['course_type'];
+if ($var == 'aboutId') return $_SESSION['about_pagesId'];
+	   if (isset ($_GET[$var]) and $_GET[$var] != '') $retrieved = $_GET[$var];
 	   else if(isset ($_POST[$var])) $retrieved = $_POST[$var];
 	  // $retrieved = str_replace("/","",$retrieved);
 	//   $retrieved = preg_replace('[^a-zA-Z0-9_-]', '', $retrieved);
