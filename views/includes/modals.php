@@ -134,3 +134,21 @@
 	</div>
 	<a class="button boto" onclick="window.location.href = 'accounts/index';"><?= $CERRAR ?></a> 
 </div>
+
+<!-- actualizar datos de contacto -->
+<div class="modal hide fade" id="modalactualizarinfo">
+	<div class="modal_text"style="margin-top:60px">
+		<div class="modal_tit"></div>
+		<?= $modal_actualizarinfo ?>
+	</div>
+	<a class="button boto" onclick="window.location.href = 'accounts/index';"><?= $CERRAR ?></a> 
+</div>
+
+<!-- actualizar datos de facturacion -->
+<div class="modal hide fade" id="modalactualizarfacturacion">
+	<div class="modal_text"style="margin-top:60px">
+		<div class="modal_tit"></div>
+		<?= $modal_actualizarinfofacturacion ?>
+	</div>
+	<a class="button boto" onclick="window.location.href = 'accountsfacturacion';"><?= $CERRAR ?></a> 
+</div>

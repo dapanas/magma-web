@@ -494,6 +494,17 @@ $TPV_PAGO_OK ='Pagament completat correctament';
 
 
 $OK_CANCEL_EVENT ='Sí, cancel·lar acte';
+
+$modal_actualizarinfo = 'Información actualizada correctamente';
+$modal_actualizarinfofacturacion = 'Información actualizada correctamente';
+
+$ESTADO = "Estado";
+$PUBLICADO = "Publicado";
+$PENDIENTE = "Pendiente";
+$CANCELADO = "Cancelado";
+
+$no_publicado = "Evento no publicado";
+$no_edit_por_no_publicado = "Este evento no se puede editar porque no ha sido publicado";$OK_CANCEL_EVENT ='Sí, cancel·lar acte';
 $RANGO_DE_FECHAS ='Rango de fechas';
 $HASTA = 'Fins a';
 $FIJO ='Fixe';

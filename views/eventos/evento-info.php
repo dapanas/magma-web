@@ -19,7 +19,7 @@
 <? endif;?>
 
 
-<form action="eventos/doAdd" method="post" name="form1" enctype="multipart/form-data">
+<form id="formaddnew" action="eventos/doAdd" method="post" name="form1" enctype="multipart/form-data">
 <div class="boto-red">General</div>
 <div class="categoria-evento">
 
@@ -155,7 +155,7 @@ Introduce la dirección de la página web a través de la cual se gestionará la
 <input type="hidden" name="fecha_publi_ini" value="<?= $params['fecha_publi_ini'] ?>">
 <input type="hidden" name="fecha_publi_end" value="<?= $params['fecha_publi_end']?>">
 <? if (!isset($op) or $op != 'edit'): ?>
-<input type="button" onclick="validate(this.form);" class="button black" value="<?= $SIGUIENTE ?> " style="margin-left: -14px;">
+<input type="button" onclick="extraValidate(this.form);" class="button black" value="<?= $SIGUIENTE ?> " style="margin-left: -14px;">
 <? else: ?>
 <input type="button" onclick="window.location.href='eventos/edit/<?=$eventosId?>'" class="button black" value="<?= $MODIFICAR_EVENTO ?>" >
 <input type="button" onclick="window.location.href='eventos/edit/<?=$eventosId?>'" class="button black" value="<?= $CANCELAR_EVENTO ?>" >
@@ -175,7 +175,23 @@ Introduce la dirección de la página web a través de la cual se gestionará la
 </script>
 
 <script>
+function extraValidate (form) {
+	if ($("input[name='subcategoriasId[]']:checked").length >= 1) {
+		validate(form);
+	} else {
+		alert("Debe seleccionar al menos una cateogría");
+		$("input[name='subcategoriasId[]']").focus();
+	}
+}
+
 $(function() {
+	if ($("input[name='subcategoriasId[]']:checked").length >= 3) {
+		$("input[name='subcategoriasId[]']").each(function() {
+			if (!$(this).is(':checked')) {
+				$(this).attr("disabled", true);
+			}
+		});
+	}
 
 	$("input[name='subcategoriasId[]']").on('change', function() {
 		if ($("input[name='subcategoriasId[]']:checked").length == 3) {
@@ -200,17 +216,17 @@ $(function() {
 		if($(this).is(':checked')) {
 			$( "#horario1" ).attr("required", true).attr("disabled", false);
 			$( "#horario2" ).attr("required", true).attr("disabled", false);
-			$( "#horario3" ).attr("required", false).attr("disabled", true);
-			$( "#horario4" ).attr("required", false).attr("disabled", true);
-			$( "#horario5" ).attr("required", false).attr("disabled", true);
-			$( "#horario6" ).attr("required", false).attr("disabled", true);
+			$( "#horario3" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario4" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario5" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario6" ).attr("required", false).attr("disabled", true).val("");
 		}
 	});
 
 	$( "#tipo_horario_range" ).change(function () {
 		if($(this).is(':checked')) {
-			$( "#horario1" ).attr("required", false).attr("disabled", true);
-			$( "#horario2" ).attr("required", false).attr("disabled", true);
+			$( "#horario1" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario2" ).attr("required", false).attr("disabled", true).val("");
 			$( "#horario3" ).attr("required", false).attr("disabled", false);
 			$( "#horario4" ).attr("required", false).attr("disabled", false);
 			$( "#horario5" ).attr("required", false).attr("disabled", false);
@@ -221,14 +237,14 @@ $(function() {
 	$( "#tipo_cuando_day" ).change(function () {
 		if($(this).is(':checked')) {
 			$( "#fecha1" ).attr("required", true).attr("disabled", false);
-			$( "#fecha2" ).attr("required", false).attr("disabled", true);
-			$( "#fecha3" ).attr("required", false).attr("disabled", true);
+			$( "#fecha2" ).attr("required", false).attr("disabled", true).val("");
+			$( "#fecha3" ).attr("required", false).attr("disabled", true).val("");
 		}
 	});
 
 	$( "#tipo_cuando_range" ).change(function () {
 		if($(this).is(':checked')) {
-			$( "#fecha1" ).attr("required", false).attr("disabled", true);
+			$( "#fecha1" ).attr("required", false).attr("disabled", true).val("");
 			$( "#fecha2" ).attr("required", true).attr("disabled", false);
 			$( "#fecha3" ).attr("required", true).attr("disabled", false);
 		}
@@ -273,6 +289,20 @@ $(function() {
 	  		$( "#fecha2" ).datepicker( "option", {"maxDate": selectedDate, "minDate": maxDate32DaysBefore} );
 	  	}
 	  }
+	});
+
+	$( "#tipo_pago_gratis" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "input[name='taquilla_unidad']" ).attr("required", false).attr("disabled", true).val("");
+			$( "input[name='taquilla_decimal']" ).attr("required", false).attr("disabled", true).val("");
+		}
+	});
+
+	$( "#tipo_pago_no_gratis" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "input[name='taquilla_unidad']" ).attr("required", true).attr("disabled", false);
+			$( "input[name='taquilla_decimal']" ).attr("required", true).attr("disabled", false);
+		}
 	});
 });
 </script>

@@ -515,6 +515,17 @@ $MAXIMO_3_CATS = 'Puedes seleccionar un máximo de 3 categorías';
 $I_EL = "y el";
 $TPV_PAGO_OK ='Pago completado correctamente';
 $OK_CANCEL_EVENT ='Sí, cancelar evento';
+
+$modal_actualizarinfo = 'Información actualizada correctamente';
+$modal_actualizarinfofacturacion = 'Información actualizada correctamente';
+
+$ESTADO = "Estado";
+$PUBLICADO = "Publicado";
+$PENDIENTE = "Pendiente";
+$CANCELADO = "Cancelado";
+
+$no_publicado = "Evento no publicado";
+$no_edit_por_no_publicado = "Este evento no se puede editar porque no ha sido publicado";$OK_CANCEL_EVENT ='Sí, cancelar evento';
 $RANGO_DE_FECHAS ='Rango de fechas';
 $HASTA = 'Hasta';
 $FIJO ='Fijo';
