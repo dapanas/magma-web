@@ -4,7 +4,7 @@
 		<?= $modal_compra ?>
 	</div>
 	<div class="boto">
-		<input width="80" type="button" class="button boto" value="Cerrar" data-dismiss="modal">
+		<input width="80" type="button" class="button boto" value="<?= $CERRAR ?>" data-dismiss="modal">
 	</div>
 </div>
 
@@ -15,7 +15,7 @@
 		<?= $modal_inf ?>
 	</div> 
 	<div class="boto">
-		<input type="button" class="button boto" value="Cerrar" data-dismiss="modal">
+		<input type="button" class="button boto" value="<?= $CERRAR ?>" data-dismiss="modal">
 	</div> 
 </div>
 
@@ -26,7 +26,7 @@
 		<?= $modal_cuan ?>
 	</div>
 	<div class="boto">
-		<input type="button" class="button boto" value="Cerrar" data-dismiss="modal">
+		<input type="button" class="button boto" value="<?= $CERRAR ?>" data-dismiss="modal">
 	</div> 
 </div>
 
@@ -37,7 +37,7 @@
 		<?= $modal_dond ?>
 	</div>
 	<div class="boto">
-		<input type="button" class="button boto" value="Cerrar" data-dismiss="modal">
+		<input type="button" class="button boto" value="<?= $CERRAR ?>" data-dismiss="modal">
 	</div> 
 </div>
 
@@ -47,7 +47,7 @@
 		<div class="modal_tit">Modificar <?= $PRECIO ?></div>
 		<?= $modal_prix ?></div>
 		<div class="boto">
-			<input type="button" class="button boto" value="Cerrar" data-dismiss="modal">
+			<input type="button" class="button boto" value="<?= $CERRAR ?>" data-dismiss="modal">
 		</div> 
 </div>
 
@@ -58,7 +58,7 @@
 		<?= $modal_cargo ?>
 	</div>
 	<div class="boto">
-		<input type="button" class="button boto" value="Cerrar" data-dismiss="modal">
+		<input type="button" class="button boto" value="<?= $CERRAR ?>" data-dismiss="modal">
 	</div> 
 </div>
 
@@ -69,7 +69,7 @@
 		<?= $modal_cancel ?>
 	</div>
 	<div class="boto">
-		<input type="button" class="button boto" value="Cerrar" data-dismiss="modal">
+		<input type="button" class="button boto" value="<?= $CERRAR ?>" data-dismiss="modal">
 	</div>
 </div>
 
@@ -79,6 +79,7 @@
 		<div class="modal_tit"></div>
 		<?= $modal_now ?>
 	</div>
+	<br>
 	<button class="btn" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></button> 
 </div>
 
@@ -86,6 +87,7 @@
 <div class="modal hide fade" id="cuentaactivada">
 	<div class="modal_text" style="margin-top:90px">
 		<div class="modal_tit"><?= $modal_active ?></div>
+		<br>
 		<button class="btn" data-dismiss="modal" aria-hidden="true"><?= $CERRAR ?></button>
 	</div>
 </div>
@@ -96,6 +98,7 @@
 		<div class="modal_tit"></div>
 		<?= $modal_recuperarpassword ?>
 	</div>
+	<br>
 	<a class="button boto" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></a> 
 </div>
 

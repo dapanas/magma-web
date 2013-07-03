@@ -29,8 +29,8 @@ class EmailSend
 
 		foreach ($destinatarios as $email) {
 			$mail = new PHPMailer();
-			//$mail->SetFrom($config->get('mail_from'));
-			//$mail->AddReplyTo($config->get('mail_from'));
+			$mail->SetFrom($config->get('mail_from'));
+			$mail->AddReplyTo($config->get('mail_from'));
 			$mail->IsHTML(true);
 			$mail->CharSet = "UTF-8";
 			$mail->AddAddress($email,'');

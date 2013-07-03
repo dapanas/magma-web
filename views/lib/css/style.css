@@ -134,7 +134,8 @@ line-height: 12pt
 }
 #regis{/* width:265px; */border-right: 1px dotted black;padding-right:25px;  }
 .regis_text{width: 300px;
-font-size: 9px;
+letter-spacing: 1px;
+font-size:9px;
 display: inline-block;
 font-family: 'FreeSet-Book';
 margin-left: 5px;

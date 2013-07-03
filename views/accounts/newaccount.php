@@ -20,11 +20,11 @@
 
 <div class='control-group'><label class='control-label'><?= $CONTRASENYA  ?><div class="vermell">*</div></label>
 
-<div class='controls'><input type='text' required='required' name='password' value=''></div></div>
+<div class='controls'><input type='password' required='required' name='password' value=''></div></div>
 
 <div class='control-group'><label class='control-label'><?= $REPITE_CONTRASENYA  ?><div class="vermell">*</div></label>
 
-<div class='controls'><input type='text' required='required' name='confpassword' value=''></div></div>
+<div class='controls'><input type='password' required='required' name='confpassword' value=''></div></div>
 
 
 <h3><?= $DATOS_CONTACTO ?></h3>

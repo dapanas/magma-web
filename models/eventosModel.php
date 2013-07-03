@@ -16,7 +16,7 @@ class eventosModel extends ModelBase
     }
     
     public function getAllDestacados() {
-		$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios where  categorias.id = eventos.categoriasId and eventos.publicado > 0 and subcategorias.id = eventos.subcategoriasId  and destacado='1' and municipios.id = eventos.municipiosId order by fecha_inicio  DESC limit 10");
+		$consulta = $this->db->prepare("SELECT eventos.* FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id INNER JOIN subcategorias ON eventos.subcategoriasId = subcategorias.id INNER JOIN municipios ON eventos.municipiosId= municipios.id where  eventos.publicado > 0  and destacado > 0 order by fecha_inicio  DESC limit 10");
 		$consulta->execute();
 
 		return $consulta->fetchAll();
@@ -94,7 +94,7 @@ class eventosModel extends ModelBase
     }
 
     public function getAllEventosByCategory($category) {
-		$consulta = $this->db->prepare("SELECT eventos.*  FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id INNER JOIN municipios ON eventos.municipiosId= municipios.id  WHERE eventos.categoriasId like '%$category%' and publicado  >0  ORDER by fecha_inicio ASC");
+		$consulta = $this->db->prepare("SELECT eventos.*  FROM eventos INNER JOIN categorias ON eventos.categoriasId = categorias.id INNER JOIN subcategorias ON eventos.subcategoriasId = subcategorias.id INNER JOIN municipios ON eventos.municipiosId= municipios.id  WHERE eventos.categoriasId like '%$category%' and publicado  >0  ORDER by fecha_inicio ASC");
 		$consulta->execute();
 		
 		return $consulta->fetchAll();
