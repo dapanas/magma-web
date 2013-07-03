@@ -82,6 +82,11 @@ class eventosController extends ControllerBase
 		$params['confirmado'] = 0;
 		$params['accountsId'] = $_SESSION['accountId'];
 
+		if (!isset($params['subcategoriasId'])) {
+			header("Location: ../eventos/add");
+			return;
+		}
+
 		$params['imagen'] = upload_image('imagen', 265, 265, 'eventos');
 
 		$auxCategorias = array();
@@ -100,8 +105,8 @@ class eventosController extends ControllerBase
 		
 		if (isset($params['tipo_horario']) && $params['tipo_horario'] == 1) {
 			$params['horario'] = '';
-			$params['hora_inicio'] = $params['horario1'];
-			$params['hora_final'] = $params['horario2'];
+			$params['hora_inicio'] = isset($params['horario1']) ? $params['horario1'] : "";
+			$params['hora_final'] = isset($params['horario2']) ? $params['horario2'] : "";
 			$params['hora_inicio2'] = '';
 			$params['hora_final2'] = '';
 
@@ -111,10 +116,10 @@ class eventosController extends ControllerBase
 
 		} elseif (isset($params['tipo_horario']) && $params['tipo_horario'] == 2) {
 			$params['horario'] = '';
-			$params['hora_inicio'] = $params['horario3'];
-			$params['hora_final'] = $params['horario4'];
-			$params['hora_inicio2'] = $params['horario5'];
-			$params['hora_final2'] = $params['horario6'];
+			$params['hora_inicio'] = isset($params['horario3']) ? $params['horario3'] : "";
+			$params['hora_final'] = isset($params['horario4']) ? $params['horario4'] : "";
+			$params['hora_inicio2'] = isset($params['horario5']) ? $params['horario5'] : "";
+			$params['hora_final2'] = isset($params['horario6']) ? $params['horario6'] : "";
 
 			if ($params['hora_inicio'] == $params['hora_final']) {
 				$params['hora_inicio'] = $params['hora_final'] = ""; 
@@ -243,6 +248,9 @@ class eventosController extends ControllerBase
 		if ($items->isCanceled($params['a'])) {
 			$this->view->show("eventos/evento-cancelado.php");
 			return;
+		} elseif (!$items->isPublished($params['a'])) {
+			$this->view->show("eventos/evento-nopublicado.php");
+			return;
 		}
 
 		$destacado = $params['a'] != -1 ? 1 :  -1;
@@ -280,6 +288,9 @@ class eventosController extends ControllerBase
 
 		if ($items->isCanceled($params['eventosId'])) {
 			$this->view->show("eventos/evento-cancelado.php");
+			return;
+		} elseif (!$items->isPublished($params['eventosId'])) {
+			$this->view->show("eventos/evento-nopublicado.php");
 			return;
 		}
 		

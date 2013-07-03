@@ -122,12 +122,26 @@
 			$aux_precio_valor = floatval($items['precio']);
 			$aux_precio = $aux_precio_valor > 0;
 			$aux_precio_datos = $aux_precio ? explode(".", $items['precio']) : "";
+
+			$aux_precio_datos[0] = isset($aux_precio_datos[0]) && $aux_precio_datos[0] > 0 ? $aux_precio_datos[0] : "0";
+			$aux_precio_datos[1] = isset($aux_precio_datos[1]) && $aux_precio_datos[1] > 0 ? $aux_precio_datos[1] : "0";
+
 			?>
 
-			<input type="radio" name="tipo_pago" value="1" <?= $aux_precio ? "" : "checked='checked'"; ?>><p> <?= $GRATIS ?></p><br><br>
+			<input type="radio" id="tipo_pago_gratis" name="tipo_pago" value="1" <?= $aux_precio ? "" : "checked='checked'"; ?>>
+			<p> <?= $GRATIS ?></p>
 
-			<input type="radio" name="tipo_pago" value="2" <?= $aux_precio ? "checked='checked'" : ""; ?>><p> <?= $DE_PAGO ?>:</p><br>
-			<input id="mini" type="text" name="taquilla_unidad" placeholder="00" <?= $aux_precio ? "required='required'" : "" ?> value="<?= $items['precio'] > 0 ? $aux_precio_datos[0] : '' ?>"> , <input id="mini" type="text" name="taquilla_decimal" placeholder="00" <?= $aux_precio ? "required='required'" : "" ?> value="<?= $items['precio'] > 0 ? $aux_precio_datos[1] : '' ?>"><p> €</p><br>
+			<br><br>
+
+			<input type="radio" id="tipo_pago_no_gratis" name="tipo_pago" value="2" <?= $aux_precio ? "checked='checked'" : ""; ?>>
+			<p> <?= $DE_PAGO ?>:</p>
+
+			<br>
+
+			<input type="text" id="mini" name="taquilla_unidad" placeholder="00" <?= $aux_precio ? "required='required'" : "" ?> value="<?= $items['precio'] > 0 ? $aux_precio_datos[0] : '' ?>"> , <input id="mini" type="text" name="taquilla_decimal" placeholder="00" <?= $aux_precio ? "required='required'" : "" ?> value="<?= $items['precio'] > 0 ? $aux_precio_datos[1] : '' ?>">
+			<p> €</p>
+
+			<br>
 			<!--
 			<input type="checkbox" name="anticipada" value="anticipada">   <input id="mini" type="text" name="anticipada_unidad" required="required" placeholder="00"> , <input id="mini" type="text" name="anticipada_decimal" required="required" placeholder="00"><p> € <?= $PRECIO_VENTA ?></p><br>
 			-->
@@ -151,7 +165,7 @@
 			<input type="hidden" name="fecha_publi_end" value="<?= $items['fecha_publi_end']?>">
 			<input type="hidden" name="eventosId" value="<?= $items["id"]; ?>">
 			<input type="hidden" name="imagen" value="<?= $items["imagen"]; ?>">
-			<input type="button" onclick="validate(this.form);" class="button black" value="<?= $SIGUIENTE  ?>" >
+			<input type="button" onclick="extraValidate(this.form);" class="button black" value="<?= $SIGUIENTE  ?>" >
 		</div>
 	</form>
 </div>
@@ -168,6 +182,15 @@
 </script>
 
 <script>
+function extraValidate (form) {
+	if ($("input[name='subcategoriasId[]']:checked").length >= 1) {
+		validate(form);
+	} else {
+		alert("Debe seleccionar al menos una cateogría");
+		$("input[name='subcategoriasId[]']").focus();
+	}
+}
+
 $(function() {
 
 	if ($("input[name='subcategoriasId[]']:checked").length >= 3) {
@@ -201,17 +224,17 @@ $(function() {
 		if($(this).is(':checked')) {
 			$( "#horario1" ).attr("required", true).attr("disabled", false);
 			$( "#horario2" ).attr("required", true).attr("disabled", false);
-			$( "#horario3" ).attr("required", false).attr("disabled", true);
-			$( "#horario4" ).attr("required", false).attr("disabled", true);
-			$( "#horario5" ).attr("required", false).attr("disabled", true);
-			$( "#horario6" ).attr("required", false).attr("disabled", true);
+			$( "#horario3" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario4" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario5" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario6" ).attr("required", false).attr("disabled", true).val("");
 		}
 	});
 
 	$( "#tipo_horario_range" ).change(function () {
 		if($(this).is(':checked')) {
-			$( "#horario1" ).attr("required", false).attr("disabled", true);
-			$( "#horario2" ).attr("required", false).attr("disabled", true);
+			$( "#horario1" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario2" ).attr("required", false).attr("disabled", true).val("");
 			$( "#horario3" ).attr("required", false).attr("disabled", false);
 			$( "#horario4" ).attr("required", false).attr("disabled", false);
 			$( "#horario5" ).attr("required", false).attr("disabled", false);
@@ -222,14 +245,14 @@ $(function() {
 	$( "#tipo_cuando_day" ).change(function () {
 		if($(this).is(':checked')) {
 			$( "#fecha1" ).attr("required", true).attr("disabled", false);
-			$( "#fecha2" ).attr("required", false).attr("disabled", true);
-			$( "#fecha3" ).attr("required", false).attr("disabled", true);
+			$( "#fecha2" ).attr("required", false).attr("disabled", true).val("");
+			$( "#fecha3" ).attr("required", false).attr("disabled", true).val("");
 		}
 	});
 
 	$( "#tipo_cuando_range" ).change(function () {
 		if($(this).is(':checked')) {
-			$( "#fecha1" ).attr("required", false).attr("disabled", true);
+			$( "#fecha1" ).attr("required", false).attr("disabled", true).val("");
 			$( "#fecha2" ).attr("required", true).attr("disabled", false);
 			$( "#fecha3" ).attr("required", true).attr("disabled", false);
 		}
@@ -274,6 +297,20 @@ $(function() {
 	  		$( "#fecha2" ).datepicker( "option", {"maxDate": selectedDate, "minDate": maxDate32DaysBefore} );
 	  	}
 	  }
+	});
+
+	$( "#tipo_pago_gratis" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "input[name='taquilla_unidad']" ).attr("required", false).attr("disabled", true).val("");
+			$( "input[name='taquilla_decimal']" ).attr("required", false).attr("disabled", true).val("");
+		}
+	});
+
+	$( "#tipo_pago_no_gratis" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "input[name='taquilla_unidad']" ).attr("required", true).attr("disabled", false);
+			$( "input[name='taquilla_decimal']" ).attr("required", true).attr("disabled", false);
+		}
 	});
 });
 </script>

@@ -8,22 +8,25 @@
 class accountsController extends ControllerBase
 {
 		public function index() {
-			require "models/accountsModel.php"; 	
-			require "models/selectsModel.php"; 	
-			$items = new accountsModel();	
+			require "models/accountsModel.php";
+			require "models/selectsModel.php";
+			
+			$items = new accountsModel();
 			$selects = new selectsModel();
+			
 			$accountsId = $_SESSION['accountId'];
 			$account = $items->getById($accountsId);
+			
 			$data = array(
 				"title" => "Page Title",
 				"items" => $account,
 				"selectMunicipios" => $selects->selectMunicipios($account['municipiosId'])
-		    );      
+		    );
 			
 			$params = gett();
 
 			$page = isset($params['a']) ? $params['a'] : -1;
-			if ($page == -1)   
+			if ($page == -1)
 				$this->view->show("accounts/cuenta.php", $data);
 			else if ($page == 'user')
 				$this->view->show("accounts/cambiar-nombre.php", $data);
@@ -31,14 +34,14 @@ class accountsController extends ControllerBase
 				$this->view->show("accounts/cambiar-correo.php", $data);
 			else if ($page == 'password')
 				$this->view->show("accounts/cambiar-pass.php", $data);
-			else if ($page == 'contacto')			
-				$this->view->show("accounts/contacto.php", $data);	
+			else if ($page == 'contacto')
+				$this->view->show("accounts/contacto.php", $data);
 			/*
-			else if ($page == 'editcontacto')			
+			else if ($page == 'editcontacto')
 				$this->view->show("datos/contacto.php", $data);	
 			*/
-			else if ($page == 'facturacion')			
-				$this->view->show("accounts/facturacion-modificar.php", $data);	
+			else if ($page == 'facturacion')
+				$this->view->show("accounts/facturacion-modificar.php", $data);
 		}
 		
 		/*
@@ -179,10 +182,12 @@ class accountsController extends ControllerBase
 				$correoModificado = true;
 
 			} else if (isset($params['password'])) { // Estamos cambiando el password
-				if (strcmp($params['email'], $params['confpassword']) != 0) {
+				if (strcmp($params['password'], $params['confpassword']) != 0) {
 					$informacionValida = false;
 					echo "Las contraseñas no coinciden";
 				}
+			} else if (isset($_POST['ano'])) { // Estamos actualizando toda la información de contacto (se usa la validación vieja)
+				$_POST['fecha_nacimiento'] = $_POST['dia']."/".$_POST['mes']."/".$_POST['ano'];
 			}
 
 			if ($informacionValida) {
