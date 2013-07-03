@@ -36,9 +36,10 @@ class deleteModel extends ModelBase
 	{   
     	$config = Config::singleton();   
               
-        $q = mysql_query("SELECT $field FROM $table where id='$id' limit 1");
-        $r = mysql_fetch_array($q);
-        @unlink($config->get('files_dir').$r[$f]);					
+		$consulta = $this->db->prepare("SELECT $field FROM $table where id='$id' limit 1");
+		$consulta->execute();
+		$r = $consulta->fetch();
+        @unlink($config->get('data_dir')."img/".$r[$f]);					
 
        	$consulta = $this->db->prepare("UPDATE $table set $field='' where id='$id'");
         $consulta->execute();
