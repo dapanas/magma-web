@@ -1,9 +1,10 @@
 <?
 
-final class url extends field{
+
+
+final class youtube extends field{
 
 	function view(){
-	if (empty($this->value)) return '';
 		return "<a href='".$this->value."' target='_blank'>URL</a>";
 	}
 	function bake_field (){

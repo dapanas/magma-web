@@ -4,10 +4,12 @@
 final class text extends field{
 
 	function view(){
-		return "Contenido HTML";
+	if ($this->value != '')
+		return  substr(strip_tags($this->value),0,100)."...";
+		return '';
 	}
 	function bake_field (){
-		return "<textarea class='mceEditor'  id=\"".$this->fieldname."\" name=\"".$this->fieldname."\"  >".$this->value."</textarea>";
+		return "<textarea class='span6'  id=\"".$this->fieldname."\" name=\"".$this->fieldname."\"  >".$this->value."</textarea>";
 	}
 		
 	function exec_add () {
