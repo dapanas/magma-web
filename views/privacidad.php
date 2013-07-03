@@ -1,6 +1,6 @@
 <style>
 .inside b{
-	font-size: 14px;
+	font-size: 12px;
 }
 </style>
 
@@ -11,7 +11,7 @@
 <div id="promo">
 <?= $pol_pri ?>
 </div>
-<div class="inside" style="width: 500px;text-align: justify; font-size: 12px;font-family: 'FreeSet-book';">
+<div class="inside" style="width: 500px;text-align: justify; font-size: 11px;font-family: 'FreeSet-book';">
 <?= $PRIVACIDAD ?>
 </div>
 </div>

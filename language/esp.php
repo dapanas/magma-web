@@ -515,3 +515,7 @@ $MAXIMO_3_CATS = 'Puedes seleccionar un máximo de 3 categorías';
 $I_EL = "y el";
 $TPV_PAGO_OK ='Pago completado correctamente';
 $OK_CANCEL_EVENT ='Sí, cancelar evento';
+$RANGO_DE_FECHAS ='Rango de fechas';
+$HASTA = 'Hasta';
+$FIJO ='Fijo';
+$ACTAS = 'Eventos';

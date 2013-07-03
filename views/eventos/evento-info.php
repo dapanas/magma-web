@@ -73,12 +73,12 @@
 <br>
 
 <input type="radio" id="tipo_cuando_range" name="tipo_cuando" value="2">
-<p>Rango de fechas</p>
+<p><?= $RANGO_DE_FECHAS ?></p>
 <div>
 	<label for="fecha2">Desde</label>
 	<input id="fecha2" type="text" value="" name="fecha2" disabled="disabled" />
 	<br />
-	<label for="fecha3">Hasta</label>
+	<label for="fecha3"><?= $HASTA ?></label>
 	<input id="fecha3" type="text" value="" name="fecha3" disabled="disabled" />
 </div>
 
@@ -96,7 +96,7 @@
 <br><br>
 
 <input type="radio" id="tipo_horario_fixed" name="tipo_horario" value="1">
-<p>Fijo</p>
+<p><?= $FIJO ?></p>
 <div>
 	<label>De</label>
 	<input type="text" id="horario1" name="horario1" style="width:75px;" disabled="disabled">

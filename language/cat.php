@@ -494,3 +494,6 @@ $TPV_PAGO_OK ='Pagament completat correctament';
 
 
 $OK_CANCEL_EVENT ='Sí, cancel·lar acte';
+$RANGO_DE_FECHAS ='Rango de fechas';
+$HASTA = 'Fins a';
+$FIJO ='Fixe';
