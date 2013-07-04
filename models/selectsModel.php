@@ -86,6 +86,65 @@ class selectsModel extends ModelBase
 		
 		return $ret;
 	}
+
+	public function checkboxesCategoriasSubcategorias($categoriesSelected = array(), $subcategoriesSelected = array()) {
+		require_once "models/categoriasModel.php";
+		require_once "models/subcategoriasModel.php";
+
+		$categoriasModel = new categoriasModel();
+		$subcategoriasModel = new subcategoriasModel();
+
+		$categorias = $categoriasModel->getAll();
+		$categoriasFinal = array();
+
+		foreach ($categorias as $categoria) {
+			$categoria['subcategorias'] = array();
+
+			$subcategorias = $subcategoriasModel->getByCategoryId($categoria['id']);
+			if ($subcategorias) {
+				foreach ($subcategorias as $subcategoria) {
+					array_push($categoria['subcategorias'], $subcategoria);
+				}
+			}
+
+			array_push($categoriasFinal, $categoria);
+		}
+
+		$lang = $_SESSION['lang'];
+
+		$ret = '<ul>';
+		foreach($categoriasFinal as $categoria) {
+			$ret .= '<li>';
+			$ret .= '<input type="checkbox" name="subcategoriasId[]" value="0|'.$categoria['id'].'" ';
+
+			if (in_array($categoria['id'], $categoriesSelected)) {
+				$ret .= 'checked="checked" />';
+			} else {
+				$ret .= '/>';
+			}
+			$ret .= '<p> '.$categoria['categoria_'.$lang].'</p>';
+
+			if ($categoria['subcategorias']) {
+				$ret .= '<ul>';
+				foreach ($categoria['subcategorias'] as $subcategoria) {
+					$ret .= '<li>';
+					$ret .= '<input type="checkbox" name="subcategoriasId[]" value="'.$subcategoria['id'].'|0" ';
+
+					if (in_array($subcategoria['id'], $subcategoriesSelected)) {
+						$ret .= 'checked="checked" />';
+					} else {
+						$ret .= '/>';
+					}
+					$ret .= '<p> '.$subcategoria['subcategoria_'.$lang].'('.$categoria['categoria_'.$lang].')</p>';
+					$ret .= '</li>';
+				}
+				$ret .= '</ul>';
+			}
+			$ret .= '</li>';
+		}
+		$ret .= '</ul>';
+
+		return $ret;
+	}
 }
 ?>
-

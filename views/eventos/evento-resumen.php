@@ -45,6 +45,10 @@
 	<div class="categoria-evento">
 		<div class="tit"><?= $CATEGORIA_ACTO ?>: </div>
 		<p>
+			<? foreach ($items['categoriasId'] as $categoriaId): ?>
+			<?= $items['categoria_'.$lang][$categoriaId]['categoria'] ?><br>
+			<? endforeach; ?>
+
 			<? foreach ($items['subcategoriasId'] as $subcategoriaId): ?>
 			<?= $items['subcategoria_'.$lang][$subcategoriaId]['subcategoria'] ?> (<?= $items['subcategoria_'.$lang][$subcategoriaId]['categoria'] ?>) <br>
 			<? endforeach; ?>

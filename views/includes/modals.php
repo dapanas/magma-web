@@ -144,7 +144,7 @@
 		<div class="modal_tit"></div>
 		<?= $modal_actualizarinfo ?>
 	</div>
-	<a class="button boto" onclick="window.location.href = 'accounts/index';"><?= $CERRAR ?></a> 
+	<a class="button boto" onclick="window.location.href = 'accounts/index/contacto';"><?= $CERRAR ?></a> 
 </div>
 
 <!-- actualizar datos de facturacion -->
