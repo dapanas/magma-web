@@ -530,3 +530,5 @@ $RANGO_DE_FECHAS ='Rango de fechas';
 $HASTA = 'Hasta';
 $FIJO ='Fijo';
 $ACTAS = 'Eventos';
+
+$SIN_HORARIO = "Sin horario";

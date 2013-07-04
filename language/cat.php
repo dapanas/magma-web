@@ -510,3 +510,5 @@ $OK_CANCEL_EVENT ='Sí, cancel·lar acte';
 $RANGO_DE_FECHAS ='Dates';
 $HASTA = 'Fins a';
 $FIJO ='Fixe';
+
+$SIN_HORARIO = "Sin horario";
