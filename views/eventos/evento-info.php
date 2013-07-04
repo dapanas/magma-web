@@ -96,6 +96,10 @@
 			<input type="checkbox" value="7" name="dias_semana[]"> D 
 			<br><br>
 
+			<input type="radio" id="tipo_horario_none" name="tipo_horario" value="0" checked='checked'>
+			<p><?= $SIN_HORARIO ?></p>
+			<br>
+
 			<input type="radio" id="tipo_horario_fixed" name="tipo_horario" value="1">
 			<p><?= $FIJO ?></p>
 			<div>
@@ -214,6 +218,17 @@ $(function() {
 		timeFormat: 'H:i'
 	});
 
+	$( "#tipo_horario_none" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "#horario1" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario2" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario3" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario4" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario5" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario6" ).attr("required", false).attr("disabled", true).val("");
+		}
+	});
+
 	$( "#tipo_horario_fixed" ).change(function () {
 		if($(this).is(':checked')) {
 			$( "#horario1" ).attr("required", true).attr("disabled", false);
@@ -229,10 +244,10 @@ $(function() {
 		if($(this).is(':checked')) {
 			$( "#horario1" ).attr("required", false).attr("disabled", true).val("");
 			$( "#horario2" ).attr("required", false).attr("disabled", true).val("");
-			$( "#horario3" ).attr("required", false).attr("disabled", false);
-			$( "#horario4" ).attr("required", false).attr("disabled", false);
-			$( "#horario5" ).attr("required", false).attr("disabled", false);
-			$( "#horario6" ).attr("required", false).attr("disabled", false);
+			$( "#horario3" ).attr("required", true).attr("disabled", false);
+			$( "#horario4" ).attr("required", true).attr("disabled", false);
+			$( "#horario5" ).attr("required", true).attr("disabled", false);
+			$( "#horario6" ).attr("required", true).attr("disabled", false);
 		}
 	});
 

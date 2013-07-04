@@ -96,33 +96,41 @@
 		<input type="checkbox" value="7" name="dias_semana[]" <?= in_array("7", $aux_dias) ? "checked='checked'" : ""; ?>> D 
 		<br><br>
 
-		<? $aux_hora = $items['hora_inicio2'] === $items['hora_final2'] && $items['hora_inicio2'] === '' ?>
+		<? $aux_hora_none = $items['hora_inicio'] === "" && $items['hora_final'] === "" && $items['hora_inicio2'] === "" && $items['hora_inicio2'] === "" ?>
+		
+		<? $aux_hora_fijo = $items['hora_inicio'] !== "" && $items['hora_final'] !== "" && $items['hora_inicio2'] === $items['hora_final2'] && $items['hora_inicio2'] === '' ?>
+		
+		<? $aux_hora_intervalo = $items['hora_inicio2'] !== "" && $items['hora_final2'] !== "" ?>
 
-		<input type="radio" id="tipo_horario_fixed" name="tipo_horario" value="1" <?= $aux_hora ? "checked='checked'" : "" ?>>
+		<input type="radio" id="tipo_horario_none" name="tipo_horario" value="0" <?= $aux_hora_none ? "checked='checked'" : "" ?>>
+		<p><?= $SIN_HORARIO ?></p>
+		<br>
+
+		<input type="radio" id="tipo_horario_fixed" name="tipo_horario" value="1" <?= $aux_hora_fijo ? "checked='checked'" : "" ?>>
 		<p>Fijo</p>
 		<div>
 			<label>De</label>
-			<input type="text" id="horario1" name="horario1" style="width:75px;" <?= $aux_hora ? "required='required'" : "disabled='disabled'" ?> value="<?= $aux_hora ? $items['hora_inicio'] : '' ?>">
+			<input type="text" id="horario1" name="horario1" style="width:75px;" <?= $aux_hora_fijo ? "required='required'" : "disabled='disabled'" ?> value="<?= $aux_hora_fijo ? $items['hora_inicio'] : '' ?>">
 			<label>a</label>
-			<input type="text" id="horario2" name="horario2" style="width:75px;" <?= $aux_hora ? "required='required'" : "disabled='disabled'" ?> value="<?= $aux_hora ? $items['hora_final'] : '' ?>">
+			<input type="text" id="horario2" name="horario2" style="width:75px;" <?= $aux_hora_fijo ? "required='required'" : "disabled='disabled'" ?> value="<?= $aux_hora_fijo ? $items['hora_final'] : '' ?>">
 		</div>
 
 		<br>
 
-		<input type="radio" id="tipo_horario_range" name="tipo_horario" value="2" <?= $aux_hora ? "" : "checked='checked'" ?>>
+		<input type="radio" id="tipo_horario_range" name="tipo_horario" value="2" <?= $aux_hora_intervalo ? "checked='checked'" : "" ?>>
 		<p>Intervalo</p>
 		<div>
 			<label>De</label>
-			<input type="text" id="horario3" name="horario3" style="width:75px;" <?= $aux_hora ? "disabled='disabled'" : "required='required'" ?> value="<?= $aux_hora ? '' : $items['hora_inicio'] ?>">
+			<input type="text" id="horario3" name="horario3" style="width:75px;" <?= $aux_hora_intervalo ? "required='required'" : "disabled='disabled'" ?> value="<?= $aux_hora_intervalo ? $items['hora_inicio'] : '' ?>">
 			<label>a</label>
-			<input type="text" id="horario4" name="horario4" style="width:75px;" <?= $aux_hora ? "disabled='disabled'" : "required='required'" ?> value="<?= $aux_hora ? '' : $items['hora_final'] ?>">
+			<input type="text" id="horario4" name="horario4" style="width:75px;" <?= $aux_hora_intervalo ? "required='required'" : "disabled='disabled'" ?> value="<?= $aux_hora_intervalo ? $items['hora_final'] : '' ?>">
 			<br>
 			y
 			<br>
 			<label>De</label>
-			<input type="text" id="horario5" name="horario5" style="width:75px;" <?= $aux_hora ? "disabled='disabled'" : "required='required'" ?> value="<?= $aux_hora ? '' : $items['hora_inicio2'] ?>">
+			<input type="text" id="horario5" name="horario5" style="width:75px;" <?= $aux_hora_intervalo ? "required='required'" : "disabled='disabled'" ?> value="<?= $aux_hora_intervalo ? $items['hora_inicio2'] : '' ?>">
 			<label>a</label>
-			<input type="text" id="horario6" name="horario6" style="width:75px;" <?= $aux_hora ? "disabled='disabled'" : "required='required'" ?> value="<?= $aux_hora ? '' : $items['hora_final2'] ?>">
+			<input type="text" id="horario6" name="horario6" style="width:75px;" <?= $aux_hora_intervalo ? "required='required'" : "disabled='disabled'" ?> value="<?= $aux_hora_intervalo ? $items['hora_final2'] : '' ?>">
 		</div>
 		<br>
 
@@ -232,6 +240,17 @@ $(function() {
 		timeFormat: 'H:i'
 	});
 
+	$( "#tipo_horario_none" ).change(function () {
+		if($(this).is(':checked')) {
+			$( "#horario1" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario2" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario3" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario4" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario5" ).attr("required", false).attr("disabled", true).val("");
+			$( "#horario6" ).attr("required", false).attr("disabled", true).val("");
+		}
+	});
+
 	$( "#tipo_horario_fixed" ).change(function () {
 		if($(this).is(':checked')) {
 			$( "#horario1" ).attr("required", true).attr("disabled", false);
@@ -247,10 +266,10 @@ $(function() {
 		if($(this).is(':checked')) {
 			$( "#horario1" ).attr("required", false).attr("disabled", true).val("");
 			$( "#horario2" ).attr("required", false).attr("disabled", true).val("");
-			$( "#horario3" ).attr("required", false).attr("disabled", false);
-			$( "#horario4" ).attr("required", false).attr("disabled", false);
-			$( "#horario5" ).attr("required", false).attr("disabled", false);
-			$( "#horario6" ).attr("required", false).attr("disabled", false);
+			$( "#horario3" ).attr("required", true).attr("disabled", false);
+			$( "#horario4" ).attr("required", true).attr("disabled", false);
+			$( "#horario5" ).attr("required", true).attr("disabled", false);
+			$( "#horario6" ).attr("required", true).attr("disabled", false);
 		}
 	});
 
