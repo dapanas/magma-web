@@ -63,8 +63,7 @@ class eventosController extends ControllerBase
 		
 		$data = array(
 			"title" => "Page Title",
-			"radioCategorias" => $selects->radiosCategorias(),
-			"radioSubcategorias"=> $selects->radiosSubcategorias(),
+			"checkboxesCategoriasSubcategorias" => $selects->checkboxesCategoriasSubcategorias(),
 			"selectMunicipios"=> $selects->selectMunicipios(),
 			"destacado" => $destacado != -1 ? 1 : 0,
 			"params" => $params
@@ -94,9 +93,14 @@ class eventosController extends ControllerBase
 
 		foreach ($params['subcategoriasId'] as $subcategoria) {
 			$aux = explode("|", $subcategoria);
-			array_push($auxSubcategorias, $aux[0]);
-			array_push($auxCategorias, $aux[1]);
+			if ($aux[0] != "0" && $aux[0] != "")
+				array_push($auxSubcategorias, $aux[0]);
+			if ($aux[1] != "0" && $aux[1] != "")
+				array_push($auxCategorias, $aux[1]);
 		}
+
+		array_unique($auxSubcategorias);
+		array_unique($auxCategorias);
 
 		$params['subcategoriasId'] = implode(",", $auxSubcategorias);
 		$params['categoriasId'] = implode(",", $auxCategorias);
@@ -271,8 +275,7 @@ class eventosController extends ControllerBase
 			"title" => "Page Title",
 			"op" => "edit",
 			"items" => $items,
-			"radioCategorias" => $selects->radiosCategorias(),
-			"radioSubcategorias"=> $selects->radiosSubcategorias($items['subcategoriasId']),
+			"checkboxesCategoriasSubcategorias" => $selects->checkboxesCategoriasSubcategorias($items['categoriasId'], $items['subcategoriasId']),
 			"selectMunicipios"=> $selects->selectMunicipios($items['municipiosId']),
 			"destacado" => $destacado != -1 ? 1 : 0
 		);	          
@@ -312,8 +315,10 @@ class eventosController extends ControllerBase
 
 		foreach ($params['subcategoriasId'] as $subcategoria) {
 			$aux = explode("|", $subcategoria);
-			array_push($auxSubcategorias, $aux[0]);
-			array_push($auxCategorias, $aux[1]);
+			if ($aux[0] != "0" && $aux[0] != "")
+				array_push($auxSubcategorias, $aux[0]);
+			if ($aux[1] != "0" && $aux[1] != "")
+				array_push($auxCategorias, $aux[1]);
 		}
 
 		$params['subcategoriasId'] = implode(",", $auxSubcategorias);

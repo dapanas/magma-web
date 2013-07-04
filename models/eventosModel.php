@@ -49,6 +49,7 @@ class eventosModel extends ModelBase
 		endforeach;
 		return $o;
     }
+
     public function search($params) {
     	$key = $params['a']; 
     	if ($key == -1) $key = '';
@@ -63,10 +64,10 @@ class eventosModel extends ModelBase
 		endfor;
 		return $aux;
 		
-   }
+	}
 
     public function getById($id) {
-		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp FROM eventos,categorias,subcategorias,municipios WHERE eventos.id='".$id."' and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId");
+		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.id='".$id."'");
 		$consulta->execute();
 
 		$resultado = $consulta->fetch();
@@ -76,7 +77,8 @@ class eventosModel extends ModelBase
 		$auxSubcategorias = explode(",", $resultado['subcategoriasId']);
 		
 		foreach ($auxSubcategorias as $subcategoria) {
-			array_push($aux, $subcategoria);
+			if ($subcategoria != "" && $subcategoria != '0')
+				array_push($aux, $subcategoria);
 		}
 
 		$resultado['subcategoriasId'] = $aux;
@@ -86,29 +88,46 @@ class eventosModel extends ModelBase
 		$auxCategorias = explode(",", $resultado['categoriasId']);
 
 		foreach ($auxCategorias as $categoria) {
-			array_push($aux, $categoria);
+			if ($categoria != "" && $categoria != '0')
+				array_push($aux, $categoria);
 		}
 		$resultado['categoriasId'] = $aux;
 
 		/* Creamos un array con la información relacionada entre subcategoria y categoria */
+		require_once "models/categoriasModel.php";
 		require_once "models/subcategoriasModel.php";
-		$subcategoriaModel = new subcategoriasModel();
 
+		$categoriasModel = new categoriasModel();
+		$subcategoriasModel = new subcategoriasModel();
+
+		$resultado['categoria_esp'] = array(); // Limpiamos los valores que venían desde base de datos
+		$resultado['categoria_cat'] = array(); // Limpiamos los valores que venían desde base de datos
 		$resultado['subcategoria_esp'] = array(); // Limpiamos los valores que venían desde base de datos
 		$resultado['subcategoria_cat'] = array(); // Limpiamos los valores que venían desde base de datos
 
+		foreach ($resultado['categoriasId'] as $categoria) {			
+			$aux = $categoriasModel->getNameById($categoria);
+
+			$resultado['categoria_esp'][$categoria] = array(
+				'categoria' => $aux['categoria_esp']
+			);
+			$resultado['categoria_cat'][$categoria] = array(
+				'categoria' => $aux['categoria_cat']
+			);
+		}
+
 		foreach ($resultado['subcategoriasId'] as $subcategoria) {
-			$aux = $subcategoriaModel->getNameAndCategoryNameById($subcategoria);
+			$aux = $subcategoriasModel->getNameAndCategoryNameById($subcategoria);
 
 			$resultado['subcategoria_esp'][$subcategoria] = array(
 				'subcategoria' => $aux['subcategoria_esp'],
 				'categoria' => $aux['categoria_esp']
-				);
+			);
 
 			$resultado['subcategoria_cat'][$subcategoria] = array(
 				'subcategoria' => $aux['subcategoria_cat'],
 				'categoria' => $aux['categoria_cat']
-				);
+			);
 		}
 
 		return $resultado;
@@ -135,28 +154,28 @@ class eventosModel extends ModelBase
     }
 
     public function getByUserAhora($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and fecha_fin > NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND fecha_fin > NOW() AND confirmado > 0 ORDER by fecha_inicio ASC");
     	$consulta->execute();
 		
 		return $consulta->fetchAll();
     }
 
     public function getByUserAnteriores($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and fecha_fin < NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND fecha_fin < NOW() AND confirmado > 0 ORDER by fecha_inicio ASC");
 		$consulta->execute();
 
         return $consulta->fetchAll();
     }
 		
     public function getDestacadosByUserAhora($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and destacados='1' and fecha_fin > NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND destacados = '1' AND fecha_fin > NOW() AND confirmado > 0 ORDER by fecha_inicio ASC");
 		$consulta->execute();
 
 		return $consulta->fetchAll();
     }
 		
     public function getDestacadosByUserAnteriores($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*,municipios.municipio_cat,municipios.municipio_esp,categorias.categoria_esp,categorias.categoria_cat,subcategorias.subcategoria_cat,subcategorias.subcategoria_esp  FROM eventos,categorias,subcategorias,municipios WHERE eventos.accountsId='$accountsId' and destacado='1' and fecha_fin < NOW() and categorias.id = eventos.categoriasId and subcategorias.id = eventos.subcategoriasId and municipios.id = eventos.municipiosId and confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND destacado = '1' AND fecha_fin < NOW() AND confirmado > 0 ORDER by fecha_inicio ASC");
 		$consulta->execute();
 
 		return $consulta->fetchAll();

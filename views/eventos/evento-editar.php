@@ -8,6 +8,18 @@
 <link rel="stylesheet" href="views/lib/css/jquery.timepicker.css">
 <link rel="stylesheet" href="admin/views/jQuery-ui-1.8.16/themes/base/jquery.ui.all.css">
 
+<style type="text/css">
+.categoria > ul {
+	padding-left: 0px;
+	list-style: none;
+}
+
+.categoria > ul > li > ul {
+	padding-left: 0px;
+	list-style: none;
+}
+</style>
+
 <div class='inside'>
 	<h2>Modificar evento</h2>
 	<form class='form' action='eventos/doEdit' method='POST' enctype='multipart/form-data'>
@@ -15,7 +27,7 @@
 		<div class="categoria-evento">
 			<div class="tit"><?= $CATEGORIA_ACTO ?>: <div class="vermell">*</div></div><br>
 			<div class="categoria">
-				<?= $radioSubcategorias ?>
+				<?= $checkboxesCategoriasSubcategorias ?>
 			</div>
 			<div class="mini">Puedes seleccionar un máximo de 3 categorías.</div>
 			<br>
@@ -170,7 +182,7 @@
 	</form>
 </div>
 
-<script>
+<script type="text/javascript">
 	$('input[name="titulo_esp"],input[name="titulo_cat"]').jqEasyCounter({
 			'maxChars': 50,
 			'maxCharsWarning': 45
@@ -181,7 +193,7 @@
 		});		
 </script>
 
-<script>
+<script type="text/javascript">
 function extraValidate (form) {
 	if ($("input[name='subcategoriasId[]']:checked").length >= 1) {
 		validate(form);
