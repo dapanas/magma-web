@@ -25,7 +25,7 @@
 	<h2><?= $public_desta ?></h2>
 	<!-- <h3 class="light">Fechas publicación · <b><?= $INFORMACION ?></b> · <?= $RESUMEN ?> · <?= $CONFIRMACION ?></h3> -->
 	<img src="views/img/step2.jpg">
-	<br><br>
+	<br>
 	<? else:?>
 	<h2><?= $publi_even ?></h2>
 	<h3 class="light book"><span class="demibold"><?= $INFORMACION ?></span> · <?= $RESUMEN ?> · <?= $CONFIRMACION ?></h3>
@@ -159,6 +159,9 @@
 			<input type="hidden" name="periodo" value="<?= isset($params['periodo']) ? $params['periodo'] : ''; ?>">
 			<input type="hidden" name="fecha_publi_ini" value="<?= $params['fecha_publi_ini'] ?>">
 			<input type="hidden" name="fecha_publi_end" value="<?= $params['fecha_publi_end']?>">
+			<? if (isset($destacado) && $destacado == 1): ?>
+			<input type="button" class="button black" value="Anterior" onclick="history.back(-1)" style="padding: 0 26px;">
+			<? endif; ?>
 			<? if (!isset($op) or $op != 'edit'): ?>
 			<input type="button" onclick="extraValidate(this.form);" class="button black" value="<?= $SIGUIENTE ?> " style="margin-left: -14px;">
 			<? else: ?>

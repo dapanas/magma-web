@@ -20,8 +20,24 @@
 }
 </style>
 
-<div class='inside'>
+<?
+$params = gett();
+?>
+
+<div id="evento-info" class='inside'>
+	<? if (isset($params['i']) && $params['i'] == 'addD'): ?>
+	<h2><?= $public_desta ?></h2>
+	<!-- <h3 class="light">Fechas publicación · <b><?= $INFORMACION ?></b> · <?= $RESUMEN ?> · <?= $CONFIRMACION ?></h3> -->
+	<img src="views/img/step2.jpg">
+	<br>
+	<? elseif (isset($params['i']) && $params['i'] == 'add'): ?>
+	<h2><?= $publi_even ?></h2>
+	<h3 class="light book">
+		<span class="demibold"><?= $INFORMACION ?></span> · <?= $RESUMEN ?> · <?= $CONFIRMACION ?>
+	</h3>
+	<? else: ?>
 	<h2>Modificar evento</h2>
+	<? endif; ?>
 	<form class='form' action='eventos/doEdit' method='POST' enctype='multipart/form-data'>
 		<div class="boto-red">General</div>
 		<div class="categoria-evento">
@@ -185,6 +201,13 @@
 			<input type="hidden" name="fecha_publi_end" value="<?= $items['fecha_publi_end']?>">
 			<input type="hidden" name="eventosId" value="<?= $items["id"]; ?>">
 			<input type="hidden" name="imagen" value="<?= $items["imagen"]; ?>">
+			<? if (isset($params['i']) && $params['i'] == 'add'): ?>
+			<input type="hidden" name="i" value="add">
+			<? endif; ?>
+			<? if (isset($params['i']) && $params['i'] == 'addD'): ?>
+			<input type="hidden" name="i" value="addD">
+			<input type="button" onclick="window.location.href='eventos/destacado'" class="button black" value="Anterior" >
+			<? endif; ?>
 			<input type="button" onclick="extraValidate(this.form);" class="button black" value="<?= $SIGUIENTE  ?>" >
 		</div>
 	</form>

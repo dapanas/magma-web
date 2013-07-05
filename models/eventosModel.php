@@ -154,21 +154,21 @@ class eventosModel extends ModelBase
     }
 
     public function getByUserAhora($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND fecha_fin > NOW() AND confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND fecha_fin > NOW() AND confirmado > 0 AND destacado <> 1 ORDER by fecha_inicio ASC");
     	$consulta->execute();
 		
 		return $consulta->fetchAll();
     }
 
     public function getByUserAnteriores($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND fecha_fin < NOW() AND confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND fecha_fin < NOW() AND confirmado > 0 AND destacado <> 1 ORDER by fecha_inicio ASC");
 		$consulta->execute();
 
         return $consulta->fetchAll();
     }
 		
     public function getDestacadosByUserAhora($accountsId) {
-    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND destacados = '1' AND fecha_fin > NOW() AND confirmado > 0 ORDER by fecha_inicio ASC");
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.accountsId = '$accountsId' AND destacado = '1' AND fecha_fin > NOW() AND confirmado > 0 ORDER by fecha_inicio ASC");
 		$consulta->execute();
 
 		return $consulta->fetchAll();

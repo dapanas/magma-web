@@ -1,8 +1,9 @@
 <? include('views/includes/top.php'); ?>
 <div id="evento-info" class='inside'>
+	<? $params = gett(); ?>
 	<? 
-	if (!isset($op) or $op != 'edit'):
-		if ($destacado):
+	if (!isset($op) || $op != 'edit'):
+		if (isset($items['destacado']) && $items['destacado'] == 1):
 	?>
 		<h2><?= $public_desta ?></h2>
 		<img src="views/img/step3.jpg"><br>
@@ -14,16 +15,16 @@
 				<tr><td><b><?= $PERI ?></b></td><td><b><?= $FECHA_PUBLICACION ?></b></td></tr>
 				<tr>
 					<td>
-						<?= $periodo ?>
+						<?= $_SESSION['addDestacado']['periodo'] ?>
 						<?
-						if ($periodo > 1)
+						if ($_SESSION['addDestacado']['periodo'] > 1)
 							echo 'semanas';
 						else
 							echo 'semana';
 						?>
 					</td>
 					<td>
-						<?= mysql_to_fecha($params['fecha_publi_ini']) ?> - <?= mysql_to_fecha($params['fecha_publi_end']) ?>
+						<?= mysql_to_fecha($_SESSION['addDestacado']['fecha_publi_ini']) ?> - <?= mysql_to_fecha($_SESSION['addDestacado']['fecha_publi_end']) ?>
 					</td>
 				</tr>
 			</table>
@@ -156,22 +157,22 @@
 	</div>
 
 	<?
-	if (isset($op) and $op != 'edit' and $destacado):
+	if (isset($op) && $op != 'edit' && isset($items['destacado']) && $items['destacado'] == 1):
 	?>
 
 	<div class="boto-red"><?= $CONCEPTF ?></div>
 	<div class="categoria-evento">
 		<table>
-			<tr><th><?= $CONCEPT ?></th><th><?= $PRECIO ?></th><th>IVA (21%)</th><th>TOTAL</th></tr>
+			<tr><th><?= $CONCEPTF ?></th><th><?= $PRECIO ?></th><th>IVA (21%)</th><th>TOTAL</th></tr>
 			<?
 			$precios = array(0,100,180,255,320);
 			$iva = $total = 0;
-			$iva = $precios[$periodo] * 0.21;
-			$total = $precios[$periodo] + $iva;
+			$iva = $precios[$_SESSION['addDestacado']['periodo']] * 0.21;
+			$total = $precios[$_SESSION['addDestacado']['periodo']] + $iva;
 			?>
 			<tr>
-				<td>Pub. <?= $destacado ?> <?= $periodo ?> sem.</td>
-				<td><?= $precios[$periodo]?>€</td>
+				<td>Pub. <?= $destacado_lang ?> <?= $_SESSION['addDestacado']['periodo'] ?> sem.</td>
+				<td><?= $precios[$_SESSION['addDestacado']['periodo']]?>€</td>
 				<td><?= number_format($iva,2,",",".") ?>€</td>
 				<td><?= number_format($total,2,",",".") ?>€</td>
 			</tr>
@@ -180,29 +181,34 @@
 	
 	<div class="boto-red"><?= $dir ?></div>
 	<div class="categoria-evento">
-		<div class="tit"><?= $NOMBRE_RAZON ?> :</div> <?= $facturacion['nombre'] ?>
-		<div class="tit"><?= $DIRECCION ?>:</div> <?= $facturacion['direccion'] ?>
-		<div class="tit"><?= $MUNICIPIO ?>:</div> <?= $facturacion['municipio_esp'] ?>
-		<div class="tit"><?= $PROVINCIA ?>: </div> <?= $facturacion['provincia'] ?>
-		<div class="tit"><?= $postal ?>:</div> <?= $facturacion['codigopostal'] ?>
-		<div class="tit"><?= $NIF_CIF ?>: </div> <?= $facturacion['nifcif'] ?>
+		<div class="tit"><?= $NOMBRE_RAZON ?> :</div> <?= $_SESSION['addDestacado']['facturacion']['nombre'] ?>
+		<div class="tit"><?= $DIRECCION ?>:</div> <?= $_SESSION['addDestacado']['facturacion']['direccion'] ?>
+		<div class="tit"><?= $MUNICIPIO ?>:</div> <?= $_SESSION['addDestacado']['facturacion']['municipiosId'] ?>
+		<div class="tit"><?= $PROVINCIA ?>: </div> <?= $_SESSION['addDestacado']['facturacion']['provincia'] ?>
+		<div class="tit"><?= $postal ?>:</div> <?= $_SESSION['addDestacado']['facturacion']['codigopostal'] ?>
+		<div class="tit"><?= $NIF_CIF ?>: </div> <?= $_SESSION['addDestacado']['facturacion']['nifcif'] ?>
 	</div>
 	<? endif; ?>
 
 	<br><br><br>
 	<?
 	if (!isset($op) or $op != 'edit'):
-		if ($destacado):
+		if (isset($items['destacado']) && $items['destacado'] == 1):
 	?>
-		<input type="button" class="button black" value="Anterior" onclick="history.back(-1)">
+		<input type="button" class="button black" value="Anterior" onclick="window.location.href='eventos/edit/<?=$params['a']?>/addD'">
 		<input type="button" class="button black" value="<?= $SIGUIENTE ?>" onclick="window.location.href='eventos/facturacionDestacado/<?=$items['id']?>'">
 		<?
 		else:
 		?>
-		<input type="button" class="button black" value="Anterior" onclick="history.back(-1)" style="padding: 0 24px;">
+		<input type="button" class="button black" value="Anterior" onclick="window.location.href='eventos/edit/<?=$params['a']?>/add'" style="padding: 0 24px;">
 		<input type="button" class="button black" value="<?= $SIGUIENTE ?>" onclick="window.location.href='eventos/confirmar/<?=$items['id']?>'">
 		<?
 		endif;
+	elseif (isset($params['i']) && $params['i'] == "add"):
+	?>
+		<input type="button" class="button black" value="Anterior" onclick="window.location.href='eventos/edit/<?=$params['a']?>/add'" style="padding: 0 24px;">
+		<input type="button" class="button black" value="<?= $SIGUIENTE ?>" onclick="window.location.href='eventos/confirmar/<?=$params['a']?>'">
+	<?
 	else:
 	?>
 

@@ -9,30 +9,23 @@ if ($_SESSION['periodo'] != "") {
 	$amount = $prices[0];
 }
 
-
 // Compute hash to sign form data
 $message = $amount.$order.$code.$currency.$transactionType.$urlMerchant.$clave;
 // echo "<input type=hidden name=message value='$message'>";
 $signature = strtoupper(sha_1($message));
-
-
-
 ?>
 
 <? include('views/includes/top.php'); ?>
 <div id="publicar-evento" class='inside'>
-
-<? if ($destacado): ?>
-<form name="form3" method="POST" action="https://sis-t.redsys.es:25443/sis/realizarPago">
-	<h2><?= $public_desta ?></h2>
-<!-- 	<h3><?= $inf_res_conf ?></h3> -->
-<img src="views/img/step5.jpg"><br>
-<p ><?= $event_text ?></p>
-<input type="checkbox" required="required" name="condiciones" value="1"><p style="display:inline;font-size:8.2pt;"><?= $REVISADO_COMPROBADO ?></p>
-
-
-<br><br><br>
-
+	<? if (isset($items['destacado']) && $items['destacado'] == 1): ?>
+	<form name="form3" method="POST" action="https://sis-t.redsys.es:25443/sis/realizarPago">
+		<h2><?= $public_desta ?></h2>
+		<!-- 	<h3><?= $inf_res_conf ?></h3> -->
+		<img src="views/img/step5.jpg"><br>
+		<p><?= $event_text ?></p>
+		<input type="checkbox" required="required" name="condiciones" value="1">
+		<p style="display:inline;font-size:8.2pt;"><?= $REVISADO_COMPROBADO ?></p>
+		<br><br><br>
 <?
 
  echo "
@@ -75,28 +68,21 @@ $signature = strtoupper(sha_1($message));
 <input type="hidden" name="Ds_Merchant_Amount" value="<?= $amount ?>">
 <input type="hidden" name="Ds_Merchant_MerchantSignature" value="<?= $signature ?>">
 -->
+		<input type="button" class="button black" value="Anterior" onclick="history.back(-1)" style="padding: 0 26px;">
+		<input type="submit" class="button black" value="Confirmar">
+	</form>
 
-<input type="submit" class="button black" value="Confirmar">
+	<? else: ?>
+	<form name="form3" method="POST" action="eventos/doConfirmar/<?= $eventosId?>">
+		<h2><?= $publi_even ?></h2>
+		<h3 class="light book"><?= $INFORMACION ?> · <?= $RESUMEN ?> · <span class="demibold"><?= $CONFIRMACION ?></span></h3>
+		<p style="text-align:justify;margin-top: 30px;margin-bottom: 10px;"><?= $event_text ?></p>
+		<!-- <input type="checkbox" required="required" name="condiciones" value="1"><p style="display:inline;font-size:8.2pt;"><?= $HE_LEIDO ?></p> -->
 
-</form>
-
-<? else: ?>
-<form name="form3" method="POST" action="eventos/doConfirmar/<?= $eventosId?>">
-	<h2><?= $publi_even ?></h2>
-	<h3 class="light book"><?= $INFORMACION ?> · <?= $RESUMEN ?> · <span class="demibold"><?= $CONFIRMACION ?></span></h3>
-	
-<p style="text-align:justify;margin-top: 30px;margin-bottom: 10px;"><?= $event_text ?></p>
-
-<!-- <input type="checkbox" required="required" name="condiciones" value="1"><p style="display:inline;font-size:8.2pt;"><?= $HE_LEIDO ?></p> -->
-
-
-
-
-<input type="button" class="button black" value="Anterior" onclick="history.back(-1)" style="padding: 0 26px;">
-<input type="button" class="button black" value="Confirmar" onclick="validate(this.form);">
-
-<? endif; ?>
-
+		<input type="button" class="button black" value="Anterior" onclick="history.back(-1)" style="padding: 0 26px;">
+		<input type="button" class="button black" value="Confirmar" onclick="validate(this.form);">
+	</form>
+	<? endif; ?>
 </div>
 
 <? include('views/includes/footer.php'); ?>
