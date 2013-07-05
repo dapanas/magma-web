@@ -98,7 +98,8 @@
 
 <div class="mini">
 <?= $INFO_CONFIDENCIAL ?></div>
-<input type="button" class="button black" value="Siguiente" onclick="validate(this.form);">
+<input type="button" class="button black" value="Anterior" onclick="window.location.href='eventos/detalle/<?= $eventosId ?>/add'">
+<input type="button" class="button black" value="<?= $SIGUIENTE ?>" onclick="validate(this.form);">
 
 
 </div>

@@ -49,7 +49,7 @@ class eventosController extends ControllerBase
 		include "models/selectsModel.php";
 		$selects = new selectsModel();
 		$params = gett();
-		$destacado = $params['a'] != -1 ? 1 :  -1;
+		$destacado = $params['a'] != -1 ? 1 : -1;
 		$_SESSION['periodo'] = isset($params['periodo']) ? $params['periodo'] : "";
 		
 		if (isset($params['fecha_publi_ini'])) {
@@ -184,16 +184,15 @@ class eventosController extends ControllerBase
 		require "models/accountsfacturacionModel.php"; 	
 		$itemsx = new accountsfacturacionModel();
 		$eventoId = $items->add($params);
-		
-		$data = array(
-			"destacado" => $params['destacado'],
-			"periodo" => $params['periodo'],
-			"params"  => $params,
-			"facturacion" => $itemsx->getById($_SESSION['accountId']),
-			"items" => $items->getById($eventoId)
-		);
 
-		$this->view->show("eventos/evento-resumen.php", $data);
+		$_SESSION['addDestacado']['periodo'] = $params['periodo'];
+		$_SESSION['addDestacado']['fecha_publi_ini'] = $params['fecha_publi_ini'];
+		$_SESSION['addDestacado']['fecha_publi_end'] = $params['fecha_publi_end'];
+		$_SESSION['addDestacado']['facturacion'] = $itemsx->getById($_SESSION['accountId']);
+
+		header_remove();
+		header("Location: ../eventos/detalle/".$eventoId."/add");
+		//$this->view->show("eventos/evento-resumen.php", $data);
 	}
 
 	public function destacado() {
@@ -252,7 +251,7 @@ class eventosController extends ControllerBase
 		if ($items->isCanceled($params['a'])) {
 			$this->view->show("eventos/evento-cancelado.php");
 			return;
-		} elseif (!$items->isPublished($params['a'])) {
+		} elseif (!$items->isPublished($params['a']) && (!isset($params['i']) || ($params['i'] != 'add' && $params['i'] != 'addD'))) {
 			$this->view->show("eventos/evento-nopublicado.php");
 			return;
 		}
@@ -292,13 +291,20 @@ class eventosController extends ControllerBase
 		if ($items->isCanceled($params['eventosId'])) {
 			$this->view->show("eventos/evento-cancelado.php");
 			return;
-		} elseif (!$items->isPublished($params['eventosId'])) {
+		} elseif (!$items->isPublished($params['eventosId']) && (!isset($params['i']) || ($params['i'] != 'add' && $params['i'] != 'addD'))) {
 			$this->view->show("eventos/evento-nopublicado.php");
 			return;
 		}
 		
 		$lang = $_SESSION['lang'];
-		$params['fecha_actualizacion'] = Date('Y-m-d H:i:s');
+
+		if (isset($params['i']) && ($params['i'] == "add" || $params['i'] == "addD")) {
+			$params['fecha_registro'] = Date('Y-m-d');
+			$params['fecha_actualizacion'] = "";
+		} else {
+			$params['fecha_actualizacion'] = Date('Y-m-d H:i:s');
+		}
+
 		$params['publicado'] = 0;
 		$params['confirmado'] = 0;
 		$params['accountsId'] = $_SESSION['accountId'];
@@ -400,6 +406,16 @@ class eventosController extends ControllerBase
 
 		$items->edit($params);
 
+		if (isset($params['i']) && $params['i'] == "add") {
+			header_remove();
+			header("location: ../eventos/detalle/".$params['id']."/add");
+			return;
+		} elseif (isset($params['i']) && $params['i'] == "addD") {
+			header_remove();
+			header("location: ../eventos/detalle/".$params['id']."/addD");
+			return;
+		}
+
 		$config = Config::singleton();
 
 		include_once "lib/EmailSend.php";
@@ -413,7 +429,6 @@ class eventosController extends ControllerBase
 		);
 
 		header_remove();
-
 		header("location: ../eventos/detalle/".$params['id']);
 	}
 
@@ -422,11 +437,14 @@ class eventosController extends ControllerBase
 		require "models/eventosModel.php"; 	
 		$items = new eventosModel();
 
+		$items = $items->getById($params["a"]);
+
 		$data = array(
 			"title" => "Page Title",
-			"op" => "edit",
-			"items" => $items->getById($params["a"])
-		);	          
+			"op" => ($params['i'] != 'add' && $params['i'] != 'addD') ? "edit" : "",
+			"items" => $items,
+			"destacado" => $items['destacado'] == "1" ? 1 : 0
+		);
 		
 		$this->view->show("eventos/evento-resumen.php", $data);
 	}
