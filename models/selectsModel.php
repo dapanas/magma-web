@@ -114,17 +114,9 @@ class selectsModel extends ModelBase
 
 		$ret = '<ul>';
 		foreach($categoriasFinal as $categoria) {
-			$ret .= '<li>';
-			$ret .= '<input type="checkbox" name="subcategoriasId[]" value="0|'.$categoria['id'].'" ';
 
-			if (in_array($categoria['id'], $categoriesSelected)) {
-				$ret .= 'checked="checked" />';
-			} else {
-				$ret .= '/>';
-			}
-			$ret .= '<p> '.$categoria['categoria_'.$lang].'</p>';
-
-			if ($categoria['subcategorias']) {
+			if (count($categoria['subcategorias']) > 0) {
+				$ret .= '<li>';
 				$ret .= '<ul>';
 				foreach ($categoria['subcategorias'] as $subcategoria) {
 					$ret .= '<li>';
@@ -139,8 +131,20 @@ class selectsModel extends ModelBase
 					$ret .= '</li>';
 				}
 				$ret .= '</ul>';
+				$ret .= '</li>';
+			} else {
+				$ret .= '<li>';
+				$ret .= '<input type="checkbox" name="subcategoriasId[]" value="0|'.$categoria['id'].'" ';
+
+				if (in_array($categoria['id'], $categoriesSelected)) {
+					$ret .= 'checked="checked" />';
+				} else {
+					$ret .= '/>';
+				}
+				$ret .= '<p> '.$categoria['categoria_'.$lang].'</p>';
+
+				$ret .= '</li>';
 			}
-			$ret .= '</li>';
 		}
 		$ret .= '</ul>';
 
