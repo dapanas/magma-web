@@ -27,24 +27,59 @@ class eventosModel extends ModelBase
 
 		$aux = $consulta->fetchAll();
 		for ($i=0;$i<count($aux);$i++):
+
 			$aux[$i]['categoria_esp'] = $this->translateCatsIdsToString($aux[$i]['categoriasId'],'esp');
 			$aux[$i]['categoria_cat']= $this->translateCatsIdsToString($aux[$i]['categoriasId'],'cat');
+			
+			$aux[$i]['categoria_esp'] .= $this->translateSubCatsIdsToString($aux[$i]['subcategoriasId'],'esp');
+			$aux[$i]['categoria_cat'].= $this->translateSubCatsIdsToString($aux[$i]['subcategoriasId'],'cat');
+			
+			
 		endfor;
 		return $aux;
 
     }
     
     private function translateCatsIdsToString($aux,$lang){
-    	$aux = explode(",",$aux);
-    	$aux = array_unique($aux);
+    	if (strstr($aux,',')){
+	    	$aux = explode(",",$aux);
+    		$aux = array_unique($aux);
+    	}else{
+    		$aux = array($aux);
+    	}
+
 		$o= '';
 		$i = 0;
 		foreach ($aux as $a):
 	    	$consulta = $this->db->prepare("SELECT categoria_".$lang." as cat FROM categorias where id='".$a."' limit 1");
+	    	
+	    	
 	      	$consulta->execute();		
-   			$aux = $consulta->fetch();
+   			$aux2 = $consulta->fetch();
+
    			if ($i > 0) $o .= " · ";
-   			$o .= $aux['cat'];
+   			$o .= $aux2['cat'];
+   			$i++;
+		endforeach;
+		return $o;
+    }
+    
+      private function translateSubCatsIdsToString($aux,$lang){
+    		if (strstr($aux,',')){
+	    	$aux = explode(",",$aux);
+    		//$aux = array_unique($aux);
+    	}else{
+    		$aux = array($aux);
+    	}
+    	
+		$o= '';
+		$i = 0;
+		foreach ($aux as $a):
+	    	$consulta = $this->db->prepare("SELECT subcategoria_".$lang." as cat FROM subcategorias where id='".$a."' limit 1");
+	      	$consulta->execute();		
+   			$aux2 = $consulta->fetch();
+   			if ($i > 0) $o .= " · ";
+   			$o .= $aux2['cat'];
    			$i++;
 		endforeach;
 		return $o;
