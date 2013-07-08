@@ -13,12 +13,20 @@ class eventosModel extends ModelBase
 		$consulta->execute();
 
 		$aux = $consulta->fetchAll();
-		for ($i=0;$i<count($aux);$i++):
-			$aux[$i]['categoria_esp'] = $this->translateCatsIdsToString($aux[$i]['categoriasId'],'esp');
-			$aux[$i]['categoria_cat']= $this->translateCatsIdsToString($aux[$i]['categoriasId'],'cat');
-		endfor;
-		return $aux;
+		for ($i = 0; $i < count($aux); $i++) {
+			$aux_categorias = $this->translateCatsIdsToString($aux[$i]['categoriasId'], $aux[$i]['subcategoriasId']);
 
+			$aux[$i]['categoriasId'] = $aux_categorias['categoriasId'];
+			$aux[$i]['subcategoriasId'] = $aux_categorias['subcategoriasId'];
+			$aux[$i]['categoria_esp'] = $aux_categorias['categoria_esp'];
+			$aux[$i]['categoria_cat'] = $aux_categorias['categoria_cat'];
+			$aux[$i]['subcategoria_esp'] = $aux_categorias['subcategoria_esp'];
+			$aux[$i]['subcategoria_cat'] = $aux_categorias['subcategoria_cat'];
+			$aux[$i]['categoria_esp_txt'] = $aux_categorias['categoria_esp_txt'];
+			$aux[$i]['categoria_cat_txt'] = $aux_categorias['categoria_cat_txt'];
+		}
+
+		return $aux;
     }
     
     public function getAllDestacados() {
@@ -26,55 +34,26 @@ class eventosModel extends ModelBase
 		$consulta->execute();
 
 		$aux = $consulta->fetchAll();
-		for ($i=0;$i<count($aux);$i++):
-			$aux[$i]['categoria_esp'] = $this->translateCatsIdsToString($aux[$i]['categoriasId'],'esp');
-			$aux[$i]['categoria_cat']= $this->translateCatsIdsToString($aux[$i]['categoriasId'],'cat');
-		endfor;
-		return $aux;
+		for ($i = 0; $i < count($aux); $i++) {
+			$aux_categorias = $this->translateCatsIdsToString($aux[$i]['categoriasId'], $aux[$i]['subcategoriasId']);
 
-    }
-    
-    private function translateCatsIdsToString($aux,$lang){
-    	$aux = explode(",",$aux);
-    	$aux = array_unique($aux);
-		$o= '';
-		$i = 0;
-		foreach ($aux as $a):
-	    	$consulta = $this->db->prepare("SELECT categoria_".$lang." as cat FROM categorias where id='".$a."' limit 1");
-	      	$consulta->execute();		
-   			$aux = $consulta->fetch();
-   			if ($i > 0) $o .= " · ";
-   			$o .= $aux['cat'];
-   			$i++;
-		endforeach;
-		return $o;
+			$aux[$i]['categoriasId'] = $aux_categorias['categoriasId'];
+			$aux[$i]['subcategoriasId'] = $aux_categorias['subcategoriasId'];
+			$aux[$i]['categoria_esp'] = $aux_categorias['categoria_esp'];
+			$aux[$i]['categoria_cat'] = $aux_categorias['categoria_cat'];
+			$aux[$i]['subcategoria_esp'] = $aux_categorias['subcategoria_esp'];
+			$aux[$i]['subcategoria_cat'] = $aux_categorias['subcategoria_cat'];
+			$aux[$i]['categoria_esp_txt'] = $aux_categorias['categoria_esp_txt'];
+			$aux[$i]['categoria_cat_txt'] = $aux_categorias['categoria_cat_txt'];
+		}
+
+		return $aux;
     }
 
-    public function search($params) {
-    	$key = $params['a']; 
-    	if ($key == -1) $key = '';
-    	
-    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where descripcion_cat LIKE '%".$key."%' or descripcion_esp LIKE '%".$key."%' or titulo_cat LIKE '%".$key."%' or titulo_esp LIKE '%".$key."%'  and publicado > 0 order by fecha_inicio  DESC");
-		$consulta->execute();
-
-		$aux = $consulta->fetchAll();
-		for ($i=0;$i<count($aux);$i++):
-			$aux[$i]['categoria_esp'] = $this->translateCatsIdsToString($aux[$i]['categoriasId'],'esp');
-			$aux[$i]['categoria_cat']= $this->translateCatsIdsToString($aux[$i]['categoriasId'],'cat');
-		endfor;
-		return $aux;
-		
-	}
-
-    public function getById($id) {
-		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.id='".$id."'");
-		$consulta->execute();
-
-		$resultado = $consulta->fetch();
-
-		/* Convertimos el string con las subcategorias en array */
+    private function translateCatsIdsToString($cats, $subcats) {
+    	/* Convertimos el string con las subcategorias en array */
 		$aux = array();
-		$auxSubcategorias = explode(",", $resultado['subcategoriasId']);
+		$auxSubcategorias = explode(",", $subcats);
 		
 		foreach ($auxSubcategorias as $subcategoria) {
 			if ($subcategoria != "" && $subcategoria != '0')
@@ -85,7 +64,7 @@ class eventosModel extends ModelBase
 
 		/* Convertimos el string con las categorias en array */
 		$aux = array();
-		$auxCategorias = explode(",", $resultado['categoriasId']);
+		$auxCategorias = explode(",", $cats);
 
 		foreach ($auxCategorias as $categoria) {
 			if ($categoria != "" && $categoria != '0')
@@ -93,7 +72,7 @@ class eventosModel extends ModelBase
 		}
 		$resultado['categoriasId'] = $aux;
 
-		/* Creamos un array con la información relacionada entre subcategoria y categoria */
+    	/* Creamos un array con la información relacionada entre subcategoria y categoria */
 		require_once "models/categoriasModel.php";
 		require_once "models/subcategoriasModel.php";
 
@@ -105,7 +84,7 @@ class eventosModel extends ModelBase
 		$resultado['subcategoria_esp'] = array(); // Limpiamos los valores que venían desde base de datos
 		$resultado['subcategoria_cat'] = array(); // Limpiamos los valores que venían desde base de datos
 
-		foreach ($resultado['categoriasId'] as $categoria) {			
+		foreach ($resultado['categoriasId'] as $categoria) {
 			$aux = $categoriasModel->getNameById($categoria);
 
 			$resultado['categoria_esp'][$categoria] = array(
@@ -130,6 +109,71 @@ class eventosModel extends ModelBase
 			);
 		}
 
+		$aux_esp_txt = array();
+		foreach ($resultado['categoria_esp'] as $categoria) {
+			array_push($aux_esp_txt, $categoria['categoria']);
+		}
+
+		foreach ($resultado['subcategoria_esp'] as $subcategoria) {
+			array_push($aux_esp_txt, $subcategoria['subcategoria']);
+		}
+
+		$aux_cat_txt = array();
+		foreach ($resultado['categoria_cat'] as $categoria) {
+			array_push($aux_cat_txt, $categoria['categoria']);
+		}
+
+		foreach ($resultado['subcategoria_cat'] as $subcategoria) {
+			array_push($aux_cat_txt, $subcategoria['subcategoria']);
+		}
+
+		$resultado['categoria_esp_txt'] = implode(" &middot; ", $aux_esp_txt);
+		$resultado['categoria_cat_txt'] = implode(" &middot; ", $aux_cat_txt);
+
+		return $resultado;
+    }
+
+    public function search($params) {
+    	$key = $params['a']; 
+    	if ($key == -1) $key = '';
+    	
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where descripcion_cat LIKE '%".$key."%' or descripcion_esp LIKE '%".$key."%' or titulo_cat LIKE '%".$key."%' or titulo_esp LIKE '%".$key."%'  and publicado > 0 order by fecha_inicio  DESC");
+		$consulta->execute();
+
+		$aux = $consulta->fetchAll();
+		for ($i = 0; $i < count($aux); $i++) {
+			$aux_categorias = $this->translateCatsIdsToString($aux[$i]['categoriasId'], $aux[$i]['subcategoriasId']);
+
+			$aux[$i]['categoriasId'] = $aux_categorias['categoriasId'];
+			$aux[$i]['subcategoriasId'] = $aux_categorias['subcategoriasId'];
+			$aux[$i]['categoria_esp'] = $aux_categorias['categoria_esp'];
+			$aux[$i]['categoria_cat'] = $aux_categorias['categoria_cat'];
+			$aux[$i]['subcategoria_esp'] = $aux_categorias['subcategoria_esp'];
+			$aux[$i]['subcategoria_cat'] = $aux_categorias['subcategoria_cat'];
+			$aux[$i]['categoria_esp_txt'] = $aux_categorias['categoria_esp_txt'];
+			$aux[$i]['categoria_cat_txt'] = $aux_categorias['categoria_cat_txt'];
+		}
+
+		return $aux;
+	}
+
+    public function getById($id) {
+		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_cat, municipios.municipio_esp FROM eventos JOIN municipios ON eventos.municipiosId = municipios.id WHERE eventos.id='".$id."'");
+		$consulta->execute();
+
+		$resultado = $consulta->fetch();
+
+		$aux = $this->translateCatsIdsToString($resultado['categoriasId'], $resultado['subcategoriasId']);
+		
+		$resultado['categoriasId'] = $aux['categoriasId'];
+		$resultado['subcategoriasId'] = $aux['subcategoriasId'];
+		$resultado['categoria_esp'] = $aux['categoria_esp'];
+		$resultado['categoria_cat'] = $aux['categoria_cat'];
+		$resultado['subcategoria_esp'] = $aux['subcategoria_esp'];
+		$resultado['subcategoria_cat'] = $aux['subcategoria_cat'];
+		$resultado['categoria_esp_txt'] = $aux['categoria_esp_txt'];
+		$resultado['categoria_cat_txt'] = $aux['categoria_cat_txt'];
+
 		return $resultado;
     }
 
@@ -145,12 +189,20 @@ class eventosModel extends ModelBase
 		$consulta->execute();
 
 		$aux = $consulta->fetchAll();
-		for ($i=0;$i<count($aux);$i++):
-			$aux[$i]['categoria_esp'] = $this->translateCatsIdsToString($aux[$i]['categoriasId'],'esp');
-			$aux[$i]['categoria_cat']= $this->translateCatsIdsToString($aux[$i]['categoriasId'],'cat');
-		endfor;
+		for ($i = 0; $i < count($aux); $i++) {
+			$aux_categorias = $this->translateCatsIdsToString($aux[$i]['categoriasId'], $aux[$i]['subcategoriasId']);
+
+			$aux[$i]['categoriasId'] = $aux_categorias['categoriasId'];
+			$aux[$i]['subcategoriasId'] = $aux_categorias['subcategoriasId'];
+			$aux[$i]['categoria_esp'] = $aux_categorias['categoria_esp'];
+			$aux[$i]['categoria_cat'] = $aux_categorias['categoria_cat'];
+			$aux[$i]['subcategoria_esp'] = $aux_categorias['subcategoria_esp'];
+			$aux[$i]['subcategoria_cat'] = $aux_categorias['subcategoria_cat'];
+			$aux[$i]['categoria_esp_txt'] = $aux_categorias['categoria_esp_txt'];
+			$aux[$i]['categoria_cat_txt'] = $aux_categorias['categoria_cat_txt'];
+		}
+
 		return $aux;
-	
     }
 
     public function getByUserAhora($accountsId) {
