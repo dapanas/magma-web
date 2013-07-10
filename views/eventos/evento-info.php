@@ -86,14 +86,19 @@
 				<input id="fecha3" type="text" value="" name="fecha3" disabled="disabled" />
 			</div>
 			<br>
-			<div class="tit" style="margin-bottom:13px;"><?= $hor_event ?>: <div class="vermell">*</div></div>
-			<input type="checkbox" value="1" name="dias_semana[]"> L 
-			<input type="checkbox" value="2" name="dias_semana[]"> M 
-			<input type="checkbox" value="3" name="dias_semana[]"> X 
-			<input type="checkbox" value="4" name="dias_semana[]"> J 
-			<input type="checkbox" value="5" name="dias_semana[]"> V 
-			<input type="checkbox" value="6" name="dias_semana[]"> S 
-			<input type="checkbox" value="7" name="dias_semana[]"> D 
+			<div class="tit" style="margin-bottom:13px;"><?= $hor_event ?>: <!-- <div class="vermell">*</div> --></div>
+			<?
+				$DS['cat'] = array('','Dl','Dt','Dc','Dj','Dv','Ds','Dg');
+				$DS['esp'] = array('','L','M','X','J','V','S','D');
+			
+			?><p>
+			<input type="checkbox" value="1" name="dias_semana[]"> <?= $DS[$lang][1] ?>&nbsp;&nbsp;
+			<input type="checkbox" value="2" name="dias_semana[]"> <?= $DS[$lang][2] ?>&nbsp;&nbsp;
+			<input type="checkbox" value="3" name="dias_semana[]"> <?= $DS[$lang][3] ?>&nbsp;&nbsp; 
+			<input type="checkbox" value="4" name="dias_semana[]"> <?= $DS[$lang][4] ?>&nbsp;&nbsp; 
+			<input type="checkbox" value="5" name="dias_semana[]"> <?= $DS[$lang][5] ?>&nbsp;&nbsp; 
+			<input type="checkbox" value="6" name="dias_semana[]"> <?= $DS[$lang][6] ?>&nbsp;&nbsp; 
+			<input type="checkbox" value="7" name="dias_semana[]"> <?= $DS[$lang][7] ?>&nbsp;&nbsp; </p>
 			<br><br>
 
 			<input type="radio" id="tipo_horario_none" name="tipo_horario" value="0" checked='checked'>
@@ -111,14 +116,14 @@
 			<br>
 
 			<input type="radio" id="tipo_horario_range" name="tipo_horario" value="2">
-			<p>Intervalo</p>
+			<p><? if ($lang=='cat') echo 'Interval';else echo 'Intervalo';?></p>
 			<div>
 				<p>De</p>
 				<input type="text" id="horario3" name="horario3" style="width:75px;" disabled="disabled">
 				<p>a</p>
 				<input type="text" id="horario4" name="horario4" style="width:75px;" disabled="disabled">
 				<br>
-				<? if ($_SESSION['lang'] == 'cat') echo 'i';else echo 'y'; ?>
+				<p><? if ($_SESSION['lang'] == 'cat') echo 'i';else echo 'y'; ?></p>
 				<br>
 				<p>De</p>
 				<input type="text" id="horario5" name="horario5" style="width:75px;" disabled="disabled">
@@ -160,10 +165,10 @@
 			<input type="hidden" name="fecha_publi_ini" value="<?= $params['fecha_publi_ini'] ?>">
 			<input type="hidden" name="fecha_publi_end" value="<?= $params['fecha_publi_end']?>">
 			<? if (isset($destacado) && $destacado == 1): ?>
-			<input type="button" class="button black" value="Anterior" onclick="history.back(-1)" style="padding: 0 26px;">
+			<input type="button" class="button black" value="Anterior" onclick="history.back(-1)" style="padding: 0 26px;position:relative;left:-15px;">
 			<? endif; ?>
 			<? if (!isset($op) or $op != 'edit'): ?>
-			<input type="button" onclick="extraValidate(this.form);" class="button black" value="<?= $SIGUIENTE ?> " style="margin-left: -14px;">
+			<input type="button" onclick="extraValidate(this.form);" class="button black" value="<?= $SIGUIENTE ?> " style="margin-left: -14px;position:relative;left:-15px;">
 			<? else: ?>
 			<input type="button" onclick="window.location.href='eventos/edit/<?=$eventosId?>'" class="button black" value="<?= $MODIFICAR_EVENTO ?>" >
 			<input type="button" onclick="window.location.href='eventos/edit/<?=$eventosId?>'" class="button black" value="<?= $CANCELAR_EVENTO ?>" >

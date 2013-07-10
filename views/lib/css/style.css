@@ -123,13 +123,16 @@ color:#404040;
     *zoom:1;
 }
 .col.right{
-text-align: left;margin-left: 40px;
+text-align: left;margin-left: 40px;width:275px;
 }
 
 .col.left{
 text-align: right;width: 275px;margin-left:35px; 
 }
 
+.col.left p,.col.left  h2{
+padding-right:0px;
+}
 .col h2, .col p, .col h3, .col h1{
 padding-right:20px;
 padding-left:20px;
@@ -269,7 +272,7 @@ margin:0px;}
 #evento-info{width:330px;}
 #compra-credits{width:600px;}
 .inside{padding:32px;padding-top:10px; }
-h2{font-family: 'FreeSet-DemiBold';letter-spacing: -1px }
+h2{font-family: 'FreeSet-DemiBold';/* letter-spacing: -1px */ }
 
 
 #thr{height: 1px;width: 1px;display: none}
@@ -345,7 +348,7 @@ background-image: -webkit-gradient(
 input[type="text"],input[type="password"]{
 border-radius: 11px;
 /* width: 286px; */
-width: 315px;
+width: 295px;
 -moz-border-radius: 11px;
 -webkit-border-radius: 11px;
 border: 2px solid #e7e7e7;
@@ -397,7 +400,7 @@ table{font-size: 12px;margin-bottom: 20px;width: 315px;}
 /*Evento inforamcion*/
 .boto-red{border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10;
 	color: white;
-	padding: 4px 0 4px 15px;
+	padding: 6px 0 4px 15px;
 	background-color: #e80748;
 	-moz-box-shadow: 0 0 10px 0 #888;
 	-webkit-box-shadow: 0 0 10px 0#888;
@@ -415,7 +418,7 @@ table{font-size: 12px;margin-bottom: 20px;width: 315px;}
 h3.light{font-weight: normal;margin-top: 24px;}
 .mini{font-size: 7.6pt;font-style: italic;width: 300px;text-align:justify;margin-bottom:10px;font-family: 'FreeSet-Book';}
 
-.categoria-evento .mini{font-size: 7.6pt;font-style: italic;width: 300px;text-align:justify;margin-bottom:16px;font-family: 'FreeSet-Book';}
+.categoria-evento .mini{font-size: 11px;font-style: italic;width: 300px;text-align:justify;margin-bottom:16px;font-family: 'FreeSet-Book';}
 .categoria-evento .categoria{margin-bottom: 9px;}
 .categoria-evento .img_evento{width: 315px;margin-top: 7px;}
 
@@ -426,7 +429,7 @@ border: 2px solid #e7e7e7;
 font-size: 12px;
 font-style: italic;
 height: 100px;
-width: 315px;
+width: 295px;
 margin-top: 11px;
 margin-bottom: 10px;
 padding-left: 15px;}
