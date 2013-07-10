@@ -41,8 +41,8 @@
 	<h2><?= $INFO_EVENTO ?></h2>
 	<? endif; ?>
 	
-	<div class="boto-red" style="margin-top:4px"><?= $INFO_EVENTO ?></div>
-	<h3 style="border:none;">General </h3>
+	<div class="boto-red" style="margin-top:4px">General</div>
+<!-- 	<h3 style="border:none;"> </h3> -->
 	<div class="categoria-evento">
 		<div class="tit"><?= $CATEGORIA_ACTO ?>: </div>
 		<p>
@@ -104,9 +104,7 @@
 			?>
 		</p>
 		<br>
-		<p>
-			<? if ($items['fecha_fin'] != $items['fecha_inicio']): ?>
-			Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> <?= $I_EL ?> <?= mysql_to_fecha($items['fecha_fin']) ?>
+		<p><? if ($items['fecha_fin'] != $items['fecha_inicio']): ?>Entre el <?= mysql_to_fecha($items['fecha_inicio']) ?> <?= $I_EL ?> <?= mysql_to_fecha($items['fecha_fin']) ?>
 			<? else: ?>
 			<?= $DIA ?> <?= mysql_to_fecha($items['fecha_inicio']) ?>
 			<? endif; ?>

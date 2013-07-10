@@ -53,6 +53,8 @@ class eventosModel extends ModelBase
     private function translateCatsIdsToString($cats, $subcats) {
     	/* Convertimos el string con las subcategorias en array */
 		$aux = array();
+		$subcats = trim($subcats);
+		$subcats = str_replace(",,",",",$subcats);
 		$auxSubcategorias = explode(",", $subcats);
 		
 		foreach ($auxSubcategorias as $subcategoria) {
@@ -64,6 +66,8 @@ class eventosModel extends ModelBase
 
 		/* Convertimos el string con las categorias en array */
 		$aux = array();
+		$cats = trim($cats);
+		$cats = str_replace(",,",",",$cats);
 		$auxCategorias = explode(",", $cats);
 
 		foreach ($auxCategorias as $categoria) {
@@ -85,6 +89,7 @@ class eventosModel extends ModelBase
 		$resultado['subcategoria_cat'] = array(); // Limpiamos los valores que venían desde base de datos
 
 		foreach ($resultado['categoriasId'] as $categoria) {
+		if ($categoria != ''):
 			$aux = $categoriasModel->getNameById($categoria);
 
 			$resultado['categoria_esp'][$categoria] = array(
@@ -93,9 +98,11 @@ class eventosModel extends ModelBase
 			$resultado['categoria_cat'][$categoria] = array(
 				'categoria' => $aux['categoria_cat']
 			);
+			endif;
 		}
 
 		foreach ($resultado['subcategoriasId'] as $subcategoria) {
+			if ($subcategoria != ''):
 			$aux = $subcategoriasModel->getNameAndCategoryNameById($subcategoria);
 
 			$resultado['subcategoria_esp'][$subcategoria] = array(
@@ -107,6 +114,7 @@ class eventosModel extends ModelBase
 				'subcategoria' => $aux['subcategoria_cat'],
 				'categoria' => $aux['categoria_cat']
 			);
+			endif;
 		}
 
 		$aux_esp_txt = array();

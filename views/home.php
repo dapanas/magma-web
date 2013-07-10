@@ -7,8 +7,10 @@
         </ul>
     </div>
     <div class="inside">
-         <img src="views/img/android.jpg">
+    <!--
+     <img src="views/img/android.jpg">
          <img src="views/img/ios.jpg">
+-->
     </div>
 </div>
 <script>

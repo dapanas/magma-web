@@ -71,7 +71,7 @@
 			<input type="radio" id="tipo_cuando_day" name="tipo_cuando" value="1" checked="checked">
 			<p>Día</p>
 			<div>
-				<label for="fecha1">El día</label>
+				<p>El día</p>
 				<input id="fecha1" type="text" value="" name="fecha1" required="required" />
 			</div>
 			<br>
@@ -79,10 +79,10 @@
 			<input type="radio" id="tipo_cuando_range" name="tipo_cuando" value="2">
 			<p><?= $RANGO_DE_FECHAS ?></p>
 			<div>
-				<label for="fecha2">Desde</label>
+				<p for="fecha2">Desde</p>
 				<input id="fecha2" type="text" value="" name="fecha2" disabled="disabled" />
 				<br />
-				<label for="fecha3"><?= $HASTA ?></label>
+				<p for="fecha3"><?= $HASTA ?></p>
 				<input id="fecha3" type="text" value="" name="fecha3" disabled="disabled" />
 			</div>
 			<br>
@@ -103,9 +103,9 @@
 			<input type="radio" id="tipo_horario_fixed" name="tipo_horario" value="1">
 			<p><?= $FIJO ?></p>
 			<div>
-				<label>De</label>
+				<p>De</p>
 				<input type="text" id="horario1" name="horario1" style="width:75px;" disabled="disabled">
-				<label>a</label>
+				<p>a</p>
 				<input type="text" id="horario2" name="horario2" style="width:75px;" disabled="disabled">
 			</div>
 			<br>
@@ -113,16 +113,16 @@
 			<input type="radio" id="tipo_horario_range" name="tipo_horario" value="2">
 			<p>Intervalo</p>
 			<div>
-				<label>De</label>
+				<p>De</p>
 				<input type="text" id="horario3" name="horario3" style="width:75px;" disabled="disabled">
-				<label>a</label>
+				<p>a</p>
 				<input type="text" id="horario4" name="horario4" style="width:75px;" disabled="disabled">
 				<br>
-				y
+				<? if ($_SESSION['lang'] == 'cat') echo 'i';else echo 'y'; ?>
 				<br>
-				<label>De</label>
+				<p>De</p>
 				<input type="text" id="horario5" name="horario5" style="width:75px;" disabled="disabled">
-				<label>a</label>
+				<p>a</p>
 				<input type="text" id="horario6" name="horario6" style="width:75px;" disabled="disabled">
 			</div>
 		</div>

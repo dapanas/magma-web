@@ -47,11 +47,11 @@
 
   @font-face {
     font-family: 'hirukoregular';
-    src: url('hiruko-webfont.eot');
-    src: url('hiruko-webfont.eot?#iefix') format('embedded-opentype'),
-         url('hiruko-webfont.woff') format('woff'),
-         url('hiruko-webfont.ttf') format('truetype'),
-         url('hiruko-webfont.svg#hirukoregular') format('svg');
+    src: url('webfonts/hiruko-webfont.eot');
+    src: url('webfonts/hiruko-webfont.eot?#iefix') format('embedded-opentype'),
+         url('webfonts/hiruko-webfont.woff') format('woff'),
+         url('webfonts/hiruko-webfont.ttf') format('truetype'),
+         url('webfonts/hiruko-webfont.svg#hirukoregular') format('svg');
     font-weight: normal;
     font-style: normal;
 

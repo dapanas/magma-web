@@ -5,11 +5,11 @@
 <div id="promo"><?= $SI_NOS_BUSCAS ?></div>
 <div class="inside">
 
-<p><?= $NOS_ENCONTRARAS ?></p>
+<p style="margin-bottom:25px;"><?= $NOS_ENCONTRARAS ?></p>
 
 <p>
 <img style="float:left;margin-right:10px" src="views/img/icons_contacto.png"> <br>
-info@publicaenmagma.es<br><br><br>
+info@publicaenmagma.com<br><br><br>
  971 611 978<br>
 </p>
 

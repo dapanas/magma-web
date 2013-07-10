@@ -79,16 +79,18 @@
 		<div class="modal_tit"></div>
 		<?= $modal_now ?>
 	</div>
-	<br>
-	<button class="btn" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></button> 
+	<div class="boto">
+	<input type="button" class="button boto" onclick="window.location.href = 'login/login';" value="<?= $CERRAR ?>">
+	</div>
 </div>
 
 <!-- modificar cuenta activada -->
 <div class="modal hide fade" id="cuentaactivada">
 	<div class="modal_text" style="margin-top:90px">
 		<div class="modal_tit"><?= $modal_active ?></div>
-		<br>
-		<button class="btn" data-dismiss="modal" aria-hidden="true"><?= $CERRAR ?></button>
+		</div>
+		<div class="boto">
+			<input type="button" class="button boto" data-dismiss="modal" aria-hidden="true" value="<?= $CERRAR ?>">
 	</div>
 </div>
 
@@ -98,8 +100,9 @@
 		<div class="modal_tit"></div>
 		<?= $modal_recuperarpassword ?>
 	</div>
-	<br>
-	<a class="button boto" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></a> 
+	<div class="boto">
+			<input type="button" class="button boto" data-dismiss="modal" aria-hidden="true" value="<?= $CERRAR ?>">
+	</div>
 </div>
 
 <!-- recuperar usuario -->
@@ -108,7 +111,11 @@
 		<div class="modal_tit"></div>
 		<?= $modal_recuperarusuario ?>
 	</div>
-	<a class="button boto" onclick="window.location.href = 'login/login';"><?= $CERRAR ?></a> 
+	<div class="boto">
+			<input type="button" class="button boto" onclick="window.location.href = 'login/login';" value="<?= $CERRAR ?>">
+	</div>
+	
+
 </div>
 
 <!-- cambiar usuario -->
@@ -117,7 +124,9 @@
 		<div class="modal_tit"></div>
 		<?= $modal_cambiarusuario ?>
 	</div>
-	<a class="button boto" onclick="window.location.href = 'accounts/index';"><?= $CERRAR ?></a> 
+	<div class="boto">
+	<input type="button" class="button boto" onclick="window.location.href = 'accounts/index';" value="<?= $CERRAR ?>"> 
+	</div>
 </div>
 
 <!-- cambiar email -->
@@ -126,7 +135,9 @@
 		<div class="modal_tit"></div>
 		<?= $modal_cambiarcorreo ?>
 	</div>
-	<a class="button boto" onclick="window.location.href = 'accounts/index';"><?= $CERRAR ?></a> 
+	<div class="boto">
+	<input type="button" class="button boto" onclick="window.location.href = 'accounts/index';" value="<?= $CERRAR ?>"> 
+	</div>
 </div>
 
 <!-- cambiar password -->
@@ -135,7 +146,9 @@
 		<div class="modal_tit"></div>
 		<?= $modal_cambiarpassword ?>
 	</div>
-	<a class="button boto" onclick="window.location.href = 'accounts/index';"><?= $CERRAR ?></a> 
+	<div class="boto">
+	<input type="button" class="button boto" onclick="window.location.href = 'accounts/index';" value="<?= $CERRAR ?>"> 
+</div>
 </div>
 
 <!-- actualizar datos de contacto -->
@@ -144,7 +157,9 @@
 		<div class="modal_tit"></div>
 		<?= $modal_actualizarinfo ?>
 	</div>
-	<a class="button boto" onclick="window.location.href = 'accounts/index/contacto';"><?= $CERRAR ?></a> 
+	<div class="boto">
+	<input type="button" class="button boto" onclick="window.location.href = 'accounts/index/contacto';" value="<?= $CERRAR ?>"> 
+	</div>
 </div>
 
 <!-- actualizar datos de facturacion -->
@@ -153,5 +168,7 @@
 		<div class="modal_tit"></div>
 		<?= $modal_actualizarinfofacturacion ?>
 	</div>
-	<a class="button boto" onclick="window.location.href = 'accountsfacturacion';"><?= $CERRAR ?></a> 
+	<div class="boto">
+	<input type="button" class="button boto" onclick="window.location.href = 'accountsfacturacion';" value="<?= $CERRAR ?>"> 
+	</div>
 </div>

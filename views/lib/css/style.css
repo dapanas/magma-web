@@ -60,13 +60,14 @@ margin-bottom: 25px;
 #ayuda{
 position:relative}
 #la-app h1, #la-app h2{
-font-family: 'Hiruko-Black';
+font-family:'hirukoregular';
 font-size:12pt;
 font-weight: 100;
 }
 #ayuda p{
 font-size:8.2pt;font-family: 'FreeSet-Book';
-line-height: 12pt;
+line-height: 13pt;
+margin-top:0px;
 margin-bottom: 25px;
 }
 #ayuda #promo{
@@ -74,22 +75,24 @@ margin-bottom:25px
 }
 #ayuda h2{
 font-size:15.5pt;
-border-bottom: 1px dashed #848586;
-font-family: 'Hiruko-Black';
+border-bottom: 1px dotted #848586;
+font-family:'hirukoregular';
 padding-bottom:5px;
+font-weight: bold;
 color:#404040;
 margin-top:25px;
 }
-#ayuda strong{font-size: 13px;}
-#ayuda p{font-size: 11px;}
+#ayuda strong{font-size: 14px; font-family: 'hirukoregular';letter-spacing: -1px}
+#ayuda p{font-size: 12px;}
 #ayuda li{
-	font-size: 11px;
+	font-size: 12px;
 }
 #ayuda ul{
 	padding-left: 13px;
+	line-height: 16px;
 }
  #promo{
-font-family: 'Hiruko-Black';
+ font-family: 'hirukoregular';
 font-weight: normal;
 color:#404040;
 height:65px;

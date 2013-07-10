@@ -88,13 +88,13 @@ class accountsController extends ControllerBase
 		public function doAdd() {
 			$params = gett();
 			require "models/accountsModel.php"; 	
-
+	 include 'language/'.$_SESSION['lang'].'.php';
 			$items = new accountsModel();
 
 			if ($items->usernameExists($params['username'])) {
-				echo "El nombre de usuario ya está siendo usado.";
+				echo $ERROR1;
 			} else if ($items->emailExists($params['email'])) {
-				echo "El correo electrónico ya está en uso.";
+				echo $ERROR2;
 			} else {
 				
 				$_POST['fecha_nacimiento'] = $params['dia']."/".$params['mes']."/".$params['ano'];
@@ -149,7 +149,7 @@ class accountsController extends ControllerBase
 
 			require_once "models/accountsModel.php";
 			$items = new accountsModel();
-
+						 include 'language/'.$_SESSION['lang'].'.php';
 			$correoModificado = false;
 			$informacionValida = true;
 
@@ -159,10 +159,11 @@ class accountsController extends ControllerBase
 
 				if (strcmp($aux_username['username'], $params['username']) == 0) {
 					$informacionValida = false;
-					echo "Seleccionó el mismo nombre de usuario";
+
+					echo $ERROR3;
 				} else if ($items->usernameExists($params['username'])) {
 					$informacionValida = false;
-					echo "El nombre de usuario seleccionado ya está en uso";
+					echo $ERROR4;
 				}
 
 			} else if (isset($params['email'])) { // Estamos cambiando el correo
@@ -170,13 +171,13 @@ class accountsController extends ControllerBase
 
 				if (strcmp($params['email'], $params['email_verificacion']) != 0) {
 					$informacionValida = false;
-					echo "No coinciden los correos electrónicos ingresados";
+					echo $ERROR5;
 				} else if ($items->emailExists($params['email'])) {
 					$informacionValida = false;
-					echo "El correo electrónico seleccionado ya está en uso";
+					echo $ERROR6;
 				} elseif (strcmp($aux_email['email'], $params['email']) == 0) {
 					$informacionValida = false;
-					echo "Seleccionó el mismo correo electrónico";
+					echo $ERROR7;
 				}
 
 				$correoModificado = true;
@@ -184,7 +185,7 @@ class accountsController extends ControllerBase
 			} else if (isset($params['password'])) { // Estamos cambiando el password
 				if (strcmp($params['password'], $params['confpassword']) != 0) {
 					$informacionValida = false;
-					echo "Las contraseñas no coinciden";
+					echo $ERROR8;
 				}
 			} else if (isset($_POST['ano'])) { // Estamos actualizando toda la información de contacto (se usa la validación vieja)
 				$_POST['fecha_nacimiento'] = $_POST['dia']."/".$_POST['mes']."/".$_POST['ano'];
@@ -232,7 +233,7 @@ class accountsController extends ControllerBase
 			require_once "models/accountsModel.php";
 			require_once "models/ormModel.php";
 			require_once "lib/EmailSend.php";
-			
+				 include 'language/'.$_SESSION['lang'].'.php';
 			$account = new accountsModel();
 			$email = new EmailSend();
 			$items = new ormModel();
@@ -257,7 +258,8 @@ class accountsController extends ControllerBase
 
 				echo "1";
 			} else {
-				echo "No hay un usuario registrado con ese nombre de usuario.";
+				echo $ERROR9;
+				
 			}
 		}
 
@@ -285,7 +287,7 @@ class accountsController extends ControllerBase
 
 				echo "1";
 			} else {
-				echo "No hay un usuario registrado con ese correo.";
+				echo $ERROR10;
 			}
 
 		}

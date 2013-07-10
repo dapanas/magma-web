@@ -6,19 +6,21 @@
 
 <?= $ANUNCIA  ?></div>
 <div class="inside" style="width:420px;">
-   <p style="font-family: 'FreeSet-DemiBold';"><?= $PUBLICIDAD_SEGMENTADA ?></p>
+   <p style="font-family: 'FreeSet-DemiBold';margin-bottom:10px"><?= $PUBLICIDAD_SEGMENTADA ?></p>
 <p style="font-family: 'FreeSet-DemiBold';"><?= $PRECISAMENTE ?></p>
   
   <h2><?= $COMO ?></h2>
   <p><?= $COMO_TEXT ?></p>
   <img src="views/img/foto.png">
   <br>
-  <p><a href="#" style="color: #404040;"><?= $TARIFAS ?></a></p>
+  <p>
+  <a href="page/contacto">Contacta</a> con nosotros<br>
+  <a href="#" style="color: #404040;"><?= $TARIFAS ?></a></p>
   <h2><?= $PERQUE_A_MAGMA ?></h2>
-  <p><?= $TE_RESUMIMOS ?></p>
+  <p style="margin-bottom:10px"><?= $TE_RESUMIMOS ?></p>
   
   <p style="margin: 0px;font-family: 'FreeSet-DemiBold';"><?= $PEL_QUE_FA ?></p>
-  <ul>
+  <ul style="margin-top:0px">
 <li><?= $PRIMERA_AGENDA ?></li>
 <li><?= $DESCARGA_GRATIS ?></li>
 <li><?= $PUBLI ?></li>
