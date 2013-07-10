@@ -524,3 +524,6 @@ $ERROR7 = "Ha seleccionat el mateix correo electrònic";
 $ERROR8 = "Les contrassenyes no coincideixen";
 $ERROR9 = "Aquest nom d'usuari no existeix.";
 $ERROR10 ="No hi ha cap usuari registrat amb aquest correo.";
+
+$CAMBIARNEWSLETTEROK = "Preferencias cambiadas correctamente.";
+$CAMBIARNEWSLETTERERROR = "Hubo un error al guardar las preferencias. Por favor intente nuevamente.";

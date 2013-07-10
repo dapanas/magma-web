@@ -542,3 +542,6 @@ $ERROR7 = "Seleccionó el mismo correo electrónico";
 $ERROR8 = "Las contraseñas no coinciden";
 $ERROR9 = "No hay un usuario registrado con ese nombre de usuario.";
 $ERROR10 ="No hay un usuario registrado con ese correo.";
+
+$CAMBIARNEWSLETTEROK = "Preferencias cambiadas correctamente.";
+$CAMBIARNEWSLETTERERROR = "Hubo un error al guardar las preferencias. Por favor intente nuevamente.";
