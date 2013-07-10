@@ -9,7 +9,7 @@ class eventosModel extends ModelBase
 {
 
     public function getAll() {
-    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where  eventos.publicado > 0   order by fecha_inicio  DESC");
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where  eventos.publicado > 0 and fecha_inicio > NOW()  order by fecha_inicio  DESC");
 		$consulta->execute();
 
 		$aux = $consulta->fetchAll();
@@ -30,7 +30,7 @@ class eventosModel extends ModelBase
     }
     
     public function getAllDestacados() {
-		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where  eventos.publicado > 0  and destacado > 0 order by fecha_inicio  DESC");
+		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where  eventos.publicado > 0  and fecha_inicio > NOW() and destacado > 0 order by fecha_inicio  DESC");
 		$consulta->execute();
 
 		$aux = $consulta->fetchAll();
@@ -145,7 +145,7 @@ class eventosModel extends ModelBase
     	$key = $params['a']; 
     	if ($key == -1) $key = '';
     	
-    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where descripcion_cat LIKE '%".$key."%' or descripcion_esp LIKE '%".$key."%' or titulo_cat LIKE '%".$key."%' or titulo_esp LIKE '%".$key."%'  and publicado > 0 order by fecha_inicio  DESC");
+    	$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where descripcion_cat LIKE '%".$key."%' or descripcion_esp LIKE '%".$key."%' or titulo_cat LIKE '%".$key."%' or titulo_esp LIKE '%".$key."%'  and publicado > 0  and fecha_inicio > NOW() order by fecha_inicio  DESC");
 		$consulta->execute();
 
 		$aux = $consulta->fetchAll();
@@ -193,7 +193,7 @@ class eventosModel extends ModelBase
     }
 
     public function getAllEventosByCategory($category) {
-		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where eventos.categoriasId like '%$category%' and eventos.publicado > 0   order by fecha_inicio  DESC");
+		$consulta = $this->db->prepare("SELECT eventos.*, municipios.municipio_esp,municipios.municipio_cat FROM eventos JOIN municipios ON eventos.municipiosId= municipios.id where eventos.categoriasId like '%$category%' and eventos.publicado > 0  and fecha_inicio > NOW()  order by fecha_inicio  DESC");
 		$consulta->execute();
 
 		$aux = $consulta->fetchAll();
