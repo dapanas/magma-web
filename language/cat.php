@@ -525,5 +525,5 @@ $ERROR8 = "Les contrassenyes no coincideixen";
 $ERROR9 = "Aquest nom d'usuari no existeix.";
 $ERROR10 ="No hi ha cap usuari registrat amb aquest correo.";
 
-$CAMBIARNEWSLETTEROK = "Preferencias cambiadas correctamente.";
-$CAMBIARNEWSLETTERERROR = "Hubo un error al guardar las preferencias. Por favor intente nuevamente.";
+$CAMBIARNEWSLETTEROK = "Preferències canviades correctament.";
+$CAMBIARNEWSLETTERERROR = "Hi ha hagut un error al desar les preferencias. Siusplau, intenta de nou.";
