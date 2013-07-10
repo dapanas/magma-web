@@ -36,8 +36,8 @@ function setNewsletter () {
 		url: "accounts/updateNewsletter",
 		data: {value: isChecked}
 	})
-	.done(function (data) { alert("<?= $CAMBIARNEWSLETTEROK ?>"); })
-	.fail(function () { alert("<?= $CAMBIARNEWSLETTERERROR ?>"); });
+	.done(function () { $('#modalactualizarnewsletterok').modal('show'); })
+	.fail(function () { $('#modalactualizarnewslettererror').modal('show'); });
 }
 </script>
 
