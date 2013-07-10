@@ -172,3 +172,25 @@
 	<input type="button" class="button boto" onclick="window.location.href = 'accountsfacturacion';" value="<?= $CERRAR ?>"> 
 	</div>
 </div>
+
+<!-- actualizar newsletter OK -->
+<div class="modal hide fade" id="modalactualizarnewsletterok">
+	<div class="modal_text"style="margin-top:60px">
+		<div class="modal_tit"></div>
+		<?= $CAMBIARNEWSLETTEROK ?>
+	</div>
+	<div class="boto">
+	<input type="button" class="button boto" data-dismiss="modal" aria-hidden="true" value="<?= $CERRAR ?>"> 
+	</div>
+</div>
+
+<!-- actualizar newsletter OK -->
+<div class="modal hide fade" id="modalactualizarnewslettererror">
+	<div class="modal_text"style="margin-top:60px">
+		<div class="modal_tit"></div>
+		<?= $CAMBIARNEWSLETTERERROR ?>
+	</div>
+	<div class="boto">
+	<input type="button" class="button boto" data-dismiss="modal" aria-hidden="true" value="<?= $CERRAR ?>"> 
+	</div>
+</div>
