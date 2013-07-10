@@ -511,4 +511,16 @@ $RANGO_DE_FECHAS ='Dates';
 $HASTA = 'Fins a';
 $FIJO ='Fixe';
 
-$SIN_HORARIO = "Sin horario";
+$SIN_HORARIO = "Sense horari";
+
+
+$ERROR1 = "El nom d'usuari no está disponible.";
+$ERROR2 = "El correo electrònic ja està en ús.";
+$ERROR3 ="Ha seleccionat el mateix nom d'usuari";
+$ERROR4 = $ERROR1;
+$ERROR5 = "No coincideixen els correos electrònics";
+$ERROR6 = "El correo electrònic seleccionat ja està en ús";
+$ERROR7 = "Ha seleccionat el mateix correo electrònic";
+$ERROR8 = "Les contrassenyes no coincideixen";
+$ERROR9 = "Aquest nom d'usuari no existeix.";
+$ERROR10 ="No hi ha cap usuari registrat amb aquest correo.";
